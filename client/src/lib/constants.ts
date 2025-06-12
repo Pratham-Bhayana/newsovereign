@@ -1,4 +1,4 @@
-import { Passport, Home, TrendingUp, Handshake, Shirt, Coffee, Laptop, Hat, Book, Briefcase } from "lucide-react";
+import { FileText, Home, TrendingUp, Handshake, Shirt, Coffee, Laptop, Crown, Book, Briefcase } from "lucide-react";
 
 export const PROGRAMS = [
   {
@@ -80,7 +80,7 @@ export const SERVICES = [
     id: "citizenship",
     title: "Citizenship by Investment",
     description: "Fast-track citizenship programs through strategic investments in qualifying countries.",
-    icon: Passport,
+    icon: FileText,
     color: "gold-gradient"
   },
   {
@@ -198,7 +198,7 @@ export const MERCHANDISE = [
     name: "Explorer Cap",
     description: "Adjustable baseball cap with embroidered logo. Perfect for your travels around the world.",
     price: 24.99,
-    icon: Hat
+    icon: Crown
   },
   {
     id: "5",

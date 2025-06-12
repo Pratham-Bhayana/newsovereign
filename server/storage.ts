@@ -139,7 +139,13 @@ export class MemStorage implements IStorage {
       ...insertConsultation,
       id,
       status: "pending",
-      createdAt: new Date()
+      createdAt: new Date(),
+      nationality: insertConsultation.nationality || null,
+      programInterest: insertConsultation.programInterest || null,
+      preferredDate: insertConsultation.preferredDate || null,
+      preferredTime: insertConsultation.preferredTime || null,
+      budgetRange: insertConsultation.budgetRange || null,
+      message: insertConsultation.message || null
     };
     this.consultations.set(id, consultation);
     return consultation;
@@ -160,7 +166,8 @@ export class MemStorage implements IStorage {
       ...insertContact,
       id,
       status: "pending",
-      createdAt: new Date()
+      createdAt: new Date(),
+      program: insertContact.program || null
     };
     this.contacts.set(id, contact);
     return contact;
@@ -208,7 +215,10 @@ export class MemStorage implements IStorage {
     const contribution: Contribution = {
       ...insertContribution,
       id,
-      createdAt: new Date()
+      createdAt: new Date(),
+      campaignId: insertContribution.campaignId || null,
+      message: insertContribution.message || null,
+      anonymous: insertContribution.anonymous || null
     };
     this.contributions.set(id, contribution);
 
