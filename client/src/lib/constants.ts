@@ -1,77 +1,209 @@
 import { FileText, Home, TrendingUp, Handshake, Shirt, Coffee, Laptop, Crown, Book, Briefcase } from "lucide-react";
 
 export const PROGRAMS = [
+  // Portugal
   {
-    id: "europe-1",
+    id: "portugal-golden-visa",
     continent: "Europe",
-    countries: ["Portugal", "Malta", "Cyprus", "Greece"],
-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    countries: ["Portugal"],
+    image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     title: "Portugal Golden Visa",
     description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
     minInvestment: "€280,000",
     processingTime: "6-12 months",
-    benefits: ["Minimum investment: €280,000", "Processing time: 6-12 months", "EU citizenship eligible"]
+    benefits: ["EU residence permit", "Path to citizenship in 5 years", "Schengen area access", "Low physical presence requirement", "Family inclusion"]
   },
+  // Malta
   {
-    id: "caribbean-1",
-    continent: "Caribbean",
-    countries: ["St. Kitts & Nevis", "Dominica", "Grenada"],
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "St. Kitts & Nevis",
-    description: "The world's oldest citizenship by investment program. Fast processing and visa-free travel to 150+ countries.",
-    minInvestment: "$150,000+",
-    processingTime: "3-6 months",
-    benefits: ["Donation: $150,000+", "Processing time: 3-6 months", "150+ visa-free destinations"]
+    id: "malta-citizenship",
+    continent: "Europe", 
+    countries: ["Malta"],
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Malta Citizenship Program",
+    description: "Exceptional program combining investment, donation, and residency. Premium EU citizenship option.",
+    minInvestment: "€690,000",
+    processingTime: "12-36 months",
+    benefits: ["EU citizenship directly", "Visa-free travel to 185+ countries", "Premium healthcare and education", "Strategic business location", "Tax advantages"]
   },
+  // Cyprus
   {
-    id: "americas-1",
-    continent: "Americas",
-    countries: ["Canada", "USA", "Brazil", "Chile"],
-    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
-  },
-  {
-    id: "cyprus-1",
+    id: "cyprus-investment",
     continent: "Europe",
     countries: ["Cyprus"],
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "Cyprus Investment Program",
+    image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73901?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Cyprus Investment Program", 
     description: "Premium investment program with fast processing. EU passport and business opportunities in strategic location.",
     minInvestment: "€2,000,000",
     processingTime: "3-6 months",
-    benefits: ["Minimum investment: €2,000,000", "Processing time: 3-6 months", "EU citizenship direct"]
+    benefits: ["EU passport", "No residency requirement", "Tax benefits", "Strategic location", "High-quality lifestyle"]
   },
+  // Greece
   {
-    id: "malta-1",
+    id: "greece-golden-visa",
     continent: "Europe",
-    countries: ["Malta"],
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "Malta Citizenship Program",
-    description: "Exceptional program combining investment, donation, and residency. Premium EU citizenship option.",
-    minInvestment: "€690,000+",
-    processingTime: "12-36 months",
-    benefits: ["Total investment: €690,000+", "Processing time: 12-36 months", "EU passport access"]
+    countries: ["Greece"],
+    image: "https://images.unsplash.com/photo-1555993539-1732b0258235?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Greece Golden Visa",
+    description: "Affordable European residency through real estate investment. Gateway to EU with rich history and culture.",
+    minInvestment: "€250,000",
+    processingTime: "3-6 months",
+    benefits: ["EU residence permit", "No minimum stay requirement", "Family inclusion", "Schengen access", "Affordable investment"]
   },
+  // Spain
   {
-    id: "dominica-1",
+    id: "spain-golden-visa",
+    continent: "Europe",
+    countries: ["Spain"],
+    image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Spain Golden Visa",
+    description: "Residence by investment in one of Europe's most popular destinations. Rich culture and excellent climate.",
+    minInvestment: "€500,000",
+    processingTime: "4-8 months",
+    benefits: ["EU residence permit", "Path to permanent residency", "Family inclusion", "Work authorization", "Excellent lifestyle"]
+  },
+  // Italy
+  {
+    id: "italy-investor-visa",
+    continent: "Europe", 
+    countries: ["Italy"],
+    image: "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Italy Investor Visa",
+    description: "Innovative startup and investment opportunities in the heart of Europe. Rich heritage and business culture.",
+    minInvestment: "€500,000",
+    processingTime: "6-12 months",
+    benefits: ["EU residence permit", "Startup ecosystem access", "Cultural heritage", "Business opportunities", "Strategic location"]
+  },
+  // St. Kitts & Nevis
+  {
+    id: "st-kitts-nevis",
+    continent: "Caribbean",
+    countries: ["St. Kitts & Nevis"],
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "St. Kitts & Nevis",
+    description: "The world's oldest citizenship by investment program. Fast processing and visa-free travel to 150+ countries.",
+    minInvestment: "$150,000",
+    processingTime: "3-6 months",
+    benefits: ["World's oldest CBI program", "150+ visa-free destinations", "No income tax", "Fast processing", "Stable democracy"]
+  },
+  // Dominica
+  {
+    id: "dominica-citizenship",
     continent: "Caribbean",
     countries: ["Dominica"],
-    image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-    title: "Dominica",
-    description: "Affordable citizenship program with strong passport. Known for its natural beauty and stability.",
-    minInvestment: "$100,000+",
+    image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Dominica Citizenship",
+    description: "Most affordable citizenship program with strong passport. Known for its natural beauty and stability.",
+    minInvestment: "$100,000",
     processingTime: "3-4 months",
-    benefits: ["Donation: $100,000+", "Processing time: 3-4 months", "140+ visa-free destinations"]
+    benefits: ["Most affordable CBI", "140+ visa-free destinations", "Natural beauty", "Stable government", "Quick processing"]
   },
+  // Grenada
   {
-    id: "grenada-1",
+    id: "grenada-citizenship",
     continent: "Caribbean",
     countries: ["Grenada"],
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-    title: "Grenada",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Grenada Citizenship",
     description: "Unique E-2 treaty access to USA. Beautiful island nation with growing economy and tourism sector.",
-    minInvestment: "$150,000+",
-    processingTime: "4-6 months",
-    benefits: ["Donation: $150,000+", "Processing time: 4-6 months", "USA E-2 visa access"]
+    minInvestment: "$150,000",
+    processingTime: "4-6 months", 
+    benefits: ["US E-2 visa access", "140+ visa-free countries", "Growing economy", "Tourism opportunities", "Commonwealth membership"]
+  },
+  // Antigua & Barbuda
+  {
+    id: "antigua-barbuda",
+    continent: "Caribbean",
+    countries: ["Antigua & Barbuda"],
+    image: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Antigua & Barbuda",
+    description: "Caribbean citizenship with excellent visa-free travel. Known for pristine beaches and friendly culture.",
+    minInvestment: "$100,000",
+    processingTime: "3-6 months",
+    benefits: ["150+ visa-free destinations", "No interview requirement", "Family inclusion", "Tax benefits", "Beautiful Caribbean lifestyle"]
+  },
+  // St. Lucia
+  {
+    id: "st-lucia-citizenship",
+    continent: "Caribbean", 
+    countries: ["St. Lucia"],
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "St. Lucia Citizenship",
+    description: "Newest Caribbean citizenship program with competitive investment options and excellent passport strength.",
+    minInvestment: "$100,000",
+    processingTime: "6-10 months",
+    benefits: ["140+ visa-free destinations", "Competitive pricing", "Multiple investment options", "Family inclusion", "Stable jurisdiction"]
+  },
+  // Turkey
+  {
+    id: "turkey-citizenship",
+    continent: "Europe/Asia",
+    countries: ["Turkey"],
+    image: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Turkey Citizenship",
+    description: "Strategic location between Europe and Asia. Fast-growing economy with excellent investment opportunities.",
+    minInvestment: "$400,000",
+    processingTime: "3-6 months",
+    benefits: ["Strategic location", "Fast-growing economy", "Real estate investment", "Family inclusion", "110+ visa-free destinations"]
+  },
+  // UAE (Dubai)
+  {
+    id: "uae-golden-visa",
+    continent: "Middle East",
+    countries: ["United Arab Emirates"],
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "UAE Golden Visa",
+    description: "Long-term residency in one of the world's most dynamic business hubs. Tax-free living and world-class infrastructure.",
+    minInvestment: "$545,000",
+    processingTime: "2-4 months",
+    benefits: ["10-year renewable visa", "Tax-free income", "World-class infrastructure", "Business hub access", "Family sponsorship"]
+  },
+  // Canada
+  {
+    id: "canada-investor",
+    continent: "Americas",
+    countries: ["Canada"],
+    image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Canada Investor Program",
+    description: "Pathway to Canadian permanent residence through provincial programs. High quality of life and excellent education.",
+    minInvestment: "CAD $400,000",
+    processingTime: "18-36 months",
+    benefits: ["Permanent residence", "Path to citizenship", "Universal healthcare", "Excellent education", "High quality of life"]
+  },
+  // USA EB-5
+  {
+    id: "usa-eb5",
+    continent: "Americas",
+    countries: ["United States"],
+    image: "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "USA EB-5 Program",
+    description: "Green card through investment in job-creating enterprises. Access to the world's largest economy.",
+    minInvestment: "$800,000",
+    processingTime: "24-60 months",
+    benefits: ["US Green Card", "Path to citizenship", "Work authorization", "Education access", "World's largest economy"]
+  },
+  // Australia
+  {
+    id: "australia-investor",
+    continent: "Oceania",
+    countries: ["Australia"],
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Australia Investor Visa",
+    description: "Significant investor visa for high-net-worth individuals. Excellent lifestyle and business opportunities.",
+    minInvestment: "AUD $2,500,000",
+    processingTime: "12-24 months",
+    benefits: ["Temporary residence", "Path to permanent residence", "Business opportunities", "Excellent lifestyle", "Strategic Asia-Pacific location"]
+  },
+  // Singapore
+  {
+    id: "singapore-investor",
+    continent: "Asia",
+    countries: ["Singapore"],
+    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    title: "Singapore Investor Program",
+    description: "Global Investor Programme for ultra-high-net-worth individuals. Gateway to Asia's financial hub.",
+    minInvestment: "SGD $2,500,000",
+    processingTime: "12-18 months",
+    benefits: ["Permanent residence", "Global financial hub", "Strategic location", "Excellent infrastructure", "Tax efficiency"]
   }
 ];
 

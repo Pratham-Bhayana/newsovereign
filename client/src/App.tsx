@@ -12,6 +12,7 @@ import ProgramsPage from "@/pages/ProgramsPage";
 import CrowdFundingPage from "@/pages/CrowdFundingPage";
 import MerchandisePage from "@/pages/MerchandisePage";
 import ConsultationPage from "@/pages/ConsultationPage";
+import ProgramDetailPage from "@/pages/ProgramDetailPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/programs" component={ProgramsPage} />
+      <Route path="/programs/:id" component={ProgramDetailPage} />
       <Route path="/crowdfunding" component={CrowdFundingPage} />
       <Route path="/merchandise" component={MerchandisePage} />
       <Route path="/consultation" component={ConsultationPage} />

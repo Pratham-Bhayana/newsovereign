@@ -24,7 +24,7 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      className="group relative overflow-hidden rounded-3xl shadow-lg bg-white hover-lift smooth-transition"
+      className="group overflow-hidden rounded-3xl shadow-lg bg-white hover-lift smooth-transition"
     >
       <div className="relative">
         <img
@@ -32,39 +32,49 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
           alt={program.title || program.continent}
           className="w-full h-64 object-cover group-hover:scale-105 smooth-transition"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <h3 className="text-2xl font-bold mb-2">
-            {program.title || program.continent}
-          </h3>
-          <p className="text-gray-200 mb-4">
-            {program.countries.join(" • ")}
-          </p>
-          
-          {detailed && program.description && (
-            <div className="mb-4">
-              <p className="text-sm text-gray-300 mb-2">{program.description}</p>
-              {program.benefits && (
-                <ul className="text-xs text-gray-400 space-y-1">
-                  {program.benefits.map((benefit, index) => (
-                    <li key={index}>• {benefit}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
-          
-          <Button
-            asChild
-            size="sm"
-            className="gold-gradient text-dark hover:shadow-lg smooth-transition"
-          >
-            <Link href="/consultation">
-              Learn More
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
-        </div>
+      </div>
+      
+      <div className="p-6">
+        <h3 className="text-2xl font-bold mb-2 text-gray-900">
+          {program.title || program.continent}
+        </h3>
+        <p className="text-gray-600 mb-4">
+          {program.countries.join(" • ")}
+        </p>
+        
+        {detailed && program.description && (
+          <div className="mb-4">
+            <p className="text-sm text-gray-600 mb-3">{program.description}</p>
+            {program.minInvestment && (
+              <div className="mb-3">
+                <span className="text-xs font-semibold text-gold bg-gold/10 px-2 py-1 rounded-full">
+                  From {program.minInvestment}
+                </span>
+              </div>
+            )}
+            {program.benefits && (
+              <ul className="text-sm text-gray-500 space-y-1">
+                {program.benefits.slice(0, 3).map((benefit, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-gold mr-2">•</span>
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+        
+        <Button
+          asChild
+          size="sm"
+          className="w-full gold-gradient text-dark hover:shadow-lg smooth-transition"
+        >
+          <Link href={`/programs/${program.id}`}>
+            Learn More
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </Link>
+        </Button>
       </div>
     </motion.div>
   );
