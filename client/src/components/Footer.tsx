@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { MapPin, Phone, Mail, Download } from "lucide-react";
+import logo from "./assets/head-logo.png"
 
 export default function Footer() {
   const quickLinks = [
@@ -25,13 +26,11 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="mb-6">
               <img 
-                src="/attached_assets/raizing sovereign logo (1)_1749701025127.png" 
+                src={logo} 
                 alt="Raizing Sovereign Logo" 
                 className="h-16 w-auto mb-2"
               />
-              <div className="text-sm font-medium text-gold tracking-wider">
-                MIGRATE WITH EXCELLENCE
-              </div>
+              
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
               Your trusted partner for global citizenship and investment migration solutions. Helping families achieve their dreams of international mobility since 2010.

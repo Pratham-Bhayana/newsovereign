@@ -1,11 +1,98 @@
 import { FileText, Home, TrendingUp, Handshake, Shirt, Coffee, Laptop, Crown, Book, Briefcase } from "lucide-react";
+import { title } from "process";
 
 export const PROGRAMS = [
-  // Portugal
+
+  
+  // caribbean Citizenship
+    {
+    id: "Caribbean Citizenship",
+    continent: "Caribbean",
+    countries: ["Acquire second citizenship in beautiful Caribbean nations through fast, secure investment routes with minimal residency requirements."],
+    
+    image: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+    title: "Caribbean Citizenship",
+    description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
+    minInvestment: "€280,000",
+    processingTime: "6-12 months",
+    benefits: ["EU residence permit", "Path to citizenship in 5 years", "Schengen area access", "Low physical presence requirement", "Family inclusion"]
+  },
+
+    // LATIN Citizenship
+    {
+    id: "Latin America",
+    continent: "Latin America",
+    countries: ["Explore Citizenship and Residency Opportunities in a Region Rich with Adventure, Growth, and Investment Potential."],
+    
+    image: "https://media.travelbag.co.uk/media/eu1bcsoi/palacio-de-bellas-artes-palace-of-fine-arts-mexico-city.jpg?rxy=0.45666666666666667,0.3575&rmode=Crop&quality=80&width=1280&height=704&format=webp",
+    title: "Latin America",
+    description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
+    minInvestment: "€280,000",
+    processingTime: "6-12 months",
+    benefits: ["EU residence permit", "Path to citizenship in 5 years", "Schengen area access", "Low physical presence requirement", "Family inclusion"]
+  },
+ // euro
+    {
+    id: "European Residency",
+    continent: "European Residency",
+    countries: ["Gain access to the EU through trusted investment programs offering pathways to permanent residency and citizenship."],
+    
+    image: "https://images.goway.com/production/styles/hero_s1_3xl/s3/hero_image/Budapest%20Hungary_iStock-1396819994.jpg?h=0acbf16e&itok=vRbaFpXc",
+    title: "European Residency",
+    description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
+    minInvestment: "€280,000",
+    processingTime: "6-12 months",
+    benefits: ["EU residence permit", "Path to citizenship in 5 years", "Schengen area access", "Low physical presence requirement", "Family inclusion"]
+  },
+    // panama
+      {
+    id: "Panama Travel Passport",
+    continent: "Panama Travel Passport",
+    countries: ["Panama offers the Traveler Passport through its Private Income Retiree Visa—ideal for those from countries restricting dual citizenship."],
+    
+    image: "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+    title: "European Residency",
+    description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
+    minInvestment: "€280,000",
+    processingTime: "6-12 months",
+    benefits: ["EU residence permit", "Path to citizenship in 5 years", "Schengen area access", "Low physical presence requirement", "Family inclusion"]
+  },
+
+  //Asian & Middle East
+
+        {
+    id: "Asian & Middle East",
+    continent: "Asian & Middle East",
+    countries: ["Residency and Citizenship Where Tradition Meets Global Opportunity."],
+    
+    image: "https://media.assettype.com/outlooktraveller%2F2024-04%2F0b666b33-a122-4c3a-b06a-49767ab477a4%2Fshutterstock_1058991356.jpg?w=480&auto=format%2Ccompress&fit=max",
+    title: "Asian & Middle East",
+    description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
+    minInvestment: "€280,000",
+    processingTime: "6-12 months",
+    benefits: ["EU residence permit", "Path to citizenship in 5 years", "Schengen area access", "Low physical presence requirement", "Family inclusion"]
+  },
+
+  // DUBAI
+
+          {
+    id: "Dubai Golden Visat",
+    continent: "Dubai Golden Visa",
+    countries: ["10-year residency with unlimited entry/exits, world-class healthcare access, and no local sponsor required."],
+    
+    image: "https://static.independent.co.uk/2025/02/19/12/52/iStock-1453583308.jpg",
+    title: "Dubai Golden Visa",
+    description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
+    minInvestment: "€280,000",
+    processingTime: "6-12 months",
+    benefits: ["EU residence permit", "Path to citizenship in 5 years", "Schengen area access", "Low physical presence requirement", "Family inclusion"]
+  },
+
   {
     id: "portugal-golden-visa",
     continent: "Europe",
-    countries: ["Portugal"],
+    countries: [""],
+    
     image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     title: "Portugal Golden Visa",
     description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
@@ -18,7 +105,7 @@ export const PROGRAMS = [
     id: "malta-citizenship",
     continent: "Europe", 
     countries: ["Malta"],
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    image: "https://assets.vogue.com/photos/599365b2f0b0e21484d3436e/master/w_2560%2Cc_limit/00-lede-a-travel-guide-to-malta.jpg",
     title: "Malta Citizenship Program",
     description: "Exceptional program combining investment, donation, and residency. Premium EU citizenship option.",
     minInvestment: "€690,000",
@@ -30,7 +117,7 @@ export const PROGRAMS = [
     id: "cyprus-investment",
     continent: "Europe",
     countries: ["Cyprus"],
-    image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73901?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+    image: "https://media.assettype.com/outlooktraveller%2F2024-04%2F0b666b33-a122-4c3a-b06a-49767ab477a4%2Fshutterstock_1058991356.jpg?w=480&auto=format%2Ccompress&fit=max",
     title: "Cyprus Investment Program", 
     description: "Premium investment program with fast processing. EU passport and business opportunities in strategic location.",
     minInvestment: "€2,000,000",
