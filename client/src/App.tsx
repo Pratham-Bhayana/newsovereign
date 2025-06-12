@@ -32,7 +32,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen bg-gray-50 font-inter">
+        <div className="min-h-screen bg-white font-inter">
           <Header />
           <main>
             <Router />

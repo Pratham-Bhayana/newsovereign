@@ -27,9 +27,15 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center justify-center flex-1 lg:flex-none">
             <Link href="/">
-              <div className="text-2xl font-bold cursor-pointer">
-                <span className="text-gold">RAIZING</span>
-                <span className="text-dark">SOVEREIGN</span>
+              <div className="flex flex-col items-center cursor-pointer">
+                <img 
+                  src="/attached_assets/raizing sovereign logo (1)_1749701025127.png" 
+                  alt="Raizing Sovereign Logo" 
+                  className="h-12 w-auto mb-1"
+                />
+                <div className="text-xs font-medium text-gold tracking-wider">
+                  MIGRATE WITH EXCELLENCE
+                </div>
               </div>
             </Link>
           </div>
@@ -38,11 +44,11 @@ export default function Header() {
           <nav className="hidden lg:flex items-center space-x-8 mx-8">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
-                <a className={`text-gray-700 hover:text-primary smooth-transition font-medium ${
+                <span className={`text-gray-700 hover:text-primary smooth-transition font-medium cursor-pointer ${
                   location === item.href ? 'text-primary' : ''
                 }`}>
                   {item.name}
-                </a>
+                </span>
               </Link>
             ))}
           </nav>
@@ -83,14 +89,14 @@ export default function Header() {
             <div className="px-4 py-2 space-y-2">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a
-                    className={`block py-2 text-gray-700 hover:text-primary smooth-transition ${
+                  <span
+                    className={`block py-2 text-gray-700 hover:text-primary smooth-transition cursor-pointer ${
                       location === item.href ? 'text-primary' : ''
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
               <Button
