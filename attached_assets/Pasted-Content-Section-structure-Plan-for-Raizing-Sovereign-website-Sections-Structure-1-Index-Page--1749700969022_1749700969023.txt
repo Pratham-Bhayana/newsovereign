@@ -1,0 +1,126 @@
+Content & Section structure Plan for Raizing Sovereign website
+Sections Structure
+1.
+Index Page:
+•
+Header
+•
+Hero section
+•
+Our programs
+•
+Schedule a consultation
+•
+Comprehensive services
+•
+Partners
+•
+Testimonials
+•
+Contact form
+•
+Footer
+Section Breakdown:
+•
+Header: Top center aligned Logo – below logo center aligned Navigation links – right aligned CTA button between logo and nav links
+•
+Navigation links: Home, About, Programs, Crowd Funding Merchandise
+•
+CTA button: Talk to our Experts – redirects to schedule page
+→
+Hero Section:
+•
+Left aligned tittle and short description
+•
+CTA button: Left aligned with left 0 Explore Program and below another button Schedule consultant with same left 0 – redirects to program page
+→
+Citizenship & Residency program:
+•
+Preview of cards with images in background divided by the continents
+•
+Mentioning countries name as points
+•
+Explore more button which redirects to program page
+→
+Schedule a call option:
+•
+Redirects to page
+•
+An option to choose date and time
+→
+Comprehensive services:
+•
+Shows our services in simple sorted way
+•
+Citizenship by investment
+•
+Residency program
+•
+Investment advisory
+•
+Additional Services
+•
+Preview with Images and cards
+→
+Partners slideshow
+→
+Testimonial -customer's feedback
+→
+Contact form
+→
+Footer:
+•
+Logo
+•
+Address
+•
+Navigation links
+•
+Raizing Global link
+•
+Social links
+•
+Download/view brochure link
+2. About Section:
+•
+Company introduction
+•
+Our core values in points
+•
+Vision and Mission
+•
+Founder’s Profile
+•
+Founder Vision
+•
+Partners
+•
+Where we stand in the Market
+•
+Offices
+•
+Company’s Brochure
+3. Program Section:
+•
+Short description about we offer
+•
+Preview cards according to nation
+•
+Each card redirects to page
+•
+Book a consultant for free-button
+4. Crowd Funding:
+•
+Introduction of crowd funding program
+•
+Benefits for contributing for others
+•
+Preview list of profiles which raise funds for them self which shows which program they applied and a progress bar for their funds how much left how much fills.
+•
+Right side list of Top contributors
+•
+Option for raise funds which redirect to fund raiser register page
+•
+Each profile will open and people able to see their stories and option to make payment for them with a message.
+•
+Auto email generation to say thank you to the contributor and a receiving to fund raiser
