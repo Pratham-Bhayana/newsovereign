@@ -104,25 +104,25 @@ export default function AboutPage() {
   // Team Members Data
   const teamMembers = [
     {
-      name: "Aisha Khan",
-      designation: "Senior Immigration Consultant",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      name: "Ms. Alemienla",
+      designation: "General Secretary",
+      image: "https://uaeccoc.com/wp-content/uploads/2025/03/2-scaled.jpeg",
       introduction:
-        "Aisha Khan is a Senior Immigration Consultant at Raizing Sovereign with over 15 years of experience in global mobility solutions. Specializing in residency programs across Europe and the Caribbean, she has helped thousands of clients achieve their dreams of international relocation. Aisha’s deep knowledge of immigration laws and her client-centric approach make her a trusted advisor for high-net-worth individuals and families. Her passion for empowering clients to navigate complex processes with ease drives her work. Aisha holds a Master’s in International Law and is fluent in four languages, ensuring seamless communication with diverse clients.",
+        "Ms. Alemienla, Treasurer and General Secretary of the UAE-Croatia Chamber of Commerce, is a seasoned expert in international finance, investment law, and immigration compliance. With a proven track record at the forefront of global financial strategies and regulatory frameworks, she has been instrumental in facilitating cross-border investments, attestation, and legalization processes. Her deep understanding of financial governance and economic policies ensures seamless transactions, reinforcing the chamber’s commitment to economic growth and investment security. Through her commitment, the UAE-Croatia Chamber of Commerce continues to strengthen financial integrity and foster sustainable international business expansion.",
     },
     {
-      name: "Michael Torres",
-      designation: "Head of Global Real Estate",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      name: "Mr. Aditya Veer Singh Rajawat",
+      designation: "Business Head",
+      image: "https://uaeccoc.com/wp-content/uploads/2025/03/1-scaled.jpeg",
       introduction:
-        "Michael Torres leads the Global Real Estate division at Raizing Sovereign, bringing 12 years of expertise in international property investment. He oversees the firm’s real estate portfolio, helping clients secure properties that align with their citizenship and residency goals. Michael’s strategic insights into global markets have enabled countless families to make informed investment decisions. His collaborative approach ensures that every client receives tailored solutions for their unique needs. Michael is also a frequent speaker at global investment forums, sharing his knowledge on real estate trends. He holds a degree in Finance from a top university.",
+        "Mr. Aditya Veer Singh Rajawat, Director of the UAE-Croatia Chamber of Commerce, has an extensive background in travel management, international relocation, and visa services. A custodian to heritage and legacy with 500 years of direct family history, he hails from the royal family of Sonbarsa Raj & Fort Barwara, a historic landmark now transformed into a luxury heritage hotel in Ranthambore, Rajasthan. He seamlessly blends tradition with modern enterprise and has played a pivotal role in shaping streamlined, client-centric immigration processes, with a mission to transform lives through European residency opportunities and highlights Croatia’s cultural richness, safety, and investment potential. His contributions cultivate key economic partnerships and opportunities between the UAE and Croatia.",
     },
     {
-      name: "Priya Sharma",
-      designation: "Director of Client Relations",
+      name: "Ishan Doda",
+      designation: "Immigration Sales Manager",
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       introduction:
-        "Priya Sharma serves as the Director of Client Relations at Raizing Sovereign, ensuring every client receives personalized support throughout their journey. With a background in customer experience spanning over a decade, Priya excels at building lasting relationships with clients worldwide. She oversees a team dedicated to delivering exceptional service, from initial consultations to post-migration support. Priya’s empathetic approach and attention to detail have earned her praise from clients across the globe. She is passionate about helping families achieve their global aspirations with confidence. Priya is also an advocate for sustainable migration practices.",
+        "",
     },
   ];
 
