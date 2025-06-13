@@ -274,7 +274,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="flex items-center justify-center h-24 sm:h-40  rounded-xl border border-gray-200"
+                className="flex items-center justify-center h-30 sm:h-40  rounded-xl border border-gray-200"
               >
                 <img
                   src={image}

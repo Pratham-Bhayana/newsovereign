@@ -38,13 +38,13 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
         <h3 className="text-1xl font-bold mb-2 text-gray-900">
           {program.title || program.continent}
         </h3>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 text-xs mb-4">
           {program.countries.join(" • ")}
         </p>
         
         {detailed && program.description && (
           <div className="mb-4">
-            <p className="text-sm text-gray-600 mb-3">{program.description}</p>
+            <p className="text-xs text-gray-600 mb-3">{program.description}</p>
             {program.minInvestment && (
               <div className="mb-3">
                 <span className="text-xs font-semibold text-gold bg-gold/10 px-2 py-1 rounded-full">
@@ -53,7 +53,7 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
               </div>
             )}
             {program.benefits && (
-              <ul className="text-sm text-gray-500 space-y-1">
+              <ul className="text-xs text-gray-500 space-y-1">
                 {program.benefits.slice(0, 3).map((benefit, index) => (
                   <li key={index} className="flex items-start">
                     <span className="text-gold mr-2">•</span>
