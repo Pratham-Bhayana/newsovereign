@@ -21,11 +21,11 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="relative text-center bg-white  z-50 h-[180px]">
+    <header className="relative text-center bg-gray  z-50 h-[180px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center relative z-[2] py-4">
           {/* Logo - Fixed while scrolling */}
-          <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-[280px] h-[160px] mb-5 z-[999]">
+          <div className=" fixed top-0 left-1/2 transform -translate-x-1/2 w-[240px] h-[160px] mb-5 z-[999]">
             <div
               className="absolute top-0 left-[-20%] w-[150%] h-full bg-black"
               style={{ clipPath: 'polygon(0 0, 100% 0%, 83% 40%, 15% 40%)' }}
@@ -40,7 +40,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Spacer to prevent overlap with fixed logo */}
-          <div className="h-[180px]"></div>
+          <div className="h-[180px] bg-transparent"></div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex justify-center gap-[50px] list-none p-0 -my-[4%] uppercase">

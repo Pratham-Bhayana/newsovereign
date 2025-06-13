@@ -1,5 +1,3 @@
-// AboutPage.tsx
-
 import { motion } from "framer-motion";
 import { Shield, Star, Users, Lightbulb, Eye, Target, MapPin, Download } from "lucide-react";
 import founder from "../components/assets/founder.jpg";
@@ -71,39 +69,60 @@ export default function AboutPage() {
       address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
       image: "https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/3067/Marble-Temple.jpg",
     },
-        {
+    {
       city: "Colombo",
       country: "Sri Lanka",
       address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
       image: "https://theportuguesetraveler.com/wp-content/uploads/2024/11/lotus-tower-colombo-sri-lanka-11.jpg.webp",
     },
-
-            {
+    {
       city: "Dubai",
       country: "UAE",
       address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
       image: "https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     },
-
-                {
+    {
       city: "Amman,",
       country: "Jordan",
       address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
       image: "https://jordaniaexclusiva.com/wp-content/uploads/2023/03/destino-amman.jpg",
     },
-
-                    {
+    {
       city: "Rabat,",
       country: "Morocco",
       address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
       image: "https://www.airpano.ru/files/rabat-morocco/images/image3.jpg",
     },
-
-                    {
+    {
       city: "Cairo",
       country: "Egypt",
       address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
       image: "https://media.assettype.com/outlooktraveller%2F2024-08-09%2Ft1ef29hy%2Fshutterstock_2028526520.jpg",
+    },
+  ];
+
+  // Team Members Data
+  const teamMembers = [
+    {
+      name: "Aisha Khan",
+      designation: "Senior Immigration Consultant",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      introduction:
+        "Aisha Khan is a Senior Immigration Consultant at Raizing Sovereign with over 15 years of experience in global mobility solutions. Specializing in residency programs across Europe and the Caribbean, she has helped thousands of clients achieve their dreams of international relocation. Aisha’s deep knowledge of immigration laws and her client-centric approach make her a trusted advisor for high-net-worth individuals and families. Her passion for empowering clients to navigate complex processes with ease drives her work. Aisha holds a Master’s in International Law and is fluent in four languages, ensuring seamless communication with diverse clients.",
+    },
+    {
+      name: "Michael Torres",
+      designation: "Head of Global Real Estate",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      introduction:
+        "Michael Torres leads the Global Real Estate division at Raizing Sovereign, bringing 12 years of expertise in international property investment. He oversees the firm’s real estate portfolio, helping clients secure properties that align with their citizenship and residency goals. Michael’s strategic insights into global markets have enabled countless families to make informed investment decisions. His collaborative approach ensures that every client receives tailored solutions for their unique needs. Michael is also a frequent speaker at global investment forums, sharing his knowledge on real estate trends. He holds a degree in Finance from a top university.",
+    },
+    {
+      name: "Priya Sharma",
+      designation: "Director of Client Relations",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      introduction:
+        "Priya Sharma serves as the Director of Client Relations at Raizing Sovereign, ensuring every client receives personalized support throughout their journey. With a background in customer experience spanning over a decade, Priya excels at building lasting relationships with clients worldwide. She oversees a team dedicated to delivering exceptional service, from initial consultations to post-migration support. Priya’s empathetic approach and attention to detail have earned her praise from clients across the globe. She is passionate about helping families achieve their global aspirations with confidence. Priya is also an advocate for sustainable migration practices.",
     },
   ];
 
@@ -344,6 +363,54 @@ export default function AboutPage() {
                 <h3 className="text-2xl font-bold text-[#183b4e] mb-2">{stat.value}</h3>
                 <h4 className="text-base font-semibold text-gray-900 mb-2">{stat.title}</h4>
                 <p className="text-sm text-gray-600">{stat.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Meet Our Team */}
+      <section className="py-12 sm:py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-3">
+              Meet Our Team
+            </h2>
+            <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+              Our dedicated team of experts is here to guide you through every step of your global citizenship journey.
+            </p>
+          </motion.div>
+
+          <div className="space-y-6">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={index}
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                whileHover="hover"
+                viewport={{ once: true }}
+                className="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row gap-6"
+              >
+                <div className="flex-shrink-0">
+                  <img
+                    src={member.image}
+                    alt={`${member.name} portrait`}
+                    className="w-40 h-40 sm:w-48 sm:h-48 object-cover rounded-lg border border-gray-200 shadow-sm group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base font-semibold text-[#183b4e] mb-1">{member.name}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{member.designation}</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">{member.introduction}</p>
+                </div>
               </motion.div>
             ))}
           </div>

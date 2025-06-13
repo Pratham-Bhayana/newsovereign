@@ -1,5 +1,3 @@
-// HomePage.tsx
-
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, CheckSquare } from "lucide-react";
