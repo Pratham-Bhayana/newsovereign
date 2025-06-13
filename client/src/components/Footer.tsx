@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { MapPin, Phone, Mail, Download } from "lucide-react";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import logo from "./assets/head-logo.png"
 
 export default function Footer() {
@@ -12,10 +13,10 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { name: "Facebook", icon: "fab fa-facebook-f", href: "#" },
-    { name: "Twitter", icon: "fab fa-twitter", href: "#" },
-    { name: "LinkedIn", icon: "fab fa-linkedin-in", href: "#" },
-    { name: "Instagram", icon: "fab fa-instagram", href: "#" },
+    { name: "Facebook", icon: "bi bi-facebook", href: "https://www.facebook.com/people/Raizing-Sovereign-Global-Mobility-Redefined/61575549804649/" },
+    { name: "Twitter", icon: "bi bi-twitter-x", href: "#" },
+    { name: "LinkedIn", icon: "bi bi-linkedin", href: "https://www.linkedin.com/company/raizing-sovereign/about/" },
+    { name: "Instagram", icon: "bi bi-instagram", href: "https://www.instagram.com/raizingsovereign/" },
   ];
 
   return (
@@ -71,13 +72,13 @@ export default function Footer() {
               <div className="flex items-start">
                 <MapPin className="w-5 h-5 mr-3 text-gold mt-0.5" />
                 <span className="text-gray-300">
-                  123 Business Ave, Suite 100<br />
-                  New York, NY 10001
+                  1HDS Tower Cluster F Office no. 3601,Jumeirah Lake Towers <br />
+                  Dubai, UAE
                 </span>
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 mr-3 text-gold" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <span className="text-gray-300">+971 58 510 0982</span>
               </div>
               <div className="flex items-center">
                 <Mail className="w-5 h-5 mr-3 text-gold" />

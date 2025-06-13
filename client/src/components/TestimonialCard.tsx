@@ -1,4 +1,6 @@
-import { Star, User } from "lucide-react";
+// TestimonialCard.tsx
+
+import { Star } from "lucide-react";
 
 interface Testimonial {
   id: string;
@@ -6,6 +8,7 @@ interface Testimonial {
   program: string;
   content: string;
   rating: number;
+  image: string;
 }
 
 interface TestimonialCardProps {
@@ -14,20 +17,32 @@ interface TestimonialCardProps {
 
 export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-lg hover-lift smooth-transition">
-      <div className="flex items-center mb-6">
-        <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
-          <User className="w-6 h-6 text-gray-600" />
-        </div>
-        <div>
-          <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-          <p className="text-gray-600">{testimonial.program}</p>
-        </div>
+    <div className="bg-white p-6 rounded-2xl  border border-gray-100 flex flex-col">
+      {/* User Image */}
+      <div className="flex justify-center mb-4">
+        <img
+          src={testimonial.image}
+          alt={testimonial.name}
+          className="w-16 h-16 rounded-full object-cover border-2 border-[#cba135]"
+        />
       </div>
-      <p className="text-gray-700 mb-4">{testimonial.content}</p>
-      <div className="flex text-gold">
-        {Array.from({ length: testimonial.rating }, (_, i) => (
-          <Star key={i} className="w-4 h-4 fill-current" />
+
+      {/* Name and Program */}
+      <h3 className="text-lg font-bold text-gray-900 text-center">{testimonial.name}</h3>
+      <p className="text-sm text-gray-600 text-center mb-4">{testimonial.program}</p>
+
+      {/* Content */}
+      <p className="text-sm text-gray-700 flex-grow">{testimonial.content}</p>
+
+      {/* Rating */}
+      <div className="flex justify-center mt-4">
+        {Array.from({ length: 5 }, (_, i) => (
+          <Star
+            key={i}
+            className={`w-5 h-5 ${
+              i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+            }`}
+          />
         ))}
       </div>
     </div>
