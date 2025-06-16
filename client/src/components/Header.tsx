@@ -11,9 +11,9 @@ const Header: React.FC = () => {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
-    { name: 'Programs', href: '//programs' },
-    { name: 'Crowd Funding', href: '//crowdfunding' },
-    { name: 'Merchandise', href: '//merchandise' },
+    { name: 'Programs', href: '/programs' },
+    { name: 'Crowd Funding', href: '/crowdfunding' },
+    { name: 'Merchandise', href: '/merchandise' },
   ];
 
   const toggleMobileMenu = () => {

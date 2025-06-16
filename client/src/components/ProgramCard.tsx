@@ -24,7 +24,7 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      className="group overflow-hidden rounded-3xl shadow-lg bg-white hover-lift smooth-transition"
+      className="group overflow-hidden rounded-3xl h-full w-full shadow-lg bg-white hover-lift smooth-transition"
     >
       <div className="relative">
         <img
@@ -35,25 +35,25 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
       </div>
       
       <div className="p-6">
-        <h3 className="text-1xl font-bold mb-2 text-gray-900">
+        <h3 className="text-ms font-bold mb-2 text-gray-900">
           {program.title || program.continent}
         </h3>
-        <p className="text-gray-600 text-xs mb-4">
+        <p className="text-gray-600 text-sm mb-4">
           {program.countries.join(" • ")}
         </p>
         
         {detailed && program.description && (
           <div className="mb-4">
-            <p className="text-xs text-gray-600 mb-3">{program.description}</p>
+            <p className="text-sm text-gray-600 mb-3">{program.description}</p>
             {program.minInvestment && (
               <div className="mb-3">
-                <span className="text-xs font-semibold text-gold bg-gold/10 px-2 py-1 rounded-full">
+                <span className="text-xs font-semibold text-white bg-[#183b4e]/90 px-2 py-1 rounded-full">
                   From {program.minInvestment}
                 </span>
               </div>
             )}
             {program.benefits && (
-              <ul className="text-xs text-gray-500 space-y-1">
+              <ul className="text-sm text-gray-500 space-y-1">
                 {program.benefits.slice(0, 3).map((benefit, index) => (
                   <li key={index} className="flex items-start">
                     <span className="text-gold mr-2">•</span>
@@ -68,9 +68,9 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
         <Button
           asChild
           size="sm"
-          className="w-full gold-gradient text-dark hover:shadow-lg smooth-transition"
+          className="w-full  text-dark hover:shadow-lg bg-[#cba135] smooth-transition"
         >
-          <Link href={`./programs/${program.id}`}>
+          <Link href={`/programs/${program.id}`}>
             Learn More
             <ArrowRight className="ml-2 w-4 h-4" />
           </Link>

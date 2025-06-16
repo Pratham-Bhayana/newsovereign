@@ -1,13 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, CheckSquare } from "lucide-react";
+import { ArrowRight, CheckSquare, Mail } from "lucide-react";
 import ProgramCard from "@/components/ProgramCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
 import { PROGRAMS, SERVICES, TESTIMONIALS } from "@/lib/constants";
 import { useState, useEffect } from "react";
 
@@ -261,7 +258,6 @@ export default function HomePage() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
               Accreditation
             </h2>
-            
           </motion.div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 items-center opacity-100">
@@ -272,7 +268,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="flex items-center justify-center h-30 sm:h-40  rounded-xl border border-gray-200"
+                className="flex items-center justify-center h-30 sm:h-40 rounded-xl border border-gray-200"
               >
                 <img
                   src={image}
@@ -285,7 +281,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials - Updated with Slideshow */}
+      {/* Testimonials - Unchanged */}
       <section className="py-16 sm:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-8">
           <motion.div
@@ -346,100 +342,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Contact Form - Unchanged */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+      {/* Book a Consultation - Updated to Match Atlys Design */}
+                        <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16"
+            className="text-center bg-[#183b4e]  p-12"
           >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Get in Touch
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-gray-600">
-              Ready to start your migration journey? Contact us today for a personalized consultation.
+            <h3 className="text-2xl font-bold text-[#cba135] mb-4">Ready to Start Your Journey?</h3>
+            <p className="text-white mb-8 max-w-2xl mx-auto">
+              Schedule a free consultation with our experts to find the perfect citizenship or residency program for your goals and budget.
             </p>
+            <Button asChild size="lg" className=" bg-[#cba135] to-[#183b4e] text-white hover:shadow-xl smooth-transition hover-lift">
+              <Link href="/consultation">
+                Book Free Consultation
+              </Link>
+            </Button>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-gray-50 p-6 sm:p-8 rounded-3xl shadow-lg"
-          >
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <Label htmlFor="fullName" className="text-sm">Full Name</Label>
-                  <Input
-                    id="fullName"
-                    placeholder="Enter your full name"
-                    className="mt-2 text-sm"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="email" className="text-sm">Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    className="mt-2 text-sm"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <Label htmlFor="phone" className="text-sm">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="Enter your phone"
-                    className="mt-2 text-sm"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="program" className="text-sm">Interested Program</Label>
-                  <Select>
-                    <SelectTrigger className="mt-2 text-sm">
-                      <SelectValue placeholder="Select a program" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="citizenship">Citizenship by Investment</SelectItem>
-                      <SelectItem value="residency">Residency Program</SelectItem>
-                      <SelectItem value="advisory">Investment Advisory</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="message" className="text-sm">Message</Label>
-                <Textarea
-                  id="message"
-                  rows={4}
-                  placeholder="Tell us about your requirements"
-                  className="mt-2 text-sm"
-                />
-              </div>
-
-              <div className="text-center">
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="gold-gradient text-dark hover:shadow-xl smooth-transition hover-lift text-sm sm:text-base"
-                >
-                  Send Message
-                </Button>
-              </div>
-            </form>
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 }
