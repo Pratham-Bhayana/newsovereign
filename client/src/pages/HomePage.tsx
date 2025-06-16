@@ -147,7 +147,7 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.6 }}
-              className="text-[#cba135] text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 max-w-full sm:max-w-[80%] lg:max-w-[600px]"
+              className="text-[#cba135] text-4xl sm:text-5xl text-left lg:text-6xl font-bold mb-4 max-w-full sm:max-w-[80%] lg:max-w-[600px]"
             >
               Elevate Your Global Freedom
             </motion.h1>
@@ -156,7 +156,7 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-white text-lg sm:text-xl lg:text-2xl font-semibold max-w-full sm:max-w-[80%] lg:max-w-[600px]"
+              className="text-white text-lg sm:text-xl text-left lg:text-2xl font-semibold max-w-full sm:max-w-[80%] lg:max-w-[600px]"
             >
               Unlock worldwide mobility and financial freedom through our exclusive citizenship and residency investment programs.
             </motion.div>
@@ -169,7 +169,8 @@ export default function HomePage() {
             whileInView={{ opacity: 1, x: 0 }}
             animate="visible"
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="absolute right-[-130px] top-[70%] flex-col items-center lg:items-end mt-2 lg:mt-0"
+className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-col items-center lg:items-end mt-2 lg:mt-0"
+
           >
             <Link
               href="/program.html"

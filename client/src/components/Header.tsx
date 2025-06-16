@@ -65,8 +65,8 @@ const Header: React.FC = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="lg:hidden p-2 absolute top-4 right-4" onClick={toggleMobileMenu}>
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <button className="lg:hidden p-2 absolute top-25 right-4" onClick={toggleMobileMenu}>
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-10 h-20 z-999" />}
           </button>
         </div>
       </div>

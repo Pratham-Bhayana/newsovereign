@@ -1,6 +1,8 @@
+
 import { motion } from "framer-motion";
 import { Shield, Star, Users, Lightbulb, Eye, Target, MapPin, Download } from "lucide-react";
 import founder from "../components/assets/founder.jpg";
+import brochure from "../components/assets/All in one Immigration Programs - Raizing Sovereign.pdf";
 
 export default function AboutPage() {
   const coreValues = [
@@ -101,7 +103,6 @@ export default function AboutPage() {
     },
   ];
 
-  // Team Members Data
   const teamMembers = [
     {
       name: "Ms. Alemienla",
@@ -121,8 +122,7 @@ export default function AboutPage() {
       name: "Ishan Doda",
       designation: "Immigration Sales Manager",
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      introduction:
-        "",
+      introduction: "",
     },
   ];
 
@@ -145,7 +145,7 @@ export default function AboutPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <section className="py-12 bg-gradient-to-b from-[#ffff]  to-gray-50">
+      <section className="py-12 bg-gradient-to-b from-[#ffff] to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -473,20 +473,32 @@ export default function AboutPage() {
             ))}
           </div>
 
+          {/* Revised Download Brochure Section */}
           <motion.div
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-center"
+            className="flex justify-center"
           >
             <a
-              href="/path-to-brochure.pdf"
+              href={brochure}
               download
-              className="inline-flex items-center gap-2 bg-[#183b4e] text-white px-4 py-2 rounded-full hover:bg-[#cba135] transition-colors duration-300 text-sm font-semibold"
+              className="relative bg-gradient-to-br from-[#183b4e] to-[#2e5a7a] text-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-4 max-w-md w-full group overflow-hidden"
             >
-              <Download className="w-4 h-4" />
-              Download Our Brochure
+              {/* Background Gradient Overlay for Hover Effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#cba135] to-[#e0c270] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              {/* Icon Container */}
+              <div className="relative z-10 w-12 h-12 sm:w-14 sm:h-14 bg-white/20 rounded-xl flex items-center justify-center">
+                <Download className="w-6 h-6 sm:w-7 sm:h-7" />
+              </div>
+
+              {/* Text */}
+              <div className="relative z-10 flex flex-col items-start">
+                <h3 className="text-lg sm:text-xl font-semibold mb-1">Download Brochure</h3>
+                <p className="text-xs sm:text-sm text-white/90">Get all the details in one place</p>
+              </div>
             </a>
           </motion.div>
         </div>
