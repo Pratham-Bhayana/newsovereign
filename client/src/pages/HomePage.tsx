@@ -1,10 +1,10 @@
+
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, CheckSquare, Mail } from "lucide-react";
+import { ArrowRight, CheckSquare } from "lucide-react";
 import ProgramCard from "@/components/ProgramCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { PROGRAMS, SERVICES, TESTIMONIALS } from "@/lib/constants";
 import { useState, useEffect } from "react";
 
@@ -14,12 +14,41 @@ import a2 from "@/components/assets/a2.png";
 import a3 from "@/components/assets/a3.png";
 import a4 from "@/components/assets/a4.png";
 import a5 from "@/components/assets/a5.png";
+import bgNew from "@/components/assets/downloaded-image (4).png";
+
+// Array of six high-quality external images from Pexels for the slideshow
+const backgroundImages = [
+  "https://assets.paramountbusinessjets.com/media/luxury_header.jpg",
+  "https://demo-sovereign.netlify.app/assets/bg-MuTBTdpD.jpg",
+  "https://img.freepik.com/premium-photo/elegant-retro-luxury-lifestyle-portrait-beautiful-woman-vintage-background-with-chic-fashion-look_171965-73819.jpg",
+  
+  "@/components/assets/downloaded-image (4).png",
+  "https://images.pexels.com/photos/1680140/pexels-photo-1680140.jpeg?auto=compress&cs=tinysrgb&w=1920",
+  "https://images.pexels.com/photos/1427748/pexels-photo-1427748.jpeg?auto=compress&cs=tinysrgb&w=1920",
+];
+
+// Function to shuffle an array (Fisher-Yates shuffle)
+const shuffleArray = (array: string[]) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
 
 export default function HomePage() {
   // Animation variants for the Hero Section
   const heroVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0 },
+  };
+
+  // Animation variants for background image transitions
+  const backgroundVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
   };
 
   // Array of partner images
@@ -34,24 +63,49 @@ export default function HomePage() {
     lg: 3,  // Large screens
   };
 
-  // Calculate total slides based on screen size
+  // Slideshow state for Background Images
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  const [shuffledImages, setShuffledImages] = useState<string[]>([]);
+
+  // Shuffle images on component mount
+  useEffect(() => {
+    const shuffled = shuffleArray(backgroundImages);
+    setShuffledImages(shuffled);
+    console.log("Shuffled Images:", shuffled); // Debug: Log shuffled images
+  }, []);
+
+  // Effect for background image slideshow
+  useEffect(() => {
+    if (shuffledImages.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentBgIndex((prev) => {
+        const next = (prev + 1) % shuffledImages.length;
+        console.log("Current Background Index:", next, "Image:", shuffledImages[next]); // Debug: Log index and image
+        return next;
+      });
+    }, 3000); // Change every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [shuffledImages]);
+
+  // Calculate total slides based on screen size for Testimonials
   const totalSlides = Math.ceil(TESTIMONIALS.length / cardsPerSlide.lg); // For lg screens
   const totalSlidesSm = Math.ceil(TESTIMONIALS.length / cardsPerSlide.sm); // For sm screens
   const totalSlidesBase = Math.ceil(TESTIMONIALS.length / cardsPerSlide.base); // For base screens
 
-  // Effect for slideshow
+  // Effect for testimonial slideshow
   useEffect(() => {
     if (paused) return;
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => {
-        // Determine the total slides based on the current screen size
         const isLg = window.matchMedia("(min-width: 1024px)").matches;
         const isSm = window.matchMedia("(min-width: 640px)").matches;
         const slides = isLg ? totalSlides : isSm ? totalSlidesSm : totalSlidesBase;
         return (prev + 1) % slides;
       });
-    }, 5000); // 5 seconds
+    }, 5000); // 5 seconds for testimonials
 
     return () => clearInterval(interval);
   }, [paused, totalSlides, totalSlidesSm, totalSlidesBase]);
@@ -65,24 +119,29 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero Section - Unchanged */}
-      <section className="relative bg-white min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 w-full h-full overflow-hidden z-[-1]">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src="/assets/vdo-bg.mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-
+      {/* Hero Section with Background Slideshow */}
+      <section
+        className="absolute top-0 left-0 w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center overflow-hidden z-[] bg-gray-900"
+      >
+        <AnimatePresence>
+          {shuffledImages.length > 0 && (
+            <motion.div
+              key={currentBgIndex}
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url(${shuffledImages[currentBgIndex]})`,
+              }}
+              variants={backgroundVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.5 }}
+            />
+          )}
+        </AnimatePresence>
         <div className="relative z-[3] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between">
           {/* Left Side: Title and Description */}
-          <div className="flex flex-col items-start text-center lg:text-left">
+          <div className="flex flex-col items-start text-center lg:text-left pt-[180px] lg:pt-0">
             <motion.h1
               variants={heroVariants}
               initial="hidden"
@@ -97,7 +156,7 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-black text-lg sm:text-xl lg:text-2xl font-semibold max-w-full sm:max-w-[80%] lg:max-w-[600px]"
+              className="text-white text-lg sm:text-xl lg:text-2xl font-semibold max-w-full sm:max-w-[80%] lg:max-w-[600px]"
             >
               Unlock worldwide mobility and financial freedom through our exclusive citizenship and residency investment programs.
             </motion.div>
@@ -107,7 +166,7 @@ export default function HomePage() {
           <motion.div
             variants={heroVariants}
             initial={{ opacity: 0, x: 30 }}
-            whileInView={{opacity:1, x:0}}
+            whileInView={{ opacity: 1, x: 0 }}
             animate="visible"
             transition={{ duration: 0.6, delay: 0.4 }}
             className="absolute right-[-130px] top-[70%] flex-col items-center lg:items-end mt-2 lg:mt-0"
@@ -127,6 +186,9 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Spacer to Prevent Content Overlap */}
+      <div className="h-[50vh] sm:h-[60vh] lg:h-[100vh]"></div>
 
       {/* Programs Preview - Unchanged */}
       <section className="py-16 sm:py-20 bg-[#f8f4ea]">
@@ -205,20 +267,12 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 className="flex flex-col"
               >
-                {/* Custom Card Design - Compact and Rounded Square */}
                 <div className="bg-[#1A3C34] text-white rounded-2xl p-6 flex gap-4 flex-col shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ring-1 ring-[#cba135]/30">
-                  {/* Icon */}
                   <div className="mb-2">
                     <service.icon className="w-6 h-6 text-[#cba135]" />
                   </div>
-
-                  {/* Title */}
                   <h3 className="text-lg font-bold mb-2">{service.title}</h3>
-
-                  {/* Description */}
                   <p className="text-gray-300 text-sm mb-3">{service.description}</p>
-
-                  {/* Bullet Points */}
                   <ul className="space-y-2 mb-3">
                     {service.bulletPoints.map((point, idx) => (
                       <li key={idx} className="flex items-start">
@@ -227,8 +281,6 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
-
-                  {/* Learn More Link */}
                   <div className="mt-auto">
                     <Link
                       href={`/${service.id}`}
@@ -299,7 +351,6 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          {/* Slideshow Container */}
           <div
             className="relative overflow-hidden opacity-90 hover:opacity-100 transition-opacity duration-300"
             onMouseEnter={() => setPaused(true)}
@@ -316,7 +367,6 @@ export default function HomePage() {
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
               >
                 {(() => {
-                  // Determine how many cards to show based on screen size
                   const isLg = window.matchMedia("(min-width: 1024px)").matches;
                   const isSm = window.matchMedia("(min-width: 640px)").matches;
                   const cardsToShow = isLg ? cardsPerSlide.lg : isSm ? cardsPerSlide.sm : cardsPerSlide.base;
@@ -324,7 +374,6 @@ export default function HomePage() {
                   const endIndex = Math.min(startIndex + cardsToShow, TESTIMONIALS.length);
                   const visibleTestimonials = TESTIMONIALS.slice(startIndex, endIndex);
 
-                  // If there are fewer testimonials than cardsToShow, loop back to the start
                   if (visibleTestimonials.length < cardsToShow) {
                     const remaining = cardsToShow - visibleTestimonials.length;
                     visibleTestimonials.push(...TESTIMONIALS.slice(0, remaining));
@@ -342,24 +391,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Book a Consultation - Updated to Match Atlys Design */}
-                        <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center bg-[#183b4e]  p-12"
-          >
-            <h3 className="text-2xl font-bold text-[#cba135] mb-4">Ready to Start Your Journey?</h3>
-            <p className="text-white mb-8 max-w-2xl mx-auto">
-              Schedule a free consultation with our experts to find the perfect citizenship or residency program for your goals and budget.
-            </p>
-            <Button asChild size="lg" className=" bg-[#cba135] to-[#183b4e] text-white hover:shadow-xl smooth-transition hover-lift">
-              <Link href="/consultation">
-                Book Free Consultation
-              </Link>
-            </Button>
-          </motion.div>
+      {/* Book a Consultation - Unchanged */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-center bg-[#183b4e] p-12"
+      >
+        <h3 className="text-2xl font-bold text-[#cba135] mb-4">Ready to Start Your Journey?</h3>
+        <p className="text-white mb-8 max-w-2xl mx-auto">
+          Schedule a free consultation with our experts to find the perfect citizenship or residency program for your goals and budget.
+        </p>
+        <Button asChild size="lg" className="bg-[#cba135] to-[#183b4e] text-white hover:shadow-xl smooth-transition hover-lift">
+          <Link href="/consultation">
+            Book Free Consultation
+          </Link>
+        </Button>
+      </motion.div>
     </div>
   );
 }

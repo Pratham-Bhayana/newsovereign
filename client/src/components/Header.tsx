@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="relative text-center bg-gray  z-50 h-[180px]">
+    <header className="relative text-center bg-transparent   z-1 h-[180px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center relative z-[2] py-4">
           {/* Logo - Fixed while scrolling */}
