@@ -121,7 +121,7 @@ export default function HomePage() {
     <div>
       {/* Hero Section with Background Slideshow */}
       <section
-        className="absolute top-0 left-0 w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center overflow-hidden z-[] bg-gray-900"
+        className="absolute top-0 left-0 w-full min-h-[100vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center overflow-hidden z-[] bg-gray-900"
       >
         <AnimatePresence>
           {shuffledImages.length > 0 && (
@@ -188,7 +188,7 @@ export default function HomePage() {
       </section>
 
       {/* Spacer to Prevent Content Overlap */}
-      <div className="h-[50vh] sm:h-[60vh] lg:h-[100vh]"></div>
+      <div className="h-[50vh] sm:h-[60vh] lg:h-[70vh]"></div>
 
       {/* Programs Preview - Unchanged */}
       <section className="py-16 sm:py-20 bg-[#f8f4ea]">
