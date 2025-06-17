@@ -8,7 +8,7 @@ export default function ProgramsPage() {
   return (
     <div>
       {/* Hero Section - Updated */}
-      <section className="py-10 bg-gradient-to-b from-[#f8f4ea] h-[200px] text-white">
+      <section className="py-10 bg-white h-[200px] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}

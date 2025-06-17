@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Shield, Star, Users, Lightbulb, Eye, Target, MapPin, Download } from "lucide-react";
 import founder from "../components/assets/founder.jpg";
 import brochure from "../components/assets/All in one Immigration Programs - Raizing Sovereign.pdf";
+import ishan from "../components/assets/ishan-doda.png"
 
 export default function AboutPage() {
   const coreValues = [
@@ -109,19 +110,19 @@ export default function AboutPage() {
       designation: "General Secretary",
       image: "https://uaeccoc.com/wp-content/uploads/2025/03/2-scaled.jpeg",
       introduction:
-        "Ms. Alemienla, Treasurer and General Secretary of the UAE-Croatia Chamber of Commerce, is a seasoned expert in international finance, investment law, and immigration compliance. With a proven track record at the forefront of global financial strategies and regulatory frameworks, she has been instrumental in facilitating cross-border investments, attestation, and legalization processes. Her deep understanding of financial governance and economic policies ensures seamless transactions, reinforcing the chamber’s commitment to economic growth and investment security. Through her commitment, the UAE-Croatia Chamber of Commerce continues to strengthen financial integrity and foster sustainable international business expansion.",
+        "Ms. Alemienla, Treasurer and General Secretary of the Raizing Sovereign, is a seasoned expert in international finance, investment law, and immigration compliance. With a proven track record at the forefront of global financial strategies and regulatory frameworks, she has been instrumental in facilitating cross-border investments, attestation, and legalization processes. Her deep understanding of financial governance and economic policies ensures seamless transactions, reinforcing the chamber’s commitment to economic growth and investment security. Through her commitment, the UAE-Croatia Chamber of Commerce continues to strengthen financial integrity and foster sustainable international business expansion.",
     },
     {
       name: "Mr. Aditya Veer Singh Rajawat",
       designation: "Business Head",
       image: "https://uaeccoc.com/wp-content/uploads/2025/03/1-scaled.jpeg",
       introduction:
-        "Mr. Aditya Veer Singh Rajawat, Director of the UAE-Croatia Chamber of Commerce, has an extensive background in travel management, international relocation, and visa services. A custodian to heritage and legacy with 500 years of direct family history, he hails from the royal family of Sonbarsa Raj & Fort Barwara, a historic landmark now transformed into a luxury heritage hotel in Ranthambore, Rajasthan. He seamlessly blends tradition with modern enterprise and has played a pivotal role in shaping streamlined, client-centric immigration processes, with a mission to transform lives through European residency opportunities and highlights Croatia’s cultural richness, safety, and investment potential. His contributions cultivate key economic partnerships and opportunities between the UAE and Croatia.",
+        "Mr. Aditya Veer Singh Rajawat, Business Head of the Raizing Sovereign, has an extensive background in travel management, international relocation, and visa services. A custodian to heritage and legacy with 500 years of direct family history, he hails from the royal family of Sonbarsa Raj & Fort Barwara, a historic landmark now transformed into a luxury heritage hotel in Ranthambore, Rajasthan. He seamlessly blends tradition with modern enterprise and has played a pivotal role in shaping streamlined, client-centric immigration processes, with a mission to transform lives through European residency opportunities and highlights Croatia’s cultural richness, safety, and investment potential.",
     },
     {
       name: "Ishan Doda",
       designation: "Immigration Sales Manager",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: ishan,
       introduction: "",
     },
   ];
