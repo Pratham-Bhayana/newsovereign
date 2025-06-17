@@ -24,13 +24,13 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      className="group overflow-hidden rounded-3xl h-full w-full shadow-lg bg-white hover-lift smooth-transition"
+      className="group overflow-hidden rounded-3xl h-full w-full shadow-lg bg-[#f8f4ea] hover-lift smooth-transition"
     >
       <div className="relative">
         <img
           src={program.image}
           alt={program.title || program.continent}
-          className="w-full h-64 object-cover group-hover:scale-105 smooth-transition"
+          className=" filter-blur w-full h-64 object-cover  group-hover:scale-105 smooth-transition"
         />
       </div>
       
@@ -68,8 +68,8 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
         <Button
           asChild
           size="sm"
-          className="w-full  text-dark hover:shadow-lg bg-[#cba135] smooth-transition"
-        >
+          className="w-full text-dark hover:shadow-lg bg-transparent text-left smooth-transition"
+        > 
           <Link href={`/programs/${program.id}`}>
             Learn More
             <ArrowRight className="ml-2 w-4 h-4" />

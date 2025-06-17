@@ -26,8 +26,8 @@ export default function ProgramsPage() {
 
       {/* Program Cards - Unified Grid */}
       <section className="py-16 sm:py-20 bg-gradient-to-t  from-[#f8f4ea]">
-        <div className="max-w-full  px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3  lg:grid-cols-5 gap-6 sm:gap-2 ]">
+        <div className="max-w-full  px-8 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3  lg:grid-cols-4 gap-10 sm:gap-6 mb-4]">
             {PROGRAMS.slice(6, 24).map((program, index) => (
               <motion.div 
                 key={program.id}
