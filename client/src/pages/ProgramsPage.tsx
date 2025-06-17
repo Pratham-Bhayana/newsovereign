@@ -16,7 +16,7 @@ export default function ProgramsPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className="text-2xl lg:text-4xl text-[#cba135] font-bold mb-6">Explore Our Programs</h1>
+            <h1 className="text-2xl lg:text-4xl text-[#cba135] mt-10 font-bold mb-6">Explore Our Programs</h1>
             <p className="text-sm sm:text-base text-black max-w-4xl mx-auto">
               Discover 17 citizenship and residency programs across 6 continents in one seamless preview. Find your pathway to global mobility.
             </p>
@@ -26,9 +26,9 @@ export default function ProgramsPage() {
 
       {/* Program Cards - Unified Grid */}
       <section className="py-16 sm:py-20 bg-gradient-to-t  from-[#f8f4ea]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 sm:gap-12 ]">
-            {PROGRAMS.map((program, index) => (
+        <div className="max-w-full  px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3  lg:grid-cols-5 gap-6 sm:gap-2 ]">
+            {PROGRAMS.slice(6, 24).map((program, index) => (
               <motion.div 
                 key={program.id}
                 initial={{ opacity: 0, y: 50 }}
@@ -53,7 +53,7 @@ export default function ProgramsPage() {
             <p className="text-white mb-8 max-w-2xl mx-auto">
               Schedule a free consultation with our experts to find the perfect citizenship or residency program for your goals and budget.
             </p>
-            <Button asChild size="lg" className="bg-gradient-to-b from-[#cba153] to-[#183b4e] text-white hover:shadow-xl smooth-transition hover-lift">
+            <Button asChild size="lg" className="bg-gradient-to-b from-[#cba153] to-[#183b4e] text-white hover:shadow-xl smooth-transition shadow-lg hover:drop-shadow-[0_0_5px_#000000]">
               <Link href="/consultation">
                 <i className="bi bi-calendar-event-fill text-[#f8f4ea] text-2xl mr-[25px]"></i> Book Free Consultation
               </Link>

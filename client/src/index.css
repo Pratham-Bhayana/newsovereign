@@ -3,10 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body {
-  @apply bg-cover bg-center bg-no-repeat;
-  background-image: url('https://images.pexels.com/photos/843633/pexels-photo-843633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-}
+
 
 :root {
   --background: hsl(60, 4.8%, 95.9%)
