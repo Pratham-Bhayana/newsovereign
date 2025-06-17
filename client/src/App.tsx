@@ -1,4 +1,6 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
+import { useEffect } from "react";
+
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -6,6 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingActionButton from "@/components/FloatingActionButton";
+
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import ProgramsPage from "@/pages/ProgramsPage";
@@ -14,6 +17,16 @@ import MerchandisePage from "@/pages/MerchandisePage";
 import ConsultationPage from "@/pages/ConsultationPage";
 import ProgramDetailPage from "@/pages/ProgramDetailPage";
 import NotFound from "@/pages/not-found";
+
+
+// ✅ Scroll to top on route change
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return null;
+}
 
 function Router() {
   return (
@@ -36,6 +49,7 @@ function App() {
       <TooltipProvider>
         <div className="min-h-screen bg-white font-inter">
           <Header />
+          <ScrollToTop />
           <main>
             <Router />
           </main>
