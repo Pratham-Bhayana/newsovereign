@@ -6,8 +6,8 @@ import { PROGRAMS } from "@/lib/constants";
 
 export default function ProgramsPage() {
   return (
-    <div>
-      {/* Hero Section - Updated */}
+    <div className="font-['Inter',sans-serif] pb-16 sm:pb-0">
+      {/* Hero Section - Unchanged */}
       <section className="py-10 bg-white h-[200px] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -24,10 +24,10 @@ export default function ProgramsPage() {
         </div>
       </section>
 
-      {/* Program Cards - Unified Grid */}
-      <section className="py-16 sm:py-20 bg-gradient-to-t  from-[#f8f4ea]">
-        <div className="max-w-full  px-8 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3  lg:grid-cols-4 gap-10 sm:gap-6 mb-4]">
+      {/* Program Cards - Unchanged */}
+      <section className="py-12 sm:py-20 bg-gradient-to-t from-[#f8f4ea]">
+        <div className="max-w-full mx-auto px-8 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-4">
             {PROGRAMS.slice(6, 24).map((program, index) => (
               <motion.div 
                 key={program.id}
@@ -61,6 +61,16 @@ export default function ProgramsPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Fixed Footer for Mobile */}
+      <footer className="fixed bottom-0 left-0 right-0 bg-[#183b4e] text-white p-4 flex justify-between items-center sm:hidden z-50">
+        <span className="text-xs font-semibold">Having Trouble? Talk to our experts</span>
+        <Link href="/consultation">
+          <button className="bg-[#cba135] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-[#b08f2e] transition">
+            Contact Us
+          </button>
+        </Link>
+      </footer>
     </div>
   );
 }
