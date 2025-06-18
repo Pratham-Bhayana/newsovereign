@@ -8,7 +8,7 @@ const FloatingActionButton: React.FC = () => {
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}
-      className="fixed bottom-6 right-6 z-50"
+      className="fixed bottom-20 left-6 z-50"
     >
       <Link href="/ai-assistance">
         <motion.button
