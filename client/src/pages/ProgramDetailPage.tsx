@@ -20,7 +20,7 @@ export default function ProgramDetailPage() {
       const family = familyMembers * calc.familyMemberCost;
       const fees = calc.governmentFees + calc.legalFees + calc.dueDiligenceFees;
       setTotalCost(base + family + fees);
-    }
+    }                                                                                                        
   }, [familyMembers, program]);
 
   // Auto-slide for mobile

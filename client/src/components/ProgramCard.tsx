@@ -42,7 +42,7 @@ export default function ProgramCard({ program, detailed = false }: ProgramCardPr
           {program.title || program.continent}
         </h3>
         <p className="text-gray-600 text-xs sm:text-sm mb-4">
-          {/* {program.countries.join(" • ")} */}
+          {program.countries.join(" • ")}
         </p>
         
         {detailed && program.description && (

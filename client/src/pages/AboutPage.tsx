@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Shield, Star, Users, Lightbulb, Eye, Target, MapPin, Download } from "lucide-react";
 import founder from "../components/assets/founder.jpg";
@@ -85,13 +84,13 @@ export default function AboutPage() {
       image: "https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     },
     {
-      city: "Amman,",
+      city: "Amman",
       country: "Jordan",
       address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
       image: "https://jordaniaexclusiva.com/wp-content/uploads/2023/03/destino-amman.jpg",
     },
     {
-      city: "Rabat,",
+      city: "Rabat",
       country: "Morocco",
       address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
       image: "https://www.airpano.ru/files/rabat-morocco/images/image3.jpg",
@@ -446,35 +445,28 @@ export default function AboutPage() {
                 whileInView="visible"
                 whileHover="hover"
                 viewport={{ once: true }}
-                className="relative bg-white rounded-xl shadow-sm overflow-hidden group"
+                className="relative bg-white rounded-xl shadow-sm overflow-hidden"
               >
                 <img
                   src={office.image}
                   alt={`${office.city} office`}
-                  className="w-full h-40 sm:h-48 lg:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-40 sm:h-48 lg:h-56 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 right-4">
                   <h3 className="text-base font-semibold text-white">{office.city}</h3>
                   <p className="text-sm text-white/80">{office.country}</p>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-2 opacity-0 group-hover:opacity-100"
-                  >
-                    <p className="text-xs text-white/90 mb-2">{office.address}</p>
-                    <button className="flex items-center gap-2 bg-[#cba135] text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-[#e0c270] transition-colors">
-                      <MapPin className="w-4 h-4" />
-                      View on Map
-                    </button>
-                  </motion.div>
+                  <p className="text-xs text-white/90 mt-2 mb-3">{office.address}</p>
+                  <button className="flex items-center gap-2 bg-[#cba135] text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-[#e0c270] transition-colors">
+                    <MapPin className="w-4 h-4" />
+                    View on Map
+                  </button>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Revised Download Brochure Section */}
+          {/* Download Brochure Section */}
           <motion.div
             variants={sectionVariants}
             initial="hidden"
@@ -487,15 +479,10 @@ export default function AboutPage() {
               download
               className="relative bg-gradient-to-br from-[#183b4e] to-[#2e5a7a] text-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-4 max-w-md w-full group overflow-hidden"
             >
-              {/* Background Gradient Overlay for Hover Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#cba135] to-[#e0c270] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-              {/* Icon Container */}
               <div className="relative z-10 w-12 h-12 sm:w-14 sm:h-14 bg-white/20 rounded-xl flex items-center justify-center">
                 <Download className="w-6 h-6 sm:w-7 sm:h-7" />
               </div>
-
-              {/* Text */}
               <div className="relative z-10 flex flex-col items-start">
                 <h3 className="text-lg sm:text-xl font-semibold mb-1">Download Brochure</h3>
                 <p className="text-xs sm:text-sm text-white/90">Get all the details in one place</p>

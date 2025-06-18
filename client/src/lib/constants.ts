@@ -245,7 +245,7 @@ export const PROGRAMS = [
   {
     id: "malta-citizenship",
     continent: "Europe",
-    countries: ["Malta"],
+    countries: [""],
     image: "https://assets.vogue.com/photos/599365b2f0b0e21484d3436e/master/w_2560%2Cc_limit/00-lede-a-travel-guide-to-malta.jpg",
     images: [
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -272,7 +272,7 @@ export const PROGRAMS = [
   {
     id: "cyprus-investment",
     continent: "Europe",
-    countries: ["Cyprus"],
+    countries: [""],
     image: "https://media.assettype.com/outlooktraveller%2F2024-04%2F0b666b33-a122-4c3a-b06a-49767ab477a4%2Fshutterstock_1058991356.jpg?w=480&auto=format%2Ccompress&fit=max",
     images: [
       "https://images.unsplash.com/photo-1539650116574-75c0c6d73901?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -299,7 +299,7 @@ export const PROGRAMS = [
   {
     id: "greece-golden-visa",
     continent: "Europe",
-    countries: ["Greece"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1555993539-1732b0258235?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1555993539-1732b0258235?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -326,7 +326,7 @@ export const PROGRAMS = [
   {
     id: "spain-golden-visa",
     continent: "Europe",
-    countries: ["Spain"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -353,7 +353,7 @@ export const PROGRAMS = [
   {
     id: "italy-investor-visa",
     continent: "Europe",
-    countries: ["Italy"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -380,7 +380,7 @@ export const PROGRAMS = [
   {
     id: "st-kitts-nevis",
     continent: "Caribbean",
-    countries: ["St. Kitts & Nevis"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -407,7 +407,7 @@ export const PROGRAMS = [
   {
     id: "dominica-citizenship",
     continent: "Caribbean",
-    countries: ["Dominica"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -434,7 +434,7 @@ export const PROGRAMS = [
   {
     id: "grenada-citizenship",
     continent: "Caribbean",
-    countries: ["Grenada"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -461,7 +461,7 @@ export const PROGRAMS = [
   {
     id: "antigua-barbuda",
     continent: "Caribbean",
-    countries: ["Antigua & Barbuda"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -488,7 +488,7 @@ export const PROGRAMS = [
   {
     id: "st-lucia-citizenship",
     continent: "Caribbean",
-    countries: ["St. Lucia"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -515,7 +515,7 @@ export const PROGRAMS = [
   {
     id: "turkey-citizenship",
     continent: "Europe/Asia",
-    countries: ["Turkey"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -542,7 +542,7 @@ export const PROGRAMS = [
   {
     id: "uae-golden-visa",
     continent: "Middle East",
-    countries: ["United Arab Emirates"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -569,7 +569,7 @@ export const PROGRAMS = [
   {
     id: "canada-investor",
     continent: "Americas",
-    countries: ["Canada"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -596,7 +596,7 @@ export const PROGRAMS = [
   {
     id: "usa-eb5",
     continent: "Americas",
-    countries: ["United States"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -623,7 +623,7 @@ export const PROGRAMS = [
   {
     id: "australia-investor",
     continent: "Oceania",
-    countries: ["Australia"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -650,7 +650,7 @@ export const PROGRAMS = [
   {
     id: "singapore-investor",
     continent: "Asia",
-    countries: ["Singapore"],
+    countries: [""],
     image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
       "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",

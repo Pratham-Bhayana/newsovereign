@@ -18,7 +18,7 @@ import bgNew from "@/components/assets/downloaded-image (4).png";
 
 // Array of six high-quality external images from Pexels for the slideshow
 const backgroundImages = [
-  "https://assets.paramountbusinessjets.com/media/luxury_header.jpg",
+  "https://assets.grok.com/users/7bfd8518-7b17-41be-beec-89620b16001b/generated/dbd6cbd4-4e61-47e1-8139-97a4491c4d51/image.jpg",
   "https://demo-sovereign.netlify.app/assets/bg-MuTBTdpD.jpg",
   "https://img.freepik.com/premium-photo/elegant-retro-luxury-lifestyle-portrait-beautiful-woman-vintage-background-with-chic-fashion-look_171965-73819.jpg",
   
