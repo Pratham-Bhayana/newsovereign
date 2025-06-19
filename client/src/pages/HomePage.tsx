@@ -17,11 +17,12 @@ import bgNew from "@/components/assets/downloaded-image (4).png";
 
 // Array of six high-quality images for the slideshow
 const backgroundImages = [
-  "https://media.istockphoto.com/id/584596716/photo/handsome-businessman-arriving-in-executive-car.jpg?s=612x612&w=0&k=20&c=UU4Cj0uhV6dSXXPODJP07CarJ1h42EucghuTKSrKqdw=",
-  "https://media.istockphoto.com/id/1495164776/photo/pilot-welcoming-passengers-into-private-jet.jpg?s=612x612&w=0&k=20&c=zrEYajN69zbaoLGosA1j_pd5e0QsCvKrxCutinyAQ4w=",
-  "https://img.freepik.com/premium-photo/elegant-retro-luxury-lifestyle-portrait-beautiful-woman-vintage-background-with-chic-fashion-look_171965-73819.jpg",
-  "https://images.pexels.com/photos/1680140/pexels-photo-1680140.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  "https://images.pexels.com/photos/1427748/pexels-photo-1427748.jpeg?auto=compress&cs=tinysrgb&w=1920",
+  "https://www.onestopbrokers.com/wp-content/uploads/2018/03/luxury-lifestyle.jpg",
+  "https://cdn.tatlerasia.com/tatlerasia/i/2024/04/15113333-gettyimages-1495760252_cover_1600x1067.jpg",
+  "https://media.vogue.in/wp-content/uploads/2017/07/jet.gif",
+  bgNew,
+  "https://luxexpose.com/wp-content/uploads/2022/05/LuxExpose-Luxurious_Lifestyle_01.jpg",
+  "https://assets.entrepreneur.com/content/3x2/2000/20160322185222-rich-luxury-millionaire-wealthy-boat.png",
 ];
 
 // Function to shuffle an array (Fisher-Yates shuffle)
@@ -46,28 +47,28 @@ export default function HomePage() {
     initial: { 
       opacity: 0, 
       scale: 1.0, 
-      x: 20, 
-      y: 20 
+      x: 10, 
+      y: 10 
     },
     animate: { 
       opacity: 1, 
-      scale: 1.2, 
+      scale: 1.1, // Reduced for less distortion
       x: 0, 
       y: 0,
       transition: { 
         duration: 5, // Match slide duration
         ease: "easeOut",
-        opacity: { duration: 1.5 }, // Faster dissolve
-        scale: { duration: 5 }, // Slow zoom for Ken Burns
+        opacity: { duration: 1.5 }, // Dissolve
+        scale: { duration: 5 }, // Ken Burns
         x: { duration: 5 },
         y: { duration: 5 }
       }
     },
     exit: { 
       opacity: 0, 
-      scale: 1.1, 
-      x: -20, 
-      y: -20,
+      scale: 1.05, // Reduced exit scale
+      x: -10, 
+      y: -10,
       transition: { 
         duration: 1.5, // Dissolve out
         ease: "easeIn"
@@ -90,6 +91,20 @@ export default function HomePage() {
   // Slideshow state for Background Images
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [shuffledImages, setShuffledImages] = useState<any[]>([]);
+
+  // Preload images
+  useEffect(() => {
+    const preloadImages = () => {
+      shuffledImages.forEach((src) => {
+        const img = new Image();
+        img.src = typeof src === "string" ? src : src.default || src;
+      });
+    };
+
+    if (shuffledImages.length > 0) {
+      preloadImages();
+    }
+  }, [shuffledImages]);
 
   // Shuffle images on component mount
   useEffect(() => {
@@ -145,7 +160,7 @@ export default function HomePage() {
     <div>
       {/* Hero Section with Background Slideshow */}
       <section
-        className="absolute top-0 left-0 w-full min-h-[100vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center overflow-hidden z-[] bg-gray-900"
+        className="absolute top-0 left-0 w-full min-h-[100vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center overflow-hidden bg-gray-900"
       >
         <AnimatePresence>
           {shuffledImages.length > 0 && (
@@ -153,13 +168,17 @@ export default function HomePage() {
               key={currentBgIndex}
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
-                backgroundImage: `url(${shuffledImages[currentBgIndex]})`,
+                backgroundImage: `url(${typeof shuffledImages[currentBgIndex] === "string" ? shuffledImages[currentBgIndex] : shuffledImages[currentBgIndex].default || shuffledImages[currentBgIndex]})`,
+                imageRendering: "crisp-edges", // Fix TypeScript error and improve sharpness
+                willChange: "transform, opacity", // Performance hint
               }}
               variants={backgroundVariants}
               initial="initial"
               animate="animate"
               exit="exit"
-            />
+            >
+              <div className="absolute inset-0 bg-black/20" /> {/* Subtle overlay */}
+            </motion.div>
           )}
         </AnimatePresence>
         <div className="relative z-[3] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between">
