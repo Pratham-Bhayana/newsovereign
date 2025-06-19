@@ -1,9 +1,11 @@
-// ...existing code...
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 import { auth, signInWithGoogle } from "@/lib/firebaseConfig";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, User, isSignInWithEmailLink, signInWithEmailLink, updateProfile } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendEmailVerification, createUserWithEmailAndPassword } from "firebase/auth";
+import { User, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { Mail, Smartphone } from "lucide-react";
 import CountryFlag from "react-country-flag";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
@@ -35,28 +37,86 @@ const LoginPage: React.FC = () => {
 
   // Auto-detect country code
   useEffect(() => {
+    let isMounted = true;
+
     const detectCountry = async () => {
+      try {
+        // Try geolocation first
+        const geoPromise = new Promise<{ countryCode: string }>((resolve, reject) => {
+          if (!navigator.geolocation) {
+            reject(new Error("Geolocation not supported"));
+            return;
+          }
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              try {
+                const response = await fetch(
+                  `https://api.opencagedata.com/geocode/v1/json?q=${position.coords.latitude}+${position.coords.longitude}&key=7343bece781644c7bc4a86ba0545e226&no_annotations=1`
+                );
+                const data = await response.json();
+                if (data.results[0]?.components?.country_code) {
+                  resolve({ countryCode: data.results[0].components.country_code.toUpperCase() });
+                } else {
+                  reject(new Error("No country code found"));
+                }
+              } catch (err) {
+                reject(err);
+              }
+            },
+            (err) => reject(err),
+            { timeout: 5000 }
+          );
+        });
+
+        const { countryCode } = await geoPromise;
+        const country = countryCodes.find(c => c.country === countryCode);
+        if (country && isMounted) {
+          setCountryCode(country.code);
+          return;
+        }
+      } catch (err) {
+        console.debug("Geolocation failed:", err);
+      }
+
+      // Fallback to ipapi.co
       try {
         const response = await fetch("https://ipapi.co/json/");
         const data = await response.json();
         const country = countryCodes.find(c => c.country === data.country_code);
-        if (country) setCountryCode(country.code);
+        if (country && isMounted) {
+          setCountryCode(country.code);
+          return;
+        }
       } catch (err) {
-        console.error("Country detection failed:", err);
-        setCountryCode("+1"); // Fallback to US
+        console.debug("ipapi.co failed:", err);
       }
+
+      // Default to +1 (US)
+      if (isMounted) setCountryCode("+1");
     };
+
     detectCountry();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Check auth state and handle email link
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
-        if (isSignup && !currentUser.emailVerified) {
-          await sendEmailVerification(currentUser);
-          setEmailSent(true);
-        } else {
+        if (!currentUser.emailVerified && isSignup) {
+          // Unverified signup: send verification link
+          try {
+            await sendEmailVerification(currentUser);
+            setEmailSent(true);
+            await auth.signOut(); // Prevent auto-login
+          } catch (err: any) {
+            setError(err.message || "Failed to send verification email.");
+          }
+        } else if (currentUser.emailVerified) {
+          // Verified user: proceed to redirect
           setUser(currentUser);
           setLocation(decodeURIComponent(redirect));
         }
@@ -65,15 +125,15 @@ const LoginPage: React.FC = () => {
 
     // Handle email link sign-in
     if (isSignInWithEmailLink(auth, window.location.href)) {
-      const emailForLink = emailRef.current || window.localStorage.getItem("emailForSignIn") || prompt("Please enter your email for confirmation");
+      const emailForLink = emailRef.current || prompt("Please enter your email for confirmation");
       if (emailForLink) {
         signInWithEmailLink(auth, emailForLink, window.location.href)
-          .then(() => {
+          .then(async () => {
             if (isSignup && auth.currentUser && name.trim()) {
-              updateProfile(auth.currentUser, { displayName: name.trim() });
+              await updateProfile(auth.currentUser, { displayName: name.trim() });
             }
             if (isSignup && auth.currentUser && phoneNumber.trim()) {
-              // Firebase updateProfile does not support phoneNumber, so this is omitted.
+              // phoneNumber is not a valid property for updateProfile; consider storing it elsewhere if needed
             }
           })
           .catch((err: any) => {
@@ -82,7 +142,11 @@ const LoginPage: React.FC = () => {
       }
     }
 
-    return () => unsubscribe();
+    return () => {
+      if (typeof unsubscribe === "function") {
+        unsubscribe();
+      }
+    };
   }, [redirect, setLocation, isSignup, name, phoneNumber, countryCode]);
 
   // Handle Google Sign-In
@@ -95,7 +159,7 @@ const LoginPage: React.FC = () => {
         await updateProfile(auth.currentUser, { displayName: name.trim() });
       }
       if (isSignup && auth.currentUser && phoneNumber.trim()) {
-        // Firebase updateProfile does not support phoneNumber, so this is omitted.
+        // phoneNumber is not a valid property for updateProfile; consider storing it elsewhere if needed
       }
       setLoading(false);
     } catch (err: any) {
@@ -107,51 +171,52 @@ const LoginPage: React.FC = () => {
 
   // Handle Email Sign-In/Sign-Up
   const handleEmailAuth = async () => {
-    try {
-      if (isSignup) {
-        if (!name.trim()) {
-          setError("Please enter your name.");
-          return;
-        }
-        if (!phoneNumber.trim() || phoneNumber.length < 7) {
-          setError("Please enter a valid phone number.");
-          return;
-        }
-        if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
-          setError("Password must be at least 8 characters with letters and numbers.");
-          return;
-        }
-      }
-
-      if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-        setError("Please enter a valid email address.");
+    if (isSignup) {
+      if (!name.trim()) {
+        setError("Please enter your name.");
         return;
       }
+      if (!phoneNumber.trim() || phoneNumber.length < 7) {
+        setError("Please enter a valid phone number.");
+        return;
+      }
+      if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+        setError("Password must be at least 8 characters with letters and numbers.");
+        return;
+      }
+    }
 
-      setLoading(true);
-      setError(null);
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
 
+    setLoading(true);
+    setError(null);
+
+    try {
       if (isSignup) {
         await createUserWithEmailAndPassword(auth, email, password);
-        if (auth.currentUser) {
-          await updateProfile(auth.currentUser, {
-            displayName: name.trim(),
-          });
-          await sendEmailVerification(auth.currentUser!);
-          setEmailSent(true);
-        }
+        emailRef.current = email;
+        setEmailSent(true);
+        setLoading(false);
+        return;
       } else {
         if (!password.trim()) {
           setError("Please enter your password.");
           setLoading(false);
           return;
+        }
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         if (!userCredential.user.emailVerified) {
-          setError("Please verify your email before signing in.");
-          await sendEmailVerification(userCredential.user);
+          setError("Please verify your email before signing in. Check your inbox for the verification link.");
           setEmailSent(true);
+          setLoading(false);
+          await auth.signOut();
+          return;
         }
-        }
+        setUser(userCredential.user);
+        setLocation(decodeURIComponent(redirect));
       }
       setLoading(false);
     } catch (err: any) {
@@ -302,7 +367,6 @@ const LoginPage: React.FC = () => {
                     >
                       {countryCodes.map(({ code, country, name }) => (
                         <option key={code + country} value={code}>
-                          {/* CountryFlag can't be rendered in option, so just show code and name */}
                           {code} ({name})
                         </option>
                       ))}
@@ -354,4 +418,3 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
-// ...existing code...

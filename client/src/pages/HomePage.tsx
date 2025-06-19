@@ -1,4 +1,3 @@
-
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, CheckSquare } from "lucide-react";
@@ -16,19 +15,17 @@ import a4 from "@/components/assets/a4.png";
 import a5 from "@/components/assets/a5.png";
 import bgNew from "@/components/assets/downloaded-image (4).png";
 
-// Array of six high-quality external images from Pexels for the slideshow
+// Array of six high-quality images for the slideshow
 const backgroundImages = [
-  "https://assets.grok.com/users/7bfd8518-7b17-41be-beec-89620b16001b/generated/dbd6cbd4-4e61-47e1-8139-97a4491c4d51/image.jpg",
-  "https://demo-sovereign.netlify.app/assets/bg-MuTBTdpD.jpg",
+  "https://media.istockphoto.com/id/584596716/photo/handsome-businessman-arriving-in-executive-car.jpg?s=612x612&w=0&k=20&c=UU4Cj0uhV6dSXXPODJP07CarJ1h42EucghuTKSrKqdw=",
+  "https://media.istockphoto.com/id/1495164776/photo/pilot-welcoming-passengers-into-private-jet.jpg?s=612x612&w=0&k=20&c=zrEYajN69zbaoLGosA1j_pd5e0QsCvKrxCutinyAQ4w=",
   "https://img.freepik.com/premium-photo/elegant-retro-luxury-lifestyle-portrait-beautiful-woman-vintage-background-with-chic-fashion-look_171965-73819.jpg",
-  
-  "@/components/assets/downloaded-image (4).png",
   "https://images.pexels.com/photos/1680140/pexels-photo-1680140.jpeg?auto=compress&cs=tinysrgb&w=1920",
   "https://images.pexels.com/photos/1427748/pexels-photo-1427748.jpeg?auto=compress&cs=tinysrgb&w=1920",
 ];
 
 // Function to shuffle an array (Fisher-Yates shuffle)
-const shuffleArray = (array: string[]) => {
+const shuffleArray = (array: any[]) => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -46,9 +43,36 @@ export default function HomePage() {
 
   // Animation variants for background image transitions
   const backgroundVariants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
+    initial: { 
+      opacity: 0, 
+      scale: 1.0, 
+      x: 20, 
+      y: 20 
+    },
+    animate: { 
+      opacity: 1, 
+      scale: 1.2, 
+      x: 0, 
+      y: 0,
+      transition: { 
+        duration: 5, // Match slide duration
+        ease: "easeOut",
+        opacity: { duration: 1.5 }, // Faster dissolve
+        scale: { duration: 5 }, // Slow zoom for Ken Burns
+        x: { duration: 5 },
+        y: { duration: 5 }
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      scale: 1.1, 
+      x: -20, 
+      y: -20,
+      transition: { 
+        duration: 1.5, // Dissolve out
+        ease: "easeIn"
+      }
+    },
   };
 
   // Array of partner images
@@ -65,7 +89,7 @@ export default function HomePage() {
 
   // Slideshow state for Background Images
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
-  const [shuffledImages, setShuffledImages] = useState<string[]>([]);
+  const [shuffledImages, setShuffledImages] = useState<any[]>([]);
 
   // Shuffle images on component mount
   useEffect(() => {
@@ -84,7 +108,7 @@ export default function HomePage() {
         console.log("Current Background Index:", next, "Image:", shuffledImages[next]); // Debug: Log index and image
         return next;
       });
-    }, 3000); // Change every 3 seconds
+    }, 5000); // Change every 5 seconds
 
     return () => clearInterval(interval);
   }, [shuffledImages]);
@@ -135,7 +159,6 @@ export default function HomePage() {
               initial="initial"
               animate="animate"
               exit="exit"
-              transition={{ duration: 0.5 }}
             />
           )}
         </AnimatePresence>
@@ -169,8 +192,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, x: 0 }}
             animate="visible"
             transition={{ duration: 0.6, delay: 0.4 }}
-className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-col items-center lg:items-end mt-2 lg:mt-0"
-
+            className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-col items-center lg:items-end mt-2 lg:mt-0"
           >
             <Link
               href="/program.html"
@@ -191,8 +213,8 @@ className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-co
       {/* Spacer to Prevent Content Overlap */}
       <div className="h-[50vh] sm:h-[60vh] lg:h-[70vh]"></div>
 
-      {/* Programs Preview - Unchanged */}
-      <section className="py-16 sm:py-20 bg-[#f8f4ea]">
+      {/* Programs Preview */}
+      <section className="py-16 sm:py-20 mt-11 bg-[#f8f4ea]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -240,7 +262,7 @@ className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-co
         </div>
       </section>
 
-      {/* Comprehensive Services - Unchanged */}
+      {/* Comprehensive Services */}
       <section className="py-16 sm:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -298,7 +320,7 @@ className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-co
         </div>
       </section>
 
-      {/* Trusted Partners - Unchanged */}
+      {/* Trusted Partners */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -334,7 +356,7 @@ className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-co
         </div>
       </section>
 
-      {/* Testimonials - Unchanged */}
+      {/* Testimonials */}
       <section className="py-16 sm:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-8">
           <motion.div
@@ -392,7 +414,7 @@ className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-co
         </div>
       </section>
 
-      {/* Book a Consultation - Unchanged */}
+      {/* Book a Consultation */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

@@ -78,6 +78,13 @@ export const PROGRAMS = [
       legalFees: 8000,
       dueDiligenceFees: 5000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of €500,000",
+      "Valid passport",
+    ],
   },
   // Latin America
   {
@@ -105,6 +112,13 @@ export const PROGRAMS = [
       legalFees: 15000,
       dueDiligenceFees: 7500,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of €600,000",
+      "Health insurance coverage",
+    ],
   },
   // European Residency
   {
@@ -132,6 +146,13 @@ export const PROGRAMS = [
       legalFees: 15000,
       dueDiligenceFees: 7500,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of €750,000",
+      "Health insurance for EU residency",
+    ],
   },
   // Panama Travel Passport
   {
@@ -159,6 +180,13 @@ export const PROGRAMS = [
       legalFees: 15000,
       dueDiligenceFees: 7500,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of minimum monthly income of $1,000 or equivalent",
+      "Proof of investment funds from legal sources",
+      "No dual citizenship restrictions in home country",
+    ],
   },
   // Asian & Middle East
   {
@@ -186,6 +214,13 @@ export const PROGRAMS = [
       legalFees: 20000,
       dueDiligenceFees: 10000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of $1,000,000",
+      "Health insurance coverage",
+    ],
   },
   // Dubai Golden Visa
   {
@@ -213,10 +248,17 @@ export const PROGRAMS = [
       legalFees: 20000,
       dueDiligenceFees: 10000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum investment in real estate or business of $545,000",
+      "Health insurance coverage",
+    ],
   },
-  // Portugal Golden Visa
+  // Croatia
   {
-    id: "portugal-golden-visa",
+    id: "Croatia",
     continent: "Europe",
     countries: [""],
     image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -227,11 +269,11 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1535034255-a2c6b4d4b4b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Portugal Golden Visa",
+    title: "Liv Croatia",
     description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
     minInvestment: "€280,000",
     processingTime: "6-12 months",
-    benefits: ["EU residence permit", "Path to citizenship in 5 years", "Schengen area access", "Low physical presence requirement", "Family inclusion"],
+    benefits: ["1. Straigt forward process with clear investment requirements.", " 2. Obtain residency in 3-6 months with the path to future citizenship." , "Receive one acre of prime land and company formation all inclusive." , "3. Access top-tier healthcare and educational opportunities for your family."],
     calculator: {
       baseCost: 280000,
       currency: "EUR",
@@ -240,6 +282,13 @@ export const PROGRAMS = [
       legalFees: 15000,
       dueDiligenceFees: 7500,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of €500,000",
+      "Health insurance for EU residency",
+    ],
   },
   // Malta Citizenship
   {
@@ -267,6 +316,14 @@ export const PROGRAMS = [
       legalFees: 25000,
       dueDiligenceFees: 15000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of €1,000,000",
+      "12 months of residency in Malta before citizenship",
+      "Contribution to National Development Fund",
+    ],
   },
   // Cyprus Investment
   {
@@ -294,6 +351,14 @@ export const PROGRAMS = [
       legalFees: 35000,
       dueDiligenceFees: 20000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of €2,500,000",
+      "Investment in real estate, business, or bonds",
+      "Health insurance coverage",
+    ],
   },
   // Greece Golden Visa
   {
@@ -321,6 +386,13 @@ export const PROGRAMS = [
       legalFees: 8000,
       dueDiligenceFees: 5000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum investment in real estate of €250,000",
+      "Health insurance for EU residency",
+    ],
   },
   // Spain Golden Visa
   {
@@ -348,6 +420,13 @@ export const PROGRAMS = [
       legalFees: 12000,
       dueDiligenceFees: 8000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum investment in real estate of €500,000",
+      "Health insurance for EU residency",
+    ],
   },
   // Italy Investor Visa
   {
@@ -375,6 +454,13 @@ export const PROGRAMS = [
       legalFees: 15000,
       dueDiligenceFees: 10000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Investment in innovative startups, bonds, or companies of €500,000",
+      "Health insurance for EU residency",
+    ],
   },
   // St. Kitts & Nevis
   {
@@ -402,6 +488,13 @@ export const PROGRAMS = [
       legalFees: 12000,
       dueDiligenceFees: 7500,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of $400,000",
+      "Investment in approved real estate or donation",
+    ],
   },
   // Dominica Citizenship
   {
@@ -429,6 +522,13 @@ export const PROGRAMS = [
       legalFees: 8000,
       dueDiligenceFees: 5000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of $300,000",
+      "Investment in approved real estate or donation",
+    ],
   },
   // Grenada Citizenship
   {
@@ -456,6 +556,13 @@ export const PROGRAMS = [
       legalFees: 12000,
       dueDiligenceFees: 7500,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of $400,000",
+      "Investment in approved real estate or donation",
+    ],
   },
   // Antigua & Barbuda
   {
@@ -483,6 +590,13 @@ export const PROGRAMS = [
       legalFees: 8000,
       dueDiligenceFees: 5000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of $300,000",
+      "Investment in approved real estate, donation, or business",
+    ],
   },
   // St. Lucia Citizenship
   {
@@ -510,6 +624,13 @@ export const PROGRAMS = [
       legalFees: 8000,
       dueDiligenceFees: 5000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of $300,000",
+      "Investment in approved real estate, donation, or bonds",
+    ],
   },
   // Turkey Citizenship
   {
@@ -537,6 +658,13 @@ export const PROGRAMS = [
       legalFees: 15000,
       dueDiligenceFees: 10000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum investment in real estate of $400,000",
+      "Health insurance coverage",
+    ],
   },
   // UAE Golden Visa
   {
@@ -564,6 +692,13 @@ export const PROGRAMS = [
       legalFees: 20000,
       dueDiligenceFees: 10000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum investment in real estate or business of $545,000",
+      "Health insurance coverage",
+    ],
   },
   // Canada Investor Program
   {
@@ -591,6 +726,13 @@ export const PROGRAMS = [
       legalFees: 20000,
       dueDiligenceFees: 10000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 19",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of CAD $1,600,000",
+      "Business or managerial experience of 2+ years",
+    ],
   },
   // USA EB-5 Program
   {
@@ -618,6 +760,13 @@ export const PROGRAMS = [
       legalFees: 30000,
       dueDiligenceFees: 15000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Investment in job-creating enterprises of $800,000",
+      "Creation or preservation of 10 full-time jobs",
+    ],
   },
   // Australia Investor Visa
   {
@@ -645,6 +794,13 @@ export const PROGRAMS = [
       legalFees: 30000,
       dueDiligenceFees: 15000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of AUD $5,000,000",
+      "Business or investment experience of 3+ years",
+    ],
   },
   // Singapore Investor Program
   {
@@ -672,6 +828,13 @@ export const PROGRAMS = [
       legalFees: 30000,
       dueDiligenceFees: 15000,
     },
+    eligibilityCriteria: [
+      "Minimum age of 18",
+      "Clean criminal record",
+      "Proof of investment funds from legal sources",
+      "Minimum net worth of SGD $10,000,000",
+      "Proven business track record of 3+ years",
+    ],
   },
 ];
 

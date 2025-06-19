@@ -50,8 +50,8 @@ export default function AboutPage() {
     {
       city: "Delhi",
       country: "India",
-      address: "1234 Global Avenue, Suite 500, New York, NY 10001",
-      image: "https://www.sushanttravels.com/uploads/L9Tj9il_PARLIAMENT_HOUSE_2.jpg",
+      address: "Rai House: C-4 Commercial Complex, SDA Market, Safdarjung Development Area, Hauz Khas, New Delhi, Delhi 110016",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318150/IMG-20250619-WA0006_nsqusl.jpg",
     },
     {
       city: "Mumbai",
@@ -109,20 +109,20 @@ export default function AboutPage() {
       designation: "General Secretary",
       image: "https://uaeccoc.com/wp-content/uploads/2025/03/2-scaled.jpeg",
       introduction:
-        "Ms. Alemienla, Treasurer and General Secretary of the Raizing Sovereign, is a seasoned expert in international finance, investment law, and immigration compliance. With a proven track record at the forefront of global financial strategies and regulatory frameworks, she has been instrumental in facilitating cross-border investments, attestation, and legalization processes. Her deep understanding of financial governance and economic policies ensures seamless transactions, reinforcing the chamber’s commitment to economic growth and investment security. Through her commitment, the UAE-Croatia Chamber of Commerce continues to strengthen financial integrity and foster sustainable international business expansion.",
+        "Ms. Alemienla, General Secretary at Raizing Sovereign, oversees global financial operations and client file management with precision and integrity. With expertise in international finance, regulatory compliance, and immigration documentation, she ensures seamless processing and secure handling of client portfolios. Her meticulous approach strengthens Raizing Sovereign’s commitment to transparency, trust, and timely delivery across all global residency and relocation programs.",
     },
     {
       name: "Mr. Aditya Veer Singh Rajawat",
       designation: "Business Head",
       image: "https://uaeccoc.com/wp-content/uploads/2025/03/1-scaled.jpeg",
       introduction:
-        "Mr. Aditya Veer Singh Rajawat, Business Head of the Raizing Sovereign, has an extensive background in travel management, international relocation, and visa services. A custodian to heritage and legacy with 500 years of direct family history, he hails from the royal family of Sonbarsa Raj & Fort Barwara, a historic landmark now transformed into a luxury heritage hotel in Ranthambore, Rajasthan. He seamlessly blends tradition with modern enterprise and has played a pivotal role in shaping streamlined, client-centric immigration processes, with a mission to transform lives through European residency opportunities and highlights Croatia’s cultural richness, safety, and investment potential.",
+        "Aditya Veer Singh Rajawat, Business Head of Raizing Sovereign, leads the global immigration and residency vertical of Raizing Global. With royal lineage from Sonbarsa Raj & Fort Barwara, he blends heritage with modern vision to empower individuals through investment migration. He drives high-impact programs across Croatia, UAE, Thailand, and more offering streamlined, client-centric pathways to global mobility, second residency, and transformative international opportunities.",
     },
     {
       name: "Ishan Doda",
       designation: "Immigration Sales Manager",
       image: ishan,
-      introduction: "",
+      introduction: "Ishan Doda brings deep expertise in client success, international relocation, and business setup. With a people-first approach, he ensures seamless onboarding, regulatory compliance, and personalized support. At Raizing Sovereign, he focuses on building trust, delivering smooth cross-border experiences, and creating long-term value for global clients through tailored, high-touch service.",
     },
   ];
 
@@ -457,10 +457,15 @@ export default function AboutPage() {
                   <h3 className="text-base font-semibold text-white">{office.city}</h3>
                   <p className="text-sm text-white/80">{office.country}</p>
                   <p className="text-xs text-white/90 mt-2 mb-3">{office.address}</p>
-                  <button className="flex items-center gap-2 bg-[#cba135] text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-[#e0c270] transition-colors">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-[#cba135] text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-[#e0c270] transition-colors"
+                  >
                     <MapPin className="w-4 h-4" />
                     View on Map
-                  </button>
+                  </a>
                 </div>
               </motion.div>
             ))}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Menu, X, User, LogIn, LogOut, Home, Info, BookOpen, DollarSign, ShoppingBag, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +12,7 @@ const Header: React.FC = () => {
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
@@ -52,9 +53,23 @@ const Header: React.FC = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(currentUser => {
       setUser(currentUser);
+      if (!currentUser && location === '/profile') {
+        setLocation('/login');
+      }
     });
     return () => unsubscribe();
-  }, []);
+  }, [setLocation, location]);
+
+  // Close mobile menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node) && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMobileMenuOpen]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(prev => !prev);
@@ -65,14 +80,14 @@ const Header: React.FC = () => {
       await signOutUser();
       setIsDropdownOpen(false);
       setIsMobileMenuOpen(false);
-      setLocation('/');
+      setLocation('/login?redirect=/');
     } catch (error) {
       console.error('Logout Error:', error);
     }
   };
 
   return (
-    <header className="relative text-center bg-transparent z-1 h-[180px] dark:bg-[#183b4e]">
+    <header className="  lg:static bg-transparent z-50 h-[10vh] lg:h-[180px] dark:bg-[#183b4e] w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center relative z-[2] py-4">
           {/* Logo - Fixed while scrolling */}
@@ -112,7 +127,7 @@ const Header: React.FC = () => {
           <div className="hidden lg:flex absolute top-[60px] right-[-40px] items-center gap-4 z-10">
             <Link
               href="/consultation"
-              className="bg-[#1b1f3b] py-3 px-5 rounded-lg text-white font-bold no-underline hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
+              className="bg-[#183b4e] py-3 px-5 rounded-lg text-white font-bold no-underline hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
             >
               Talk to Experts
             </Link>
@@ -121,10 +136,10 @@ const Header: React.FC = () => {
               onMouseEnter={() => setIsDropdownOpen(true)}
               onMouseLeave={() => setIsDropdownOpen(false)}
             >
-              <button className="flex items-center gap-2 text-black hover:text-[#a8a8f5] transition-colors duration-300 dark:text-white dark:hover:text-[#cba135]">
-                <User className="w-6 h-6 dark:stroke-white" />
-                <span className="text-sm font-semibold">
-                  {user ? user.displayName || 'Guest' : 'Sign In'}
+              <button className="flex items-center gap-2 text-black font-semibold px-4 py-2 rounded-full hover:bg-[#b08f2e] transition-colors duration-300">
+                <User className="w-6 h-6" />
+                <span className="text-sm">
+                  {user ? user.displayName || 'Account' : 'Sign Up / Sign In'}
                 </span>
               </button>
               <AnimatePresence>
@@ -173,7 +188,11 @@ const Header: React.FC = () => {
             onClick={toggleMobileMenu}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {isMobileMenuOpen ? <X className="w-8 h-8 text-black dark:stroke-white" /> : <Menu className="w-8 h-8 text-black dark:stroke-white" />}
+            {isMobileMenuOpen ? (
+              <X className="w-8 h-8 text-black dark:stroke-white z-[1001]" />
+            ) : (
+              <Menu className="w-8 h-8 text-black dark:stroke-white z-[1001]" />
+            )}
           </button>
         </div>
       </div>
@@ -187,6 +206,7 @@ const Header: React.FC = () => {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-white w-[60%] h-screen fixed top-0 left-0 z-[998] shadow-lg dark:bg-[#183b4e]"
+            ref={menuRef}
           >
             <div className="flex flex-col justify-between h-full px-6 py-6">
               <div>

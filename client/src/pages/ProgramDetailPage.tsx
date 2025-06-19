@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useParams, Link } from "wouter";
-import { ArrowLeft, Clock, DollarSign, Users, CheckCircle, Globe, Shield, TrendingUp, ChevronLeft, ChevronRight, Calculator, Plus, Minus, CreditCard, Bitcoin, Banknote } from "lucide-react";
+import { ArrowLeft, Clock, DollarSign, CheckCircle, Globe, FileText, Users, ChevronLeft, ChevronRight, Calculator, Plus, Minus, CreditCard, Bitcoin, Banknote, Calendar, FileSpreadsheet, ShieldCheck, DollarSign as Money, BookUser, MessageSquare, FileCheck, Briefcase, FileSignature, UserCheck, Star, File } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PROGRAMS } from "@/lib/constants";
@@ -20,7 +20,7 @@ export default function ProgramDetailPage() {
       const family = familyMembers * calc.familyMemberCost;
       const fees = calc.governmentFees + calc.legalFees + calc.dueDiligenceFees;
       setTotalCost(base + family + fees);
-    }                                                                                                        
+    }
   }, [familyMembers, program]);
 
   // Auto-slide for mobile
@@ -165,8 +165,6 @@ export default function ProgramDetailPage() {
         return { title: benefit, description: "Enjoy a safe, prosperous, and fulfilling lifestyle." };
       case "us green card":
         return { title: benefit, description: "Obtain a US Green Card for permanent residency." };
-      case "work authorization":
-        return { title: benefit, description: "Legally work and operate businesses in the country." };
       case "education access":
         return { title: benefit, description: "Access world-class education for you and your family." };
       case "world's largest economy":
@@ -186,6 +184,29 @@ export default function ProgramDetailPage() {
     }
   });
 
+  // Application Process with Icons
+  const applicationProcess = [
+    { step: "Book a consultation with our experts.", icon: MessageSquare },
+    { step: "Submit required documents and complete due diligence.", icon: FileCheck },
+    { step: "Make the qualifying investment.", icon: Briefcase },
+    { step: "Receive approval and residency/citizenship documents.", icon: FileSignature },
+  ];
+
+  // Required Documents with Icons
+  const requiredDocuments = [
+    { name: "Valid passport copies", icon: FileText },
+    { name: "Financial statements", icon: FileSpreadsheet },
+    { name: "Police clearance certificate", icon: ShieldCheck },
+    { name: "Proof of investment funds", icon: Money },
+    { name: "Birth and marriage certificates", icon: BookUser },
+  ];
+
+  // Eligibility Criteria with Icons
+  const eligibilityCriteria = program?.eligibilityCriteria?.map((criterion, index) => ({
+    criterion,
+    icon: index % 3 === 0 ? UserCheck : index % 3 === 1 ? Star : File,
+  })) || [];
+
   if (!program) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -203,12 +224,12 @@ export default function ProgramDetailPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header with Back Button */}
-      <div className="bg-white border-b sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="bg-white border-b sticky top-0 z-40 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <Link href="/programs">
             <button className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors">
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              <span className="font-medium">Back to Programs</span>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              <span className="font-medium text-sm">Back to Programs</span>
             </button>
           </Link>
         </div>
@@ -216,317 +237,549 @@ export default function ProgramDetailPage() {
 
       {/* Main Content */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Left Column: Image Gallery, Benefits, Application Process, Documents */}
-            <div className="space-y-8">
-              {/* Image Gallery */}
-              <div className="space-y-4">
-                <div className="relative">
-                  {/* Mobile: Single image with swipe */}
-                  <div className="md:hidden">
-                    <div className="relative h-64 rounded-2xl overflow-hidden">
-                      <AnimatePresence mode="wait">
-                        <motion.img
-                          key={currentImageIndex}
-                          src={program.images?.[currentImageIndex] || program.image}
-                          alt={program.title}
-                          className="w-full h-full object-cover"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                      </AnimatePresence>
-                      <button
-                        onClick={prevImage}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={nextImage}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-                        {program.images?.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={() => setCurrentImageIndex(index)}
-                            className={`w-2 h-2 rounded-full transition-colors ${
-                              index === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {/* Mobile Layout */}
+          <div className="flex flex-col lg:hidden space-y-4">
+            {/* Image Gallery */}
+            <div className="relative h-64 rounded-2xl overflow-hidden shadow-md">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentImageIndex}
+                  src={program.images?.[currentImageIndex] || program.image}
+                  alt={program.title}
+                  className="w-full h-full object-cover"
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  transition={{ duration: 0.5 }}
+                />
+              </AnimatePresence>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+              <button
+                onClick={prevImage}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 text-gray-800 p-2 rounded-full shadow-sm hover:bg-white transition-colors pointer-events-auto"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 text-gray-800 p-2 rounded-full shadow-sm hover:bg-white transition-colors pointer-events-auto"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 pointer-events-none">
+                {program.images?.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                    } pointer-events-auto`}
+                  />
+                ))}
+              </div>
+            </div>
 
-                  {/* Desktop: Gallery layout */}
-                  <div className="hidden md:block">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="row-span-2">
-                        <img
-                          src={program.images?.[0] || program.image}
-                          alt={program.title}
-                          className="w-full h-80 object-cover rounded-2xl"
-                        />
-                      </div>
-                      {program.images?.slice(1, 5).map((image, index) => (
-                        <div key={index} className="h-[9.5rem]">
-                          <img
-                            src={image}
-                            alt={`${program.title} ${index + 2}`}
-                            className="w-full h-full object-cover rounded-2xl"
-                          />
-                        </div>
-                      ))}
+            {/* Why Choose Raizing Sovereign */}
+            <Card className="border-none shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-lg flex text-[#cba135] items-center">
+                  <CheckCircle className="w-5 h-5 mr-2 text-[#183b4e]" />
+                  Why Choose Raizing Sovereign
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-gray-700 list-disc pl-4">
+                  <li>Expert guidance through every step of the process.</li>
+                  <li>Trusted by thousands of clients worldwide.</li>
+                  <li>Transparent pricing with no hidden fees.</li>
+                  <li>Comprehensive support for due diligence and documentation.</li>
+                  <li>Proven track record in securing approvals.</li>
+                </ul>
+                <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                  <Button className="bg-[#cba135] hover:bg-[#b3922f] text-white text-sm w-full sm:w-auto">
+                    Start Application
+                  </Button>
+                  <Button variant="outline" className="text-[#183b4e] border-[#183b4e] hover:bg-[#183b4e] hover:text-white text-sm w-full sm:w-auto">
+                    Check Eligibility
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Program Info */}
+            <div>
+              <h1 className="text-2xl font-bold text-[#cba135] mb-2">{program.title}</h1>
+              <p className="text-base text-gray-600 leading-relaxed">{program.description}</p>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-2">
+              <div className="text-center p-3 bg-gray-50 rounded-xl shadow-sm">
+                <DollarSign className="w-4 h-4 text-gold mx-auto mb-1" />
+                <p className="text-xs text-[#cba135]">Investment</p>
+                <p className="font-bold text-[#183b4e] text-sm">{program.minInvestment}</p>
+              </div>
+              <div className="text-center p-3 bg-gray-50 rounded-xl shadow-sm">
+                <Clock className="w-4 h-4 text-gold mx-auto mb-1" />
+                <p className="text-xs text-[#cba135]">Processing</p>
+                <p className="font-bold text-[#183b4e] text-sm">{program.processingTime}</p>
+              </div>
+              <div className="text-center p-3 bg-gray-50 rounded-xl shadow-sm">
+                <Globe className="w-4 h-4 text-gold mx-auto mb-1" />
+                <p className="text-xs text-[#cba135]">Location</p>
+                <p className="font-bold text-[#183b4e] text-sm">{program.countries[0] || program.continent}</p>
+              </div>
+            </div>
+
+            {/* Book Consultation Button */}
+            <Button className="bg-[#183b4e] hover:bg-[#142f3d] text-white text-sm w-full flex items-center justify-center">
+              <Calendar className="w-4 h-4 mr-2" />
+              Book Consultation
+            </Button>
+
+            {/* Program Benefits */}
+            <section className="py-4 bg-gray-100 rounded-2xl shadow-sm">
+              <div className="px-4">
+                <h2 className="text-lg font-bold text-[#cba135] mb-4">Program Benefits</h2>
+                <div className="grid grid-cols-1 gap-3">
+                  {benefitsWithDescriptions?.map((benefit, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      viewport={{ once: true }}
+                      className="p-3 bg-white rounded-xl shadow-sm"
+                    >
+                      <CheckCircle className="w-4 h-4 text-gold mb-2" />
+                      <h3 className="text-sm font-bold text-gray-900 mb-1">{benefit.title}</h3>
+                      <p className="text-xs text-gray-600">{benefit.description}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Cost Calculator */}
+            {program.calculator && (
+              <Card className="border-none shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center text-[#cba135]">
+                    <Calculator className="w-5 h-5 mr-2 text-gold" />
+                    Cost Calculator
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-700">Family Members</span>
+                    <div className="flex items-center space-x-2">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setFamilyMembers(prev => Math.max(0, prev - 1))}
+                        className="h-8 w-8"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </Button>
+                      <span className="text-base font-medium">{familyMembers}</span>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setFamilyMembers(prev => prev + 1)}
+                        className="h-8 w-8"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </Button>
                     </div>
                   </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>Base Investment</span>
+                      <span>{formatCurrency(program.calculator.baseCost, program.calculator.currency)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span>Family Members ({familyMembers})</span>
+                      <span>{formatCurrency(familyMembers * program.calculator.familyMemberCost, program.calculator.currency)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span>Government Fees</span>
+                      <span>{formatCurrency(program.calculator.governmentFees, program.calculator.currency)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span>Legal Fees</span>
+                      <span>{formatCurrency(program.calculator.legalFees, program.calculator.currency)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span>Due Diligence Fees</span>
+                      <span>{formatCurrency(program.calculator.dueDiligenceFees, program.calculator.currency)}</span>
+                    </div>
+                    <div className="flex justify-between font-bold text-base pt-2 border-t">
+                      <span>Total Cost</span>
+                      <span>{formatCurrency(totalCost, program.calculator.currency)}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Payment Options</span>
+                    <div className="flex space-x-2">
+                      <CreditCard className="w-4 h-4 text-gray-500" />
+                      <Bitcoin className="w-4 h-4 text-gray-500" />
+                      <Banknote className="w-4 h-4 text-gray-500" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Application Process */}
+            <Card className="border-none shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-lg flex text-[#cba135] items-center">
+                  <Globe className="w-5 h-5 mr-2 text-[#183b4e]" />
+                  Application Process
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 gap-3">
+                  {applicationProcess.map((step, index) => {
+                    const Icon = step.icon;
+                    return (
+                      <div key={index} className="flex items-center p-2 bg-gray-50 rounded-xl">
+                        <Icon className="w-5 h-5 text-[#183b4e] mr-2" />
+                        <span className="text-sm text-gray-700">{step.step}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Required Documents */}
+            <Card className="border-none shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-lg flex text-[#cba135] items-center">
+                  <Users className="w-5 h-5 mr-2 text-[#183b4e]" />
+                  Required Documents
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-3">
+                  {requiredDocuments.map((doc, index) => {
+                    const Icon = doc.icon;
+                    return (
+                      <div key={index} className="flex items-center p-2 bg-gray-50 rounded-xl">
+                        <Icon className="w-5 h-5 text-[#183b4e] mr-2" />
+                        <span className="text-sm text-gray-700">{doc.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Eligibility Criteria */}
+            {program.eligibilityCriteria && (
+              <Card className="border-none shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg flex text-[#cba135] items-center">
+                    <FileText className="w-5 h-5 mr-2 text-[#183b4e]" />
+                    Eligibility Criteria
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-3">
+                    {eligibilityCriteria.map((item, index) => {
+                      const Icon = item.icon;
+                      return (
+                        <div key={index} className="flex items-center p-2 bg-gray-50 rounded-xl">
+                          <Icon className="w-5 h-5 text-[#183b4e] mr-2" />
+                          <span className="text-sm text-gray-700">{item.criterion}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          {/* Desktop Layout */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-6">
+            {/* Left Column: Image Gallery, Why Choose Raizing Sovereign, Application Process, Required Documents, Eligibility Criteria */}
+            <div className="space-y-4">
+              {/* Image Gallery */}
+              <div className="relative rounded-2xl overflow-hidden shadow-md">
+                <div className="relative h-80">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentImageIndex}
+                      src={program.images?.[currentImageIndex] || program.image}
+                      alt={program.title}
+                      className="w-full h-full object-cover"
+                      initial={{ opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.05 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </AnimatePresence>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 text-gray-800 p-3 rounded-full shadow-sm hover:bg-white transition-colors pointer-events-auto"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 text-gray-800 p-3 rounded-full shadow-sm hover:bg-white transition-colors pointer-events-auto"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 pointer-events-none">
+                    {program.images?.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                          index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                        } pointer-events-auto`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="absolute top-4 left-4 bg-white/90 text-gray-800 text-sm font-medium px-3 py-1 rounded-full shadow-sm">
+                  {program.continent}
                 </div>
               </div>
 
+              {/* Why Choose Raizing Sovereign */}
+              <Card className="border-none shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg flex text-[#cba135] items-center">
+                    <CheckCircle className="w-5 h-5 mr-2 text-[#183b4e]" />
+                    Why Choose Raizing Sovereign
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-gray-700 list-disc pl-4">
+                    <li>Expert guidance through every step of the process.</li>
+                    <li>Trusted by thousands of clients worldwide.</li>
+                    <li>Transparent pricing with no hidden fees.</li>
+                    <li>Comprehensive support for due diligence and documentation.</li>
+                    <li>Proven track record in securing approvals.</li>
+                  </ul>
+                  <div className="mt-4 flex gap-2">
+                    <Button className="bg-[#cba135] hover:bg-[#b3922f] text-white text-sm">
+                      Start Application
+                    </Button>
+                    <Button variant="outline" className="text-[#183b4e] border-[#183b4e] hover:bg-[#183b4e] hover:text-white text-sm">
+                      Check Eligibility
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Application Process */}
+              <Card className="border-none shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg flex text-[#cba135] items-center">
+                    <Globe className="w-5 h-5 mr-2 text-[#183b4e]" />
+                    Application Process
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-3">
+                    {applicationProcess.map((step, index) => {
+                      const Icon = step.icon;
+                      return (
+                        <div key={index} className="flex items-center p-2 bg-gray-50 rounded-xl">
+                          <Icon className="w-5 h-5 text-[#183b4e] mr-2" />
+                          <span className="text-sm text-gray-700">{step.step}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Required Documents */}
+              <Card className="border-none shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg flex text-[#cba135] items-center">
+                    <Users className="w-5 h-5 mr-2 text-[#183b4e]" />
+                    Required Documents
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-3">
+                    {requiredDocuments.map((doc, index) => {
+                      const Icon = doc.icon;
+                      return (
+                        <div key={index} className="flex items-center p-2 bg-gray-50 rounded-xl">
+                          <Icon className="w-5 h-5 text-[#183b4e] mr-2" />
+                          <span className="text-sm text-gray-700">{doc.name}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Eligibility Criteria */}
+              {program.eligibilityCriteria && (
+                <Card className="border-none shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-lg flex text-[#cba135] items-center">
+                      <FileText className="w-5 h-5 mr-2 text-[#183b4e]" />
+                      Eligibility Criteria
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 gap-3">
+                      {eligibilityCriteria.map((item, index) => {
+                        const Icon = item.icon;
+                        return (
+                          <div key={index} className="flex items-center p-2 bg-gray-50 rounded-xl">
+                            <Icon className="w-5 h-5 text-[#183b4e] mr-2" />
+                            <span className="text-sm text-gray-700">{item.criterion}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+
+            {/* Right Column: Program Info, Quick Stats, Book Consultation, Benefits, Calculator */}
+            <div className="space-y-4">
+              {/* Program Info */}
+              <div>
+                <h1 className="text-3xl font-bold text-[#cba135] mb-2">{program.title}</h1>
+                <p className="text-base text-gray-600 leading-relaxed">{program.description}</p>
+              </div>
+
+              {/* Quick Stats */}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="text-center p-3 bg-gray-50 rounded-xl shadow-sm">
+                  <DollarSign className="w-4 h-4 text-gold mx-auto mb-1" />
+                  <p className="text-xs text-[#cba135]">Investment</p>
+                  <p className="font-bold text-[#183b4e] text-sm">{program.minInvestment}</p>
+                </div>
+                <div className="text-center p-3 bg-gray-50 rounded-xl shadow-sm">
+                  <Clock className="w-4 h-4 text-gold mx-auto mb-1" />
+                  <p className="text-xs text-[#cba135]">Processing</p>
+                  <p className="font-bold text-[#183b4e] text-sm">{program.processingTime}</p>
+                </div>
+                <div className="text-center p-3 bg-gray-50 rounded-xl shadow-sm">
+                  <Globe className="w-4 h-4 text-gold mx-auto mb-1" />
+                  <p className="text-xs text-[#cba135]">Location</p>
+                  <p className="font-bold text-[#183b4e] text-sm">{program.countries[0] || program.continent}</p>
+                </div>
+              </div>
+
+              {/* Book Consultation Button */}
+              <Button className="bg-[#183b4e] hover:bg-[#142f3d] text-white text-sm w-full flex items-center justify-center">
+                <Calendar className="w-4 h-4 mr-2" />
+                Book Consultation
+              </Button>
+
               {/* Program Benefits */}
-              <section className="py-8 bg-gray-100  rounded-2xl">
-                <div className="px-6">
-                  <h2 className="text-1xl font-bold text-[#cba135] mb-8">Program Benefits</h2>
-                  <div className="grid flex sm: revrese-cols md:grid-cols-3 gap-6 ">
+              <section className="py-4 bg-gray-100 rounded-2xl shadow-sm">
+                <div className="px-4">
+                  <h2 className="text-lg font-bold text-[#cba135] mb-4">Program Benefits</h2>
+                  <div className="grid grid-cols-2 gap-3">
                     {benefitsWithDescriptions?.map((benefit, index) => (
                       <motion.div
                         key={index}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
                         viewport={{ once: true }}
-                        className="p-6 bg-white  rounded-xl shadow-sm"
+                        className="p-3 bg-white rounded-xl shadow-sm"
                       >
-                        <CheckCircle className="w-4 h-4 text-gold mb-4" />
-                        <h3 className="text-sm font-bold text-gray-900 mb-2">{benefit.title}</h3>
-                        {/* <p className="text-gray-600">{benefit.description}</p> */}
+                        <CheckCircle className="w-4 h-4 text-gold mb-2" />
+                        <h3 className="text-sm font-bold text-gray-900 mb-1">{benefit.title}</h3>
+                        <p className="text-xs text-gray-600">{benefit.description}</p>
                       </motion.div>
                     ))}
                   </div>
                 </div>
               </section>
 
-              {/* Application Process */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-1xl flex text-[#cba135] items-center">
-                    <Globe className="w-6 h-6 mr-2 text-[#183b4e]" />
-                    Application Process
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ol className="space-y-4 text-sm text-gray-700 list-decimal pl-6">
-                    <li>Book a consultation with our experts.</li>
-                    <li>Submit required documents and complete due diligence.</li>
-                    <li>Make the qualifying investment.</li>
-                    <li>Receive approval and residency/citizenship documents.</li>
-                  </ol>
-                </CardContent>
-              </Card>
-
-              {/* Required Documents */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-1xl flex text-[#cba135] items-center">
-                    <Users className="w-6 h-6 mr-2 text-[#183b4e]" />
-                    Required Documents
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-4 text-sm text-gray-700 list-disc pl-6">
-                    <li>Valid passport copies</li>
-                    <li>Financial statements</li>
-                    <li>Police clearance certificate</li>
-                    <li>Proof of investment funds</li>
-                    <li>Birth and marriage certificates (if applicable)</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Right Column: Program Info, Calculator, Why Choose Us, Payment Options */}
-            <div className="space-y-8">
-              {/* Program Info */}
-              <div>
-                <h1 className="text-3xl lg:text-4xl font-bold text-[#cba135] mb-3">{program.title}</h1>
-                <p className="text-lg text-gray-600 leading-relaxed">{program.description}</p>
-              </div>
-
-              {/* Quick Stats */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-gray-50 rounded-xl">
-                  <DollarSign className="w-6 h-6 text-gold mx-auto mb-2" />
-                  <p className="text-sm text-[#cba135]">Investment</p>
-                  <p className="font-bold text-[#183b4e]">{program.minInvestment}</p>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-xl">
-                  <Clock className="w-6 h-6 text-gold mx-auto mb-2" />
-                  <p className="text-sm text-[#cba135]">Processing</p>
-                  <p className="font-bold text-[#183b4e]">{program.processingTime}</p>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-xl">
-                  <Globe className="w-6 h-6 text-gold mx-auto mb-2" />
-                  <p className="text-sm text-[#cba135]">Location</p>
-                  <p className="font-bold text-[#183b4e]">{program.countries[0]}</p>
-                </div>
-              </div>
-
               {/* Cost Calculator */}
               {program.calculator && (
-                <Card>
+                <Card className="border-none shadow-sm">
                   <CardHeader>
-                    <CardTitle className="text-2xl flex items-center text-[#cba135]">
+                    <CardTitle className="text-lg flex items-center text-[#cba135]">
                       <Calculator className="w-5 h-5 mr-2 text-gold" />
                       Cost Calculator
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-700">Family Members</span>
-                      <div className="flex items-center space-x-3">
+                      <span className="text-sm text-gray-700">Family Members</span>
+                      <div className="flex items-center space-x-2">
                         <Button
                           variant="outline"
-                          size="sm"
-                          onClick={() => setFamilyMembers(Math.max(0, familyMembers - 1))}
-                          disabled={familyMembers === 0}
+                          size="icon"
+                          onClick={() => setFamilyMembers(prev => Math.max(0, prev - 1))}
+                          className="h-8 w-8"
                         >
-                          <Minus className="w-4 h-4" />
+                          <Minus className="w-3 h-3" />
                         </Button>
-                        <span className="w-8 text-center font-medium">{familyMembers}</span>
+                        <span className="text-base font-medium">{familyMembers}</span>
                         <Button
                           variant="outline"
-                          size="sm"
-                          onClick={() => setFamilyMembers(familyMembers + 1)}
+                          size="icon"
+                          onClick={() => setFamilyMembers(prev => prev + 1)}
+                          className="h-8 w-8"
                         >
-                          <Plus className="w-4 h-4" />
+                          <Plus className="w-3 h-3" />
                         </Button>
                       </div>
                     </div>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
                         <span>Base Investment</span>
                         <span>{formatCurrency(program.calculator.baseCost, program.calculator.currency)}</span>
                       </div>
-                      {familyMembers > 0 && (
-                        <div className="flex justify-between">
-                          <span>Family Members ({familyMembers})</span>
-                          <span>{formatCurrency(familyMembers * program.calculator.familyMemberCost, program.calculator.currency)}</span>
-                        </div>
-                      )}
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-sm">
+                        <span>Family Members ({familyMembers})</span>
+                        <span>{formatCurrency(familyMembers * program.calculator.familyMemberCost, program.calculator.currency)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
                         <span>Government Fees</span>
                         <span>{formatCurrency(program.calculator.governmentFees, program.calculator.currency)}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span>Legal & Due Diligence</span>
-                        <span>{formatCurrency(program.calculator.legalFees + program.calculator.dueDiligenceFees, program.calculator.currency)}</span>
+                      <div className="flex justify-between text-sm">
+                        <span>Legal Fees</span>
+                        <span>{formatCurrency(program.calculator.legalFees, program.calculator.currency)}</span>
                       </div>
-                      <hr />
-                      <div className="flex justify-between font-bold text-lg">
-                        <span>Total Estimated Cost</span>
-                        <span className="text-gold">{formatCurrency(totalCost, program.calculator.currency)}</span>
+                      <div className="flex justify-between text-sm">
+                        <span>Due Diligence Fees</span>
+                        <span>{formatCurrency(program.calculator.dueDiligenceFees, program.calculator.currency)}</span>
+                      </div>
+                      <div className="flex justify-between font-bold text-base pt-2 border-t">
+                        <span>Total Cost</span>
+                        <span>{formatCurrency(totalCost, program.calculator.currency)}</span>
                       </div>
                     </div>
-                    <Button asChild className="w-full bg-[#183b4e]  text-white hover:bg-[#cba135]">
-                      <Link href="/apply">Start Application</Link>
-                    </Button>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Payment Options</span>
+                      <div className="flex space-x-2">
+                        <CreditCard className="w-4 h-4 text-gray-500" />
+                        <Bitcoin className="w-4 h-4 text-gray-500" />
+                        <Banknote className="w-4 h-4 text-gray-500" />
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               )}
-
-              {/* Why Choose Us */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-1xl flex text-[#cba135] font-bold items-center">
-                    
-                    Why Choose Raizing Sovereign?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-start">
-                    <Shield className="w-8 h-8 text-[#004225] mr-4 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-sm font-bold text-[#183b4e] mb-2">100% Success Rate</h3>
-                      <p className="text-gray-600 text-sm">All approved applications processed successfully.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Users className="w-8 h-8 text-[#004225] mr-4 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-sm font-bold text-[#183b4e] mb-2">Expert Team</h3>
-                      <p className="text-gray-600 text-sm">15+ years of immigration law experience.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <TrendingUp className="w-8 h-8 text-[#004225] mr-4 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-sm font-bold text-[#183b4e] mb-2">Fast Processing</h3>
-                      <p className="text-gray-600 text-sm">Streamlined process for quicker results.</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Payment Options */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-1xl flex text-[#cba135] font-bold items-center">
-                    {/* <CreditCard className="w-5 h-5 mr-2 text-gold" /> */}
-                    Payment Options
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-start">
-                    <Banknote className="w-8 h-8 text-[#004225] mr-4 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-sm font-bold text-[#183b4e] mb-2">Bank Transfer</h3>
-                      <p className="text-gray-600">Securely transfer funds via international wire transfer.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <CreditCard className="w-8 h-8 text-[#004225] mr-4 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-sm font-bold text-[#183b4e] mb-2">Credit Card</h3>
-                      <p className="text-gray-600">Pay conveniently using major credit cards.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Bitcoin className="w-8 h-8 text-[#004225] mr-4 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-sm font-bold text-[#183b4e] mb-2">Cryptocurrency</h3>
-                      <p className="text-gray-600">Use Bitcoin or Ethereum for modern, secure payments.</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Fixed Mobile Footer */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-600">Estimated Cost</p>
-            <p className="font-bold text-lg text-gray-900">
-              {program.calculator ? formatCurrency(totalCost, program.calculator.currency) : program.minInvestment}
-            </p>
-            <p className="text-xs text-gray-500">Process: {program.processingTime}</p>
-          </div>
-          <Button asChild className="gold-gradient text-dark px-8">
-            <Link href="/consultation">Book Consultation</Link>
-          </Button>
-        </div>
-      </div>
-
-      {/* Bottom padding for mobile footer */}
-      <div className="md:hidden h-24"></div>
     </div>
   );
 }

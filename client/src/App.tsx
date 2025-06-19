@@ -20,6 +20,7 @@ import ConsultationPage from "@/pages/ConsultationPage";
 import ProgramDetailPage from "@/pages/ProgramDetailPage";
 import AIAssistancePage from "@/pages/AIAssistancePage";
 import  LoginPage  from "@/pages/LoginPage";
+import ProfilePage from './pages/ProfilePage';
 import NotFound from "@/pages/not-found";
 
 // Scroll to top on route change
@@ -75,6 +76,7 @@ const Router: React.FC = () => {
       <Route path="/merchandise" component={MerchandisePage} />
       <Route path="/consultation" component={ConsultationPage} />
       <Route path="/login" component={LoginPage} />
+      <Route path="/profile" component={ProfilePage} />
       <Route
         path="/ai-assistance"
         component={() => <ProtectedRoute component={AIAssistancePage} path="/ai-assistance" />}
