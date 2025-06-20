@@ -250,7 +250,7 @@ const Header: React.FC = () => {
                 {user ? (
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
+                    className="flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135] mb-8"
                   >
                     <LogOut className="max-w-5 max-h-5" />
                     Logout
@@ -258,7 +258,7 @@ const Header: React.FC = () => {
                 ) : (
                   <Link
                     href={`/login?redirect=${encodeURIComponent(location)}`}
-                    className="flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm no-underline hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
+                    className="flex items-center  gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm no-underline hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]  "
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <LogIn className="max-w-5 max-h-5" />
