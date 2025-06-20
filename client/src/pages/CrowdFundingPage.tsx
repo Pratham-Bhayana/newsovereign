@@ -269,11 +269,11 @@ export default function CrowdFundingPage() {
       </section>
 
       {/* Fixed Footer for Mobile */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-[#183b4e] text-white p-4 flex justify-between items-center sm:hidden z-50">
-        <button className="bg-[#cba135] text-white text-sm font-semibold px-6 py-2 rounded-full hover:bg-[#b08f2e] transition">
-          Contribute Now
+      <footer className="fixed bottom-0 left-0 right-0 bg-[#ffff] text-white p-4 flex justify-between items-center sm:hidden z-50">
+        <button className="bg-[#] text-black text-sm text-left font-semibold px-6 py-2 rounded-[10px]  transition">
+          Help someone to reach thier goals
         </button>
-        <button className="bg-[#004225] text-white text-sm font-semibold px-6 py-2 rounded-full hover:bg-[#00301c] transition">
+        <button className="bg-[#cba135] text-white text-sm font-semibold px-6 py-2 rounded-[10px] hover:bg-[#b08f2e] transition">
           Raise Funds
         </button>
       </footer>

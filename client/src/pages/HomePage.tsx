@@ -20,7 +20,7 @@ const backgroundImages = [
   "https://www.onestopbrokers.com/wp-content/uploads/2018/03/luxury-lifestyle.jpg",
   "https://cdn.tatlerasia.com/tatlerasia/i/2024/04/15113333-gettyimages-1495760252_cover_1600x1067.jpg",
   "https://media.vogue.in/wp-content/uploads/2017/07/jet.gif",
-  bgNew,
+
   "https://luxexpose.com/wp-content/uploads/2022/05/LuxExpose-Luxurious_Lifestyle_01.jpg",
   "https://assets.entrepreneur.com/content/3x2/2000/20160322185222-rich-luxury-millionaire-wealthy-boat.png",
 ];
@@ -177,11 +177,11 @@ export default function HomePage() {
               animate="animate"
               exit="exit"
             >
-              <div className="absolute inset-0 bg-black/20" /> {/* Subtle overlay */}
+              <div className="absolute inset-0" /> {/* Subtle overlay */}
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="relative z-[3] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between">
+        <div className="relative z-[3] w-full mb-[250px] sm:mb-0 max-w-7xl mx-auto mt-10 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between">
           {/* Left Side: Title and Description */}
           <div className="flex flex-col items-start text-center lg:text-left pt-[180px] lg:pt-0">
             <motion.h1
@@ -189,7 +189,7 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.6 }}
-              className="text-[#cba135] text-4xl sm:text-5xl text-left lg:text-6xl font-bold mb-4 max-w-full sm:max-w-[80%] lg:max-w-[600px]"
+              className="text-[#cba135]  text-4xl   sm:text-5xl text-left lg:text-6xl font-bold mb-10 sm:mt-5 max-w-full sm:max-w-[80%] lg:max-w-[600px]"
             >
               Elevate Your Global Freedom
             </motion.h1>
@@ -198,7 +198,7 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-white text-lg sm:text-xl text-left lg:text-2xl font-semibold max-w-full sm:max-w-[80%] lg:max-w-[600px]"
+              className="text-[#ffff] text-lg sm:text-xl text-left lg:text-2xl font-semibold max-w-full sm:mt-5 sm:max-w-[80%] lg:max-w-[600px]"
             >
               Unlock worldwide mobility and financial freedom through our exclusive citizenship and residency investment programs.
             </motion.div>
@@ -230,7 +230,7 @@ export default function HomePage() {
       </section>
 
       {/* Spacer to Prevent Content Overlap */}
-      <div className="h-[50vh] sm:h-[60vh] lg:h-[70vh]"></div>
+      <div className="h-[80vh] sm:h-[100vh] lg:h-[70vh]"></div>
 
       {/* Programs Preview */}
       <section className="py-16 sm:py-20 mt-11 bg-[#f8f4ea]">

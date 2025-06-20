@@ -19,11 +19,10 @@ import MerchandisePage from "@/pages/MerchandisePage";
 import ConsultationPage from "@/pages/ConsultationPage";
 import ProgramDetailPage from "@/pages/ProgramDetailPage";
 import AIAssistancePage from "@/pages/AIAssistancePage";
-import  LoginPage  from "@/pages/LoginPage";
-import ProfilePage from './pages/ProfilePage';
+import LoginPage from "@/pages/LoginPage";
+import ProfilePage from "@/pages/ProfilePage";
 import NotFound from "@/pages/not-found";
 
-// Scroll to top on route change
 const ScrollToTop: React.FC = () => {
   const [location] = useLocation();
   useEffect(() => {
@@ -32,7 +31,6 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
-// Protected Route component
 const ProtectedRoute: React.FC<{
   path: string;
   component: React.ComponentType;

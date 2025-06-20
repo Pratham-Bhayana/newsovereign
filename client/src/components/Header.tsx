@@ -113,8 +113,8 @@ const Header: React.FC = () => {
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
                 <span
-                  className={`p-[15px] rounded-[15px] no-underline text-[#gg4edw] font-bold text-base hover:text-[#a8a8f5] transition-colors duration-500 cursor-pointer dark:text-white dark:hover:text-[#cba135] ${
-                    location === item.href ? 'text-[#a8a8f5] dark:text-[#cba135]' : ''
+                  className={`p-[15px] rounded-[15px] no-underline text-[#ffff] font-bold text-base hover:text-[#a8a8f5] transition-colors duration-500 cursor-pointer dark:text-white dark:hover:text-[#cba135] ${
+                    location === item.href ? 'text-[#00000] dark:text-[#cba135]' : ''
                   }`}
                 >
                   {item.name}
@@ -184,7 +184,7 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 absolute top-[10px] left-4 z-[1000]"
+            className="lg:hidden p-2 absolute top-[0px] left-4 z-[1000]"
             onClick={toggleMobileMenu}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -205,7 +205,7 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white w-[60%] h-screen fixed top-0 left-0 z-[998] shadow-lg dark:bg-[#183b4e]"
+            className="lg:hidden bg-white w-[60%] h-full fixed top-0 left-0 z-[998] shadow-lg dark:bg-[#183b4e]"
             ref={menuRef}
           >
             <div className="flex flex-col justify-between h-full px-6 py-6">
@@ -252,7 +252,7 @@ const Header: React.FC = () => {
                     onClick={handleLogout}
                     className="flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
                   >
-                    <LogOut className="w-5 h-5" />
+                    <LogOut className="max-w-5 max-h-5" />
                     Logout
                   </button>
                 ) : (
@@ -261,7 +261,7 @@ const Header: React.FC = () => {
                     className="flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm no-underline hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <LogIn className="w-5 h-5" />
+                    <LogIn className="max-w-5 max-h-5" />
                     Login
                   </Link>
                 )}

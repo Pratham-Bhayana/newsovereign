@@ -85,6 +85,7 @@ export const PROGRAMS = [
       "Minimum net worth of €500,000",
       "Valid passport",
     ],
+    brochure: "/brochures/caribbean-citizenship.pdf",
   },
   // Latin America
   {
@@ -119,6 +120,7 @@ export const PROGRAMS = [
       "Minimum net worth of €600,000",
       "Health insurance coverage",
     ],
+    brochure: "/brochures/latin-america.pdf",
   },
   // European Residency
   {
@@ -153,6 +155,7 @@ export const PROGRAMS = [
       "Minimum net worth of €750,000",
       "Health insurance for EU residency",
     ],
+    brochure: "/brochures/european-residency.pdf",
   },
   // Panama Travel Passport
   {
@@ -187,6 +190,7 @@ export const PROGRAMS = [
       "Proof of investment funds from legal sources",
       "No dual citizenship restrictions in home country",
     ],
+    brochure: "/brochures/panama-travel-passport.pdf",
   },
   // Asian & Middle East
   {
@@ -221,6 +225,7 @@ export const PROGRAMS = [
       "Minimum net worth of $1,000,000",
       "Health insurance coverage",
     ],
+    brochure: "/brochures/asian-middle-east.pdf",
   },
   // Dubai Golden Visa
   {
@@ -255,6 +260,7 @@ export const PROGRAMS = [
       "Minimum investment in real estate or business of $545,000",
       "Health insurance coverage",
     ],
+    brochure: "/brochures/dubai-golden-visa.pdf",
   },
   // Croatia
   {
@@ -273,7 +279,7 @@ export const PROGRAMS = [
     description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
     minInvestment: "€280,000",
     processingTime: "6-12 months",
-    benefits: ["1. Straigt forward process with clear investment requirements.", " 2. Obtain residency in 3-6 months with the path to future citizenship." , "Receive one acre of prime land and company formation all inclusive." , "3. Access top-tier healthcare and educational opportunities for your family."],
+    benefits: ["1. Straigt forward process with clear investment requirements.", " 2. Obtain residency in 3-6 months with the path to future citizenship." , "3. Receive one acre of prime land and company formation all inclusive." , "4. Access top-tier healthcare and educational opportunities for your family."],
     calculator: {
       baseCost: 280000,
       currency: "EUR",
@@ -289,6 +295,7 @@ export const PROGRAMS = [
       "Minimum net worth of €500,000",
       "Health insurance for EU residency",
     ],
+    brochure: "/brochures/croatia.pdf",
   },
   // Malta Citizenship
   {
@@ -301,7 +308,6 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1551524164-687a55dd1126?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      "https://images.unsplash.com/photo-1535034255-a2c6b4d4b4b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
     title: "Malta Citizenship Program",
     description: "Exceptional program combining investment, donation, and residency. Premium EU citizenship option.",
@@ -324,6 +330,7 @@ export const PROGRAMS = [
       "12 months of residency in Malta before citizenship",
       "Contribution to National Development Fund",
     ],
+    brochure: "/brochures/malta-citizenship.pdf",
   },
   // Cyprus Investment
   {
@@ -359,6 +366,7 @@ export const PROGRAMS = [
       "Investment in real estate, business, or bonds",
       "Health insurance coverage",
     ],
+    brochure: "/brochures/cyprus-investment.pdf",
   },
   // Greece Golden Visa
   {
@@ -370,8 +378,8 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1555993539-1732b0258235?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1539650116574-75c0c6d73901?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?e=1732b0258235?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      "https://images.unsplash.com/photo-1558618047-3c8c76蔡7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
     title: "Greece Golden Visa",
     description: "Affordable European residency through real estate investment. Gateway to EU with rich history and culture.",
@@ -393,6 +401,7 @@ export const PROGRAMS = [
       "Minimum investment in real estate of €250,000",
       "Health insurance for EU residency",
     ],
+    brochure: "/brochures/greece-golden-visa.pdf",
   },
   // Spain Golden Visa
   {
@@ -427,6 +436,7 @@ export const PROGRAMS = [
       "Minimum investment in real estate of €500,000",
       "Health insurance for EU residency",
     ],
+    brochure: "/brochures/spain-golden-visa.pdf",
   },
   // Italy Investor Visa
   {
@@ -461,6 +471,7 @@ export const PROGRAMS = [
       "Investment in innovative startups, bonds, or companies of €500,000",
       "Health insurance for EU residency",
     ],
+    brochure: "/brochures/italy-investor-visa.pdf",
   },
   // St. Kitts & Nevis
   {
@@ -495,6 +506,7 @@ export const PROGRAMS = [
       "Minimum net worth of $400,000",
       "Investment in approved real estate or donation",
     ],
+    brochure: "/brochures/st-kitts-nevis.pdf",
   },
   // Dominica Citizenship
   {
@@ -529,6 +541,7 @@ export const PROGRAMS = [
       "Minimum net worth of $300,000",
       "Investment in approved real estate or donation",
     ],
+    brochure: "/brochures/dominica-citizenship.pdf",
   },
   // Grenada Citizenship
   {
@@ -563,6 +576,7 @@ export const PROGRAMS = [
       "Minimum net worth of $400,000",
       "Investment in approved real estate or donation",
     ],
+    brochure: "/brochures/grenada-citizenship.pdf",
   },
   // Antigua & Barbuda
   {
@@ -597,6 +611,7 @@ export const PROGRAMS = [
       "Minimum net worth of $300,000",
       "Investment in approved real estate, donation, or business",
     ],
+    brochure: "/brochures/antigua-barbuda.pdf",
   },
   // St. Lucia Citizenship
   {
@@ -631,6 +646,7 @@ export const PROGRAMS = [
       "Minimum net worth of $300,000",
       "Investment in approved real estate, donation, or bonds",
     ],
+    brochure: "/brochures/st-lucia-citizenship.pdf",
   },
   // Turkey Citizenship
   {
@@ -665,6 +681,7 @@ export const PROGRAMS = [
       "Minimum investment in real estate of $400,000",
       "Health insurance coverage",
     ],
+    brochure: "/brochures/turkey-citizenship.pdf",
   },
   // UAE Golden Visa
   {
@@ -699,6 +716,7 @@ export const PROGRAMS = [
       "Minimum investment in real estate or business of $545,000",
       "Health insurance coverage",
     ],
+    brochure: "/brochures/uae-golden-visa.pdf",
   },
   // Canada Investor Program
   {
@@ -733,6 +751,7 @@ export const PROGRAMS = [
       "Minimum net worth of CAD $1,600,000",
       "Business or managerial experience of 2+ years",
     ],
+    brochure: "/brochures/canada-investor.pdf",
   },
   // USA EB-5 Program
   {
@@ -767,6 +786,7 @@ export const PROGRAMS = [
       "Investment in job-creating enterprises of $800,000",
       "Creation or preservation of 10 full-time jobs",
     ],
+    brochure: "/brochures/usa-eb5.pdf",
   },
   // Australia Investor Visa
   {
@@ -801,6 +821,7 @@ export const PROGRAMS = [
       "Minimum net worth of AUD $5,000,000",
       "Business or investment experience of 3+ years",
     ],
+    brochure: "/brochures/australia-investor.pdf",
   },
   // Singapore Investor Program
   {
@@ -835,6 +856,7 @@ export const PROGRAMS = [
       "Minimum net worth of SGD $10,000,000",
       "Proven business track record of 3+ years",
     ],
+    brochure: "/brochures/singapore-investor.pdf",
   },
 ];
 
