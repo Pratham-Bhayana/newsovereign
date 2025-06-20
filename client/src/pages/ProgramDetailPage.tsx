@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useParams, Link } from "wouter";
@@ -251,8 +252,7 @@ export default function ProgramDetailPage() {
       <section className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <motion.div className="flex flex-col lg:flex-row gap-6" initial="hidden" animate="visible" variants={staggerChildren}>
-            {/* Left Column (Images, Why Choose Us, Application Process, etc.) */}
-            <motion.div variants={slideUp} className="lg:w-1/2 space-y-4 order-2 lg:order-none">
+            <motion.div variants={slideUp} className="lg:w-1/2 space-y-4">
               <motion.div variants={child} className="relative rounded-2xl overflow-hidden shadow-md">
                 <div className="relative h-80">
                   <AnimatePresence mode="wait">
@@ -304,7 +304,7 @@ export default function ProgramDetailPage() {
                 </div>
               </motion.div>
 
-              <motion.div variants={child} className="order-3 lg:order-none">
+              <motion.div variants={child}>
                 <Card className="border-none shadow-sm">
                   <CardHeader>
                     <motion.div variants={child} className="flex items-center">
@@ -407,13 +407,12 @@ export default function ProgramDetailPage() {
               )}
             </motion.div>
 
-            {/* Right Column (Title, Description, Quick Stats, Benefits, Calculator) */}
-            <motion.div variants={child} className="lg:w-1/2 space-y-4 order-1 lg:order-none">
-              <motion.div variants={child} className="order-1">
+            <motion.div variants={child} className="lg:w-1/2 space-y-4">
+              <motion.div variants={child}>
                 <h1 className="text-3xl font-bold text-[#cba135] mb-2">{program.title}</h1>
                 <p className="text-base text-gray-600 leading-relaxed">{program.description}</p>
               </motion.div>
-              <motion.div variants={staggerChildren} className="grid grid-cols-3 gap-4 order-2">
+              <motion.div variants={staggerChildren} className="grid grid-cols-3 gap-4">
                 <motion.div variants={child} className="text-center p-3 bg-gray-50 rounded-xl shadow-sm">
                   <DollarSign className="w-4 h-4 text-[#cba135] mx-auto mb-1" />
                   <p className="text-xs text-[#cba135]">Investment</p>
@@ -431,17 +430,17 @@ export default function ProgramDetailPage() {
                 </motion.div>
               </motion.div>
 
-              <motion.div variants={slideUp} className="order-5 lg:order-none">
+              <motion.div variants={slideUp}>
                 <Button
                   onClick={handleStartApplication}
-                  className="bg-[#183b4e] text-white hover:bg-[#b3922f] text-sm w-full flex items-center justify-center"
+                  className="bg-[#183b4e] hover:bg-[#b3922f] text-[#ffff] text-sm w-full flex items-center justify-center"
                 >
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span>Book Consulatation</span>
+                  <span>Book Consultation</span>
                 </Button>
               </motion.div>
 
-              <motion.section variants={slideUp} className="py-4 bg-gray-100 rounded-2xl shadow-sm order-4">
+              <motion.section variants={slideUp} className="py-4 bg-gray-100 rounded-2xl shadow-sm">
                 <div className="px-4">
                   <h2 className="text-lg font-bold text-[#cba135] mb-4">Program Benefits</h2>
                   <motion.div variants={staggerChildren} className="grid grid-cols-2 gap-4">
@@ -457,7 +456,7 @@ export default function ProgramDetailPage() {
               </motion.section>
 
               {program.calculator && (
-                <motion.div variants={slideUp} className="order-6 lg:order-none">
+                <motion.div variants={slideUp}>
                   <Card className="border-none shadow-sm">
                     <CardHeader>
                       <motion.div variants={child} className="flex items-center">
