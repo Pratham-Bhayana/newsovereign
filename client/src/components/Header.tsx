@@ -113,7 +113,7 @@ const Header: React.FC = () => {
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
                 <span
-                  className={`p-[15px] rounded-[15px] no-underline text-[#ffff] font-bold text-base hover:text-[#a8a8f5] transition-colors duration-500 cursor-pointer dark:text-white dark:hover:text-[#cba135] ${
+                  className={`p-[15px] rounded-[15px] no-underline text-[#cba135] font-bold text-base hover:text-[#a8a8f5] transition-colors duration-500 cursor-pointer dark:text-white dark:hover:text-[#cba135] ${
                     location === item.href ? 'text-[#00000] dark:text-[#cba135]' : ''
                   }`}
                 >

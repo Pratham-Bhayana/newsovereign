@@ -85,11 +85,14 @@ const Router: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const [location] = useLocation();
+  const hideHeader = location.match(/^\/programs\/[^/]+$/);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="min-h-screen bg-white font-['Inter',sans-serif]">
-          <Header />
+          {!hideHeader && <Header />}
           <ScrollToTop />
           <main>
             <Router />
