@@ -17,12 +17,12 @@ import bgNew from "@/components/assets/downloaded-image (4).png";
 
 // Array of six high-quality images for the slideshow
 const backgroundImages = [
-  "https://www.onestopbrokers.com/wp-content/uploads/2018/03/luxury-lifestyle.jpg",
-  "https://cdn.tatlerasia.com/tatlerasia/i/2024/04/15113333-gettyimages-1495760252_cover_1600x1067.jpg",
-  "https://media.vogue.in/wp-content/uploads/2017/07/jet.gif",
+  "https://res.cloudinary.com/dyyswz13r/image/upload/v1750657871/ChatGPT_Image_Jun_23_2025_11_20_48_AM_xjhkdk.png",
+  "https://res.cloudinary.com/dyyswz13r/image/upload/v1750657870/ChatGPT_Image_Jun_23_2025_09_35_43_AM_d9dhjq.png",
+  "https://res.cloudinary.com/dyyswz13r/image/upload/v1750657871/ChatGPT_Image_Jun_23_2025_09_54_02_AM_sbk0wf.png",
 
-  "https://luxexpose.com/wp-content/uploads/2022/05/LuxExpose-Luxurious_Lifestyle_01.jpg",
-  "https://assets.entrepreneur.com/content/3x2/2000/20160322185222-rich-luxury-millionaire-wealthy-boat.png",
+  "https://res.cloudinary.com/dyyswz13r/image/upload/v1750658531/ChatGPT_Image_Jun_23_2025_11_31_57_AM_fl0qnn.png",
+  "https://res.cloudinary.com/dyyswz13r/image/upload/v1750659116/ChatGPT_Image_Jun_23_2025_11_41_43_AM_lvtfto.png",
 ];
 
 // Function to shuffle an array (Fisher-Yates shuffle)
@@ -189,7 +189,7 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.6 }}
-              className="text-[#cba135]  text-4xl   sm:text-5xl text-left lg:text-6xl font-bold mb-10 sm:mt-5 max-w-full sm:max-w-[80%] lg:max-w-[600px]"
+              className="text-[#cba135]  text-4xl text-stroke text-stroke-black   sm:text-5xl text-left lg:text-6xl font-bold mb-10 sm:mt-5 max-w-full sm:max-w-[80%] lg:max-w-[600px]"
             >
               Elevate Your Global Freedom
             </motion.h1>
@@ -362,7 +362,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="flex items-center justify-center h-30 sm:h-40 rounded-xl border border-gray-200"
+                className="flex items-center justify-center h-30 sm:h-40 rounded-xl "
               >
                 <img
                   src={image}

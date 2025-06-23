@@ -1,15 +1,22 @@
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Upload, ChevronLeft, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Progress } from "@/components/ui/progress";
 import Lottie from "lottie-react";
 import { auth } from "@/lib/firebaseConfig";
 import { PROGRAMS } from "@/lib/constants";
+
+const animationFiles: Record<number, string> = {
+  1: "/animations/welcome.json",
+  2: "/animations/lf20_yr6zz0.json",
+  3: "/animations/lf20_3vbnmfhq.json",
+  4: "/animations/lf20_kplawjme.json",
+  5: "/animations/lf20_8b2lmi.json",
+  6: "/animations/lf20_j3f6n7.json",
+  7: "/animations/lf20_fj0eoe.json",
+};
 
 interface FormData {
   firstName: string;
@@ -70,20 +77,6 @@ const buttonVariants = {
   tap: { scale: 0.95 },
 };
 
-// Function to get animation path based on current step
-const getAnimationPath = (step: number): string => {
-  const animationFiles: Record<number, string> = {
-    1: "/animations/welcome.json",
-    2: "/animations/lf20_yr6zz0.json",
-    3: "/animations/lf20_3vbnmfhq.json",
-    4: "/animations/lf20_kplawjme.json",
-    5: "/animations/lf20_8b2lmi.json",
-    6: "/animations/lf20_j3f6n7.json",
-    7: "/animations/lf20_fj0eoe.json",
-  };
-  return animationFiles[step] || animationFiles[1]; // Default to step 1 if step is invalid
-};
-
 export default function ApplicationPage({ isOpen, onClose, programId }: ApplicationPageProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
@@ -102,12 +95,13 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
     salarySlips: null,
     monthlyIncome: "",
   });
-  const [animationDataRight, setAnimationDataRight] = useState<any>(null);
-  const [animationError, setAnimationError] = useState(false);
+  const [animationData, setAnimationData] = useState<any>(null);
+  const [animationLoading, setAnimationLoading] = useState(true);
+  const [animationError, setAnimationError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
-  const totalSteps = 4; // Mapped to 4 progress steps
 
+  // Authentication
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -117,22 +111,36 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
     return () => unsubscribe();
   }, []);
 
+  // Load animation
   useEffect(() => {
-    const loadAnimation = async (url: string) => {
+    const loadAnimation = async () => {
+      setAnimationLoading(true);
+      setAnimationError(null);
+      const animationUrl = animationFiles[currentStep];
       try {
-        const response = await fetch(url, { mode: 'cors' }); // Enable CORS mode
-        if (!response.ok) throw new Error(`Failed to fetch animation: ${response.statusText}`);
+        const response = await fetch(animationUrl, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(
+            `HTTP ${response.status}: ${response.statusText} for ${animationUrl}`
+          );
+        }
+        const contentType = response.headers.get("content-type");
+        if (!contentType?.includes("application/json")) {
+          throw new Error(
+            `Invalid content-type: ${contentType} for ${animationUrl}. Expected application/json.`
+          );
+        }
         const data = await response.json();
-        setAnimationDataRight(data);
-        setAnimationError(false);
-      } catch (error) {
-        console.error("Error loading Lottie animation:", error);
-        setAnimationError(true);
+        setAnimationData(data);
+      } catch (error: any) {
+        const errorMessage = error.message || "Failed to load animation";
+        console.error(`Error loading animation for step ${currentStep} (${animationUrl}):`, errorMessage);
+        setAnimationError(errorMessage);
+      } finally {
+        setAnimationLoading(false);
       }
     };
-
-    const animationPath = getAnimationPath(currentStep);
-    loadAnimation(animationPath);
+    loadAnimation();
   }, [currentStep]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -190,23 +198,17 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
     return false;
   };
 
-  const getProgress = () => {
-    const stepMap: { [key: number]: number } = { 1: 0, 2: 25, 3: 25, 4: 50, 5: 50, 6: 75, 7: 100 };
-    return stepMap[currentStep] || 0;
-  };
-
   const renderStep = () => {
     if (isSubmitted) {
       return (
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="text-center space-y-4">
-          <h3 className="text-2xl font-semibold text-white">Application Submitted!</h3>
-          <p className="text-sm text-white">
+          <span className="text-xl md:text-2xl font-semibold text-white">
+            Application Submitted!<br />
             You will receive an email confirmation shortly. Track your application in the{" "}
             <a href="/profile" className="underline text-[#cba135]">
               Profile section
-            </a>
-            .
-          </p>
+            </a>.
+          </span>
         </motion.div>
       );
     }
@@ -214,30 +216,29 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
     switch (currentStep) {
       case 1:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="text-center space-y-6">
-            <h3 className="text-xl font-semibold text-white">Welcome</h3>
-            <p className="text-sm text-white">We require your documents to start your application.</p>
-            <Button
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-6 text-center">
+            <span className="text-lg md:text-xl font-semibold">
+              Welcome {userName}<br />
+              We require your documents to start your application.
+            </span>
+            <div
               onClick={() => setCurrentStep(2)}
-              className="bg-[#cba135] hover:bg-[#b3922f] text-[#183b4e] rounded-lg px-6"
-              asChild
+              className="mt-6 px-4 py-2 w-52 max-w-52 rounded-2xl bg-[#cba135] text-[#183b4e] text-center cursor-pointer"
             >
-              <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
-                Get Started
-              </motion.div>
-            </Button>
+              Get Started
+            </div>
           </motion.div>
         );
       case 2:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4">
-            <h3 className="text-xl font-semibold text-white">Personal Information</h3>
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4 w-full">
+            <span className="text-lg md:text-xl font-semibold">Personal Information</span>
             <Input
               name="firstName"
               placeholder="First Name"
               value={formData.firstName}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]"
+              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
               required
             />
             <Input
@@ -245,21 +246,21 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="Last Name"
               value={formData.lastName}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]"
+              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
               required
             />
           </motion.div>
         );
       case 3:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4">
-            <h3 className="text-xl font-semibold text-white">Working Details</h3>
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4 w-full">
+            <span className="text-lg md:text-xl font-semibold">Working Details</span>
             <Input
               name="occupation"
               placeholder="Occupation"
               value={formData.occupation}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]"
+              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
               required
             />
             <Input
@@ -267,7 +268,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="Company Name"
               value={formData.companyName}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]"
+              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
               required
             />
             <Input
@@ -275,20 +276,20 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="Designation"
               value={formData.designation}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]"
+              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
               required
             />
           </motion.div>
         );
       case 4:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4">
-            <h3 className="text-xl font-semibold text-white">Program Selection</h3>
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4 w-full">
+            <span className="text-lg md:text-xl font-semibold">Program Selection</span>
             <Select
               value={formData.selectedProgram}
               onValueChange={handleSelectChange("selectedProgram")}
             >
-              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]">
+              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base">
                 <SelectValue placeholder="Select Program" />
               </SelectTrigger>
               <SelectContent>
@@ -303,7 +304,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               value={formData.intentToApply}
               onValueChange={handleSelectChange("intentToApply")}
             >
-              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]">
+              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base">
                 <SelectValue placeholder="Intent to Apply" />
               </SelectTrigger>
               <SelectContent>
@@ -318,10 +319,10 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
         );
       case 5:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4">
-            <h3 className="text-xl font-semibold text-white">Personal Details</h3>
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-4 rounded-lg">
-              <span className="text-sm text-[#183b4e]">Passport Photo</span>
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4 w-full">
+            <span className="text-lg md:text-xl font-semibold">Personal Details</span>
+            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
+              <span className="text-xs md:text-sm text-[#183b4e]">Passport Photo</span>
               <div className="flex space-x-2">
                 <input
                   type="file"
@@ -331,15 +332,15 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   id="passportPhoto"
                 />
                 <label htmlFor="passportPhoto" className="cursor-pointer text-[#cba135]">
-                  <Upload className="h-5 w-5" />
+                  <Upload className="h-4 w-4 md:h-5 md:w-5" />
                 </label>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="border-[#cba135] text-[#183b4e] hover:bg-[#cba135] hover:text-white"
+                  className="border-[#cba135] text-[#183b4e] hover:bg-[#cba135] hover:text-white h-8 w-8 md:h-10 md:w-10"
                   onClick={() => alert("Live capture not implemented yet")}
                 >
-                  <Camera className="h-5 w-5" />
+                  <Camera className="h-4 w-4 md:h-5 md:w-5" />
                 </Button>
               </div>
             </div>
@@ -348,11 +349,11 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="Passport Number"
               value={formData.passportNumber}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]"
+              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
               required
             />
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-4 rounded-lg">
-              <span className="text-sm text-[#183b4e]">Passport Front</span>
+            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
+              <span className="text-xs md:text-sm text-[#183b4e]">Passport Front</span>
               <input
                 type="file"
                 accept="image/*"
@@ -361,11 +362,11 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 id="passportFront"
               />
               <label htmlFor="passportFront" className="cursor-pointer text-[#cba135]">
-                <Upload className="h-5 w-5" />
+                <Upload className="h-4 w-4 md:h-5 md:w-5" />
               </label>
             </div>
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-4 rounded-lg">
-              <span className="text-sm text-[#183b4e]">Passport Back</span>
+            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
+              <span className="text-xs md:text-sm text-[#183b4e]">Passport Back</span>
               <input
                 type="file"
                 accept="image/*"
@@ -374,20 +375,20 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 id="passportBack"
               />
               <label htmlFor="passportBack" className="cursor-pointer text-[#cba135]">
-                <Upload className="h-5 w-5" />
+                <Upload className="h-4 w-4 md:h-5 md:w-5" />
               </label>
             </div>
           </motion.div>
         );
       case 6:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4">
-            <h3 className="text-xl font-semibold text-white">Financial Details</h3>
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4 w-full">
+            <span className="text-lg md:text-xl font-semibold">Financial Details</span>
             <Select
               value={formData.monthlyIncome}
               onValueChange={handleSelectChange("monthlyIncome")}
             >
-              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e]">
+              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base">
                 <SelectValue placeholder="Monthly Income Range" />
               </SelectTrigger>
               <SelectContent>
@@ -398,8 +399,8 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 ))}
               </SelectContent>
             </Select>
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-4 rounded-lg">
-              <span className="text-sm text-[#183b4e]">6-Month Bank Statement</span>
+            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
+              <span className="text-xs md:text-sm text-[#183b4e]">6-Month Bank Statement</span>
               <input
                 type="file"
                 accept=".pdf,.doc,.docx"
@@ -408,11 +409,11 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 id="bankStatement"
               />
               <label htmlFor="bankStatement" className="cursor-pointer text-[#cba135]">
-                <Upload className="h-5 w-5" />
+                <Upload className="h-4 w-4 md:h-5 md:w-5" />
               </label>
             </div>
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-4 rounded-lg">
-              <span className="text-sm text-[#183b4e]">4-Month Salary Slips</span>
+            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
+              <span className="text-xs md:text-sm text-[#183b4e]">4-Month Salary Slips</span>
               <input
                 type="file"
                 accept=".pdf,.doc,.docx"
@@ -421,22 +422,22 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 id="salarySlips"
               />
               <label htmlFor="salarySlips" className="cursor-pointer text-[#cba135]">
-                <Upload className="h-5 w-5" />
+                <Upload className="h-4 w-4 md:h-5 md:w-5" />
               </label>
             </div>
           </motion.div>
         );
       case 7:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4">
-            <h3 className="text-xl font-semibold text-white">Review & Submit</h3>
-            <div className="bg-[#F9FAFB] p-4 rounded-lg">
-              <ul className="list-disc pl-5 text-sm text-[#183b4e] space-y-2">
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4 w-full">
+            <span className="text-lg md:text-xl font-semibold">Review & Submit</span>
+            <div className="bg-[#F9FAFB] p-3 md:p-4 rounded-lg">
+              <ul className="list-disc pl-5 text-xs md:text-sm text-[#183b4e] space-y-2">
                 <li>
                   <strong>First Name:</strong> {formData.firstName || "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(2)}
                   >
                     Edit
@@ -446,7 +447,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   <strong>Last Name:</strong> {formData.lastName || "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(2)}
                   >
                     Edit
@@ -456,7 +457,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   <strong>Occupation:</strong> {formData.occupation || "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(3)}
                   >
                     Edit
@@ -466,7 +467,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   <strong>Company Name:</strong> {formData.companyName || "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(3)}
                   >
                     Edit
@@ -476,7 +477,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   <strong>Designation:</strong> {formData.designation || "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(3)}
                   >
                     Edit
@@ -487,7 +488,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   {PROGRAMS.find((p) => p.id === formData.selectedProgram)?.title || "Not selected"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(4)}
                   >
                     Edit
@@ -497,7 +498,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   <strong>Intent to Apply:</strong> {formData.intentToApply || "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(4)}
                   >
                     Edit
@@ -507,7 +508,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   <strong>Passport Number:</strong> {formData.passportNumber || "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(5)}
                   >
                     Edit
@@ -520,7 +521,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                     : "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(5)}
                   >
                     Edit
@@ -530,7 +531,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   <strong>Monthly Income:</strong> {formData.monthlyIncome || "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(6)}
                   >
                     Edit
@@ -541,7 +542,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   {formData.bankStatement || formData.salarySlips ? "Uploaded" : "Not provided"}{" "}
                   <Button
                     variant="link"
-                    className="text-[#cba135] p-0 h-auto"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
                     onClick={() => handleEdit(6)}
                   >
                     Edit
@@ -556,82 +557,148 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[80vw] h-[80vh] max-w-[1000px] max-h-[700px] overflow-y-auto bg-[#183b4e] rounded-lg shadow-lg">
-        <DialogHeader className="bg-[#183b4e] p-4">
-          <DialogTitle className="text-white text-lg font-semibold flex justify-between items-center">
-            {isSubmitted ? "Thank You!" : `Hello ${userName || "User"} - Step ${currentStep} of 7`}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onClose}
-              className="text-white hover:bg-[#cba135]/20"
-              aria-label="Close"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </DialogTitle>
-          <div className="flex items-center space-x-4 text-sm text-white">
-            <span>Contact Information</span>
-            <span className={currentStep >= 2 ? "text-[#cba135]" : "text-gray-400"}>Personal Information</span>
-            <span className={currentStep >= 4 ? "text-[#cba135]" : "text-gray-400"}>Additional Details</span>
-            <span className={currentStep >= 7 ? "text-[#cba135]" : "text-gray-400"}>Finish Project</span>
-          </div>
-          <Progress value={getProgress()} className="h-1 bg-[#F9FAFB] [&>*]:bg-[#cba135]" />
-        </DialogHeader>
-        <motion.div className="flex flex-col md:flex-row gap-4 p-4">
-          <div className="md:w-2/3 space-y-4">
-            <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
-          </div>
-          <div className="md:w-1/3 flex justify-center items-center">
-            {animationError || !animationDataRight ? (
-              <div className="w-[120px] h-[120px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-sm">
-                Animation Unavailable
+    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50" onClick={onClose}>
+      <div
+        className="w-full h-full md:w-4/5 md:max-w-[1000px] md:h-auto md:max-h-[90vh] bg-[#183b4e] md:rounded-2xl flex flex-col md:flex-row overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white hover:bg-[#cba135]/20 p-2 rounded-full z-10"
+          aria-label="Close"
+        >
+          <X className="h-5 w-5" />
+        </button>
+
+        {/* Mobile: Animation at Top, Content + Buttons Below */}
+        <div className="flex flex-col w-full md:hidden p-4">
+          {/* Animation */}
+          <div className="flex justify-center mb-4">
+            {animationLoading ? (
+              <div className="w-[200px] h-[200px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-xs">
+                Loading...
+              </div>
+            ) : animationError || !animationData ? (
+              <div className="w-[200px] h-[200px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-xs text-center">
+                Animation Unavailable: {animationError || "No data"}
               </div>
             ) : (
-              <div className="w-[120px] h-[120px] bg-[#F9FAFB]">
-                <Lottie animationData={animationDataRight} style={{ width: 120, height: 120 }} />
+              <div className="w-[200px] h-[200px] bg-[#F9FAFB] rounded-lg">
+                <Lottie animationData={animationData} style={{ width: 200, height: 200 }} />
               </div>
             )}
           </div>
-        </motion.div>
-        {!isSubmitted && (
-          <DialogFooter className="flex justify-between p-4 bg-[#183b4e]">
-            <div className="flex items-center space-x-2">
-              {currentStep > 1 && (
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handlePrevStep}
-                  className="border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-[#183b4e]"
-                  aria-label="Previous Step"
+
+          {/* Content + Buttons */}
+          <div className="flex-1 text-white flex flex-col justify-center items-center text-center p-4 space-y-6">
+            <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
+            {!isSubmitted && currentStep > 1 && (
+              <div className="flex justify-between w-full">
+                <div className="flex space-x-2">
+                  <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={handlePrevStep}
+                    className="px-3 py-2 rounded-2xl border border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-white text-xs"
+                    aria-label="Previous Step"
+                  >
+                    <ChevronLeft className="inline-block h-4 w-4 mr-1" />
+                    Back
+                  </motion.button>
+                  <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={currentStep === 5 || currentStep === 6 ? handleSkip : onClose}
+                    className="px-3 py-2 rounded-2xl border border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-white text-xs"
+                    aria-label={currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
+                  >
+                    {currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
+                  </motion.button>
+                </div>
+                <motion.button
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                  onClick={handleNextStep}
+                  disabled={isNextDisabled()}
+                  className="px-4 py-2 rounded-2xl bg-[#cba135] text-[#183b4e] hover:bg-[#b3922f] disabled:opacity-50 text-xs"
+                  aria-label={currentStep === 7 ? "Submit" : "Next"}
                 >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-              )}
-              <Button
-                variant="outline"
-                onClick={currentStep === 5 || currentStep === 6 ? handleSkip : onClose}
-                className="border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-[#183b4e]"
-                aria-label={currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
-              >
-                {currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
-              </Button>
-            </div>
-            {currentStep > 1 && (
-              <Button
-                onClick={handleNextStep}
-                disabled={isNextDisabled()}
-                className="bg-[#cba135] hover:bg-[#b3922f] text-[#183b4e]"
-                aria-label={currentStep === 7 ? "Submit" : "Next"}
-              >
-                {currentStep === 7 ? "Submit" : "Next"}
-              </Button>
+                  {currentStep === 7 ? "Submit" : "Next"}
+                </motion.button>
+              </div>
             )}
-          </DialogFooter>
-        )}
-      </DialogContent>
-    </Dialog>
+          </div>
+        </div>
+
+        {/* Desktop: Animation on Right, Content + Buttons on Left */}
+        <div className="hidden md:flex w-full h-full">
+          {/* Content + Buttons */}
+          <div className="w-3/5 text-white flex flex-col justify-center items-center text-center p-6 space-y-6">
+            <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
+            {!isSubmitted && currentStep > 1 && (
+              <div className="flex justify-between w-full">
+                <div className="flex space-x-2">
+                  <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={handlePrevStep}
+                    className="px-4 py-2 rounded-2xl border border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-white text-sm"
+                    aria-label="Previous Step"
+                  >
+                    <ChevronLeft className="inline-block h-4 w-4 mr-1" />
+                    Back
+                  </motion.button>
+                  <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={currentStep === 5 || currentStep === 6 ? handleSkip : onClose}
+                    className="px-4 py-2 rounded-2xl border border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-white text-sm"
+                    aria-label={currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
+                  >
+                    {currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
+                  </motion.button>
+                </div>
+                <motion.button
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                  onClick={handleNextStep}
+                  disabled={isNextDisabled()}
+                  className="px-5 py-2 rounded-2xl bg-[#cba135] text-[#183b4e] hover:bg-[#b3922f] disabled:opacity-50 text-sm"
+                  aria-label={currentStep === 7 ? "Submit" : "Next"}
+                >
+                  {currentStep === 7 ? "Submit" : "Next"}
+                </motion.button>
+              </div>
+            )}
+          </div>
+          {/* Animation */}
+          <div className="w-2/5 flex justify-center items-center p-4">
+            {animationLoading ? (
+              <div className="w-[300px] h-[300px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-sm">
+                Loading...
+              </div>
+            ) : animationError || !animationData ? (
+              <div className="w-[300px] h-[300px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-sm text-center">
+                Animation Unavailable: {animationError || "No data"}
+              </div>
+            ) : (
+              <div className="w-[300px] h-[300px] bg-[#F9FAFB] rounded-lg">
+                <Lottie animationData={animationData} style={{ width: 300, height: 300 }} />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

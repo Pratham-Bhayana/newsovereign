@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 export default {
   darkMode: ["class"],
@@ -64,20 +65,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
@@ -86,5 +79,35 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".text-stroke": {
+          "-webkit-text-stroke-width": "0.5px",
+          "-webkit-text-stroke-color": "#000",
+        },
+        ".text-stroke-2": {
+          "-webkit-text-stroke-width": "2px",
+        },
+        ".text-stroke-white": {
+          "-webkit-text-stroke-color": "#fff",
+        },
+        ".text-stroke-black": {
+          "-webkit-text-stroke-color": "#000",
+        },
+        ".text-fill-transparent": {
+          "color": "transparent",
+          "-webkit-text-fill-color": "transparent",
+        },
+        ".text-fill-white": {
+          "-webkit-text-fill-color": "#fff",
+        },
+        ".text-fill-black": {
+          "-webkit-text-fill-color": "#000",
+        },
+      });
+    }),
+  ],
 } satisfies Config;

@@ -12,6 +12,7 @@ export const SERVICES = [
       "Personalized Investment Guidance",
     ],
     color: "gold-gradient",
+    learnMore: "/programPage.tsx",
   },
   {
     id: "residency",
@@ -269,19 +270,19 @@ export const PROGRAMS = [
     countries: [""],
     image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
-      "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+      "https://res.cloudinary.com/dyyswz13r/image/upload/v1750657871/ChatGPT_Image_Jun_23_2025_11_20_48_AM_xjhkdk.png",
       "https://images.unsplash.com/photo-1583736772302-d4b8aef36c27?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1535034255-a2c6b4d4b4b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
     title: "Liv Croatia",
-    description: "Investment from €280,000. Path to EU citizenship in 5 years. Schengen area access and high quality of life.",
-    minInvestment: "€280,000",
-    processingTime: "6-12 months",
+    description: "Discover a country that offers safety, opportunity, and luxury. All in one place.",
+    minInvestment: "€25,000",
+    processingTime: "3-4 months",
     benefits: ["1. Straigt forward process with clear investment requirements.", " 2. Obtain residency in 3-6 months with the path to future citizenship." , "3. Receive one acre of prime land and company formation all inclusive." , "4. Access top-tier healthcare and educational opportunities for your family."],
     calculator: {
-      baseCost: 280000,
+      baseCost: 25000,
       currency: "EUR",
       familyMemberCost: 35000,
       governmentFees: 5000,
@@ -309,13 +310,13 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Malta Citizenship Program",
-    description: "Exceptional program combining investment, donation, and residency. Premium EU citizenship option.",
-    minInvestment: "€690,000",
-    processingTime: "12-36 months",
-    benefits: ["EU citizenship directly", "Visa-free travel to 185+ countries", "Premium healthcare and education", "Strategic business location", "Tax advantages"],
+    title: "Malta Residency by Investement",
+    description: "Sun-drenched coastlines, thriving business opportunities and a warm Mediterranean welcome. All in one place.",
+    minInvestment: "€250,000",
+    processingTime: "4-6 months",
+    benefits: ["1. Right to reside in Malta", "2. No minimum stay requirement", "3. Can be converted to Citizenship", "4. Visa - free travel in Schengen zone", ],
     calculator: {
-      baseCost: 690000,
+      baseCost: 250000,
       currency: "EUR",
       familyMemberCost: 50000,
       governmentFees: 15000,
@@ -334,7 +335,7 @@ export const PROGRAMS = [
   },
   // Cyprus Investment
   {
-    id: "cyprus-investment",
+    id: "Bosnia & Herzegovina",
     continent: "Europe",
     countries: [""],
     image: "https://media.assettype.com/outlooktraveller%2F2024-04%2F0b666b33-a122-4c3a-b06a-49767ab477a4%2Fshutterstock_1058991356.jpg?w=480&auto=format%2Ccompress&fit=max",
@@ -345,11 +346,11 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1551524164-687a55dd1126?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Cyprus Investment Program",
-    description: "Premium investment program with fast processing. EU passport and business opportunities in strategic location.",
+    title: "Bosnia & Herzegovina Residency by Investment",
+    description: "Epic adventures, new opportunities and friendly faces at every turn. All in one place",
     minInvestment: "€2,000,000",
     processingTime: "3-6 months",
-    benefits: ["EU passport", "No residency requirement", "Tax benefits", "Strategic location", "High-quality lifestyle"],
+    benefits: ["1. 9th safest country in Europe for expats and retirees", "2. 4 UNESCO World Heritage Sites showcasing rich history and culture", "Bosnia does not impose any wealth tax on individuals", "Strategic location", "High-quality lifestyle"],
     calculator: {
       baseCost: 2000000,
       currency: "EUR",
@@ -370,7 +371,7 @@ export const PROGRAMS = [
   },
   // Greece Golden Visa
   {
-    id: "greece-golden-visa",
+    id: "UKRAINE",
     continent: "Europe",
     countries: [""],
     image: "https://images.unsplash.com/photo-1555993539-1732b0258235?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -381,18 +382,18 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?e=1732b0258235?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1558618047-3c8c76蔡7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Greece Golden Visa",
-    description: "Affordable European residency through real estate investment. Gateway to EU with rich history and culture.",
-    minInvestment: "€250,000",
+    title: "Ukraine Citizenship by Investment",
+    description: " lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    minInvestment: "comming soon",
     processingTime: "3-6 months",
-    benefits: ["EU residence permit", "No minimum stay requirement", "Family inclusion", "Schengen access", "Affordable investment"],
+    benefits: ["1. Offers a rich European lifestyle with diverse cultural experiences, and modern amenities.", "2. Visa-free or visa-on-arrival access to 100+ countries.", "3. Lucrative property market with options in major cities.", "4. Investment opportunities in tech, agriculture, and real estate.", ],
     calculator: {
-      baseCost: 250000,
+      baseCost: "",
       currency: "EUR",
       familyMemberCost: 0,
-      governmentFees: 2000,
-      legalFees: 8000,
-      dueDiligenceFees: 5000,
+      governmentFees: "",
+      legalFees: "",
+      dueDiligenceFees: "",
     },
     eligibilityCriteria: [
       "Minimum age of 18",
@@ -405,7 +406,7 @@ export const PROGRAMS = [
   },
   // Spain Golden Visa
   {
-    id: "spain-golden-visa",
+    id: "HUNGARY",
     continent: "Europe",
     countries: [""],
     image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -416,11 +417,11 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1583736772302-d4b8aef36c27?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Spain Golden Visa",
+    title: "  Hungary Golden Visa",
     description: "Residence by investment in one of Europe's most popular destinations. Rich culture and excellent climate.",
     minInvestment: "€500,000",
-    processingTime: "4-8 months",
-    benefits: ["EU residence permit", "Path to permanent residency", "Family inclusion", "Work authorization", "Excellent lifestyle"],
+    processingTime: "1-2 months",
+    benefits: ["1. Straightforward process with clear investment requirements.", "2. Receive one acre of prime land and company formation all inclusive.", "3. Live, work, and stay anywhere within the European Union.", "4. Favourable tax policies", ],
     calculator: {
       baseCost: 500000,
       currency: "EUR",
@@ -440,7 +441,7 @@ export const PROGRAMS = [
   },
   // Italy Investor Visa
   {
-    id: "italy-investor-visa",
+    id: "GREECE",
     continent: "Europe",
     countries: [""],
     image: "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -451,11 +452,11 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1583736772302-d4b8aef36c27?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Italy Investor Visa",
-    description: "Innovative startup and investment opportunities in the heart of Europe. Rich heritage and business culture.",
+    title: "Greece Golden Visa",
+    description: "Experience the ease of making Greece your forever home",
     minInvestment: "€500,000",
     processingTime: "6-12 months",
-    benefits: ["EU residence permit", "Startup ecosystem access", "Cultural heritage", "Business opportunities", "Strategic location"],
+    benefits: ["Greece ranks 1st globally for shipping — largest merchant navy fleet in the worldt", "2. 3rd most attractive Golden Visa program in the world.", "3. Greece is the 10th largest economy in the European Union by GDP.", "4. Visa free or visa on arrival access to 190+ countries", ],
     calculator: {
       baseCost: 500000,
       currency: "EUR",
@@ -475,7 +476,7 @@ export const PROGRAMS = [
   },
   // St. Kitts & Nevis
   {
-    id: "st-kitts-nevis",
+    id: "Antigua & Barbuda",
     continent: "Caribbean",
     countries: [""],
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -486,7 +487,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "St. Kitts & Nevis",
+    title: "Antigua & Barbuda Citizenship by Investment",
     description: "The world's oldest citizenship by investment program. Fast processing and visa-free travel to 150+ countries.",
     minInvestment: "$150,000",
     processingTime: "3-6 months",
@@ -510,7 +511,7 @@ export const PROGRAMS = [
   },
   // Dominica Citizenship
   {
-    id: "dominica-citizenship",
+    id: "ST kitts & Nevis",
     continent: "Caribbean",
     countries: [""],
     image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -521,7 +522,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Dominica Citizenship",
+    title: "ST Kitts & Nevis Citizenship by Investment",
     description: "Most affordable citizenship program with strong passport. Known for its natural beauty and stability.",
     minInvestment: "$100,000",
     processingTime: "3-4 months",
@@ -545,7 +546,7 @@ export const PROGRAMS = [
   },
   // Grenada Citizenship
   {
-    id: "grenada-citizenship",
+    id: "ST LUCIA ",
     continent: "Caribbean",
     countries: [""],
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -556,7 +557,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Grenada Citizenship",
+    title: "ST Lucia Citizenship by Investment",
     description: "Unique E-2 treaty access to USA. Beautiful island nation with growing economy and tourism sector.",
     minInvestment: "$150,000",
     processingTime: "4-6 months",
@@ -580,7 +581,7 @@ export const PROGRAMS = [
   },
   // Antigua & Barbuda
   {
-    id: "antigua-barbuda",
+    id: "Domanica-citizenship",
     continent: "Caribbean",
     countries: [""],
     image: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -591,7 +592,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Antigua & Barbuda",
+    title: "Dominica Citizenship by Investment",
     description: "Caribbean citizenship with excellent visa-free travel. Known for pristine beaches and friendly culture.",
     minInvestment: "$100,000",
     processingTime: "3-6 months",
@@ -615,7 +616,7 @@ export const PROGRAMS = [
   },
   // St. Lucia Citizenship
   {
-    id: "st-lucia-citizenship",
+    id: "Grenada",
     continent: "Caribbean",
     countries: [""],
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -626,7 +627,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "St. Lucia Citizenship",
+    title: "Grenada Citizenship by Investment",
     description: "Newest Caribbean citizenship program with competitive investment options and excellent passport strength.",
     minInvestment: "$100,000",
     processingTime: "6-10 months",
@@ -650,7 +651,7 @@ export const PROGRAMS = [
   },
   // Turkey Citizenship
   {
-    id: "turkey-citizenship",
+    id: "VanuaTu",
     continent: "Europe/Asia",
     countries: [""],
     image: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -661,7 +662,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Turkey Citizenship",
+    title: "Vanuatu Citizenship by Investment",
     description: "Strategic location between Europe and Asia. Fast-growing economy with excellent investment opportunities.",
     minInvestment: "$400,000",
     processingTime: "3-6 months",
@@ -685,8 +686,8 @@ export const PROGRAMS = [
   },
   // UAE Golden Visa
   {
-    id: "uae-golden-visa",
-    continent: "Middle East",
+    id: "Mexico",
+    continent: "Latin America",
     countries: [""],
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
@@ -696,7 +697,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "UAE Golden Visa",
+    title: "Mexico Residency by Investment",
     description: "Long-term residency in one of the world's most dynamic business hubs. Tax-free living and world-class infrastructure.",
     minInvestment: "$545,000",
     processingTime: "2-4 months",
@@ -720,8 +721,8 @@ export const PROGRAMS = [
   },
   // Canada Investor Program
   {
-    id: "canada-investor",
-    continent: "Americas",
+    id: "Brazil",
+    continent: "Latin America",
     countries: [""],
     image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
@@ -731,7 +732,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Canada Investor Program",
+    title: "Brazil Citizenship by Donation",
     description: "Pathway to Canadian permanent residence through provincial programs. High quality of life and excellent education.",
     minInvestment: "CAD $400,000",
     processingTime: "18-36 months",
@@ -755,8 +756,8 @@ export const PROGRAMS = [
   },
   // USA EB-5 Program
   {
-    id: "usa-eb5",
-    continent: "Americas",
+    id: "Thailad",
+    continent: "Middle East",
     countries: [""],
     image: "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
@@ -766,7 +767,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "USA EB-5 Program",
+    title: "Thailand privalege",
     description: "Green card through investment in job-creating enterprises. Access to the world's largest economy.",
     minInvestment: "$800,000",
     processingTime: "24-60 months",
@@ -790,7 +791,7 @@ export const PROGRAMS = [
   },
   // Australia Investor Visa
   {
-    id: "australia-investor",
+    id: "Thailand",
     continent: "Oceania",
     countries: [""],
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
@@ -801,7 +802,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Australia Investor Visa",
+    title: "Thailand Residence by Investment",
     description: "Significant investor visa for high-net-worth individuals. Excellent lifestyle and business opportunities.",
     minInvestment: "AUD $2,500,000",
     processingTime: "12-24 months",
@@ -825,8 +826,8 @@ export const PROGRAMS = [
   },
   // Singapore Investor Program
   {
-    id: "singapore-investor",
-    continent: "Asia",
+    id: "UAE Golden Visa",
+    continent: "UAE",
     countries: [""],
     image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     images: [
@@ -836,7 +837,7 @@ export const PROGRAMS = [
       "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
       "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
     ],
-    title: "Singapore Investor Program",
+    title: "UAE",
     description: "Global Investor Programme for ultra-high-net-worth individuals. Gateway to Asia's financial hub.",
     minInvestment: "SGD $2,500,000",
     processingTime: "12-18 months",

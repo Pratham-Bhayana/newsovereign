@@ -93,7 +93,7 @@ const Header: React.FC = () => {
           {/* Logo - Fixed while scrolling */}
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[180px] h-[120px] lg:w-[240px] lg:h-[160px] mb-5 z-[999]">
             <div
-              className="absolute top-0 left-[-20%] w-[150%] h-full bg-black"
+              className="absolute top-0 left-[-20%] w-[150%] h-full bg-[#000000]"
               style={{ clipPath: 'polygon(0 0, 100% 0%, 83% 40%, 15% 40%)' }}
             ></div>
             <Link href="/">
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
               <Link key={item.name} href={item.href}>
                 <span
                   className={`p-[15px] rounded-[15px] no-underline text-[#cba135] font-bold text-base hover:text-[#a8a8f5] transition-colors duration-500 cursor-pointer dark:text-white dark:hover:text-[#cba135] ${
-                    location === item.href ? 'text-[#00000] dark:text-[#cba135]' : ''
+                    location === item.href ? 'text-[#00000] dark:text-[#cba135] ' : ''
                   }`}
                 >
                   {item.name}
@@ -136,7 +136,7 @@ const Header: React.FC = () => {
               onMouseEnter={() => setIsDropdownOpen(true)}
               onMouseLeave={() => setIsDropdownOpen(false)}
             >
-              <button className="flex items-center gap-2 text-black font-semibold px-4 py-2 rounded-full hover:bg-[#b08f2e] transition-colors duration-300">
+              <button className="flex items-center gap-2 text-[#00000] bg-[#f4f4f4] font-semibold px-4 py-2 rounded-[10px] hover:bg-[#b08f2e] transition-colors duration-300">
                 <User className="w-6 h-6" />
                 <span className="text-sm">
                   {user ? user.displayName || 'Account' : 'Sign Up / Sign In'}
