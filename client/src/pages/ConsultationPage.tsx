@@ -196,7 +196,7 @@ export default function ConsultationPage() {
                   <span className="text-[#183b4e] font-medium">Call Us Now</span>
                 </div>
                 <a
-                  href="tel:+918595834700"
+                  href="tel:+918595873470"
                   className="text-[#cba135] hover:underline"
                 >
                   +91 8595834700
@@ -210,7 +210,7 @@ export default function ConsultationPage() {
                 <div className="flex items-center justify-between relative z-10">
                   <span className="font-medium">Drop Us a Message</span>
                   <a
-                    href="https://wa.me/+918595834700"
+                    href="https://wa.me/+918595873470"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white hover:text-[#cba135]"
