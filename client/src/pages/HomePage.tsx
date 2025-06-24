@@ -215,13 +215,13 @@ export default function HomePage() {
             className="absolute right-[0] top-[100%] sm:right-[-130px] sm: top[100%] flex-col items-center lg:items-end mt-2 lg:mt-0"
           >
             <Link
-              href="/program.html"
+              href="/programs"
               className="no-underline bg-[#cba135] text-white py-3 px-6 w-[220px] sm:w-[250px] h-[50px] sm:h-[60px] flex items-center justify-center uppercase gap-4 rounded-tl-[50px] rounded-bl-[50px] hover:drop-shadow-[0_0_20px_#000000] transition-all duration-300 animate-btn-r-l text-sm sm:text-base"
             >
               Explore Programs
             </Link>
             <Link
-              href="/schedule.html"
+              href="/consultation"
               className="no-underline bg-[#2e3252] text-white py-3 px-6 w-[220px] sm:w-[250px] h-[50px] sm:h-[60px] flex items-center justify-center uppercase text-xs sm:text-sm font-normal mt-2 rounded-tl-[50px] rounded-bl-[50px] hover:drop-shadow-[0_0_20px_#000000] transition-all duration-300"
             >
               Schedule Consultation
