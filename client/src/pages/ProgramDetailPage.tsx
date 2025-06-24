@@ -546,13 +546,12 @@ export default function ProgramDetailPage() {
               </motion.div>
 
               <motion.div variants={slideUp}>
-                <Button
-                  onClick={handleStartApplication}
-                  className="bg-[#183b4e] hover:bg-[#b3922f] text-white text-sm w-full flex items-center justify-center"
-                >
-                  <Calendar className="w-4 h-4 mr-2" />
-                  <span>Book Consultation</span>
-                </Button>
+<Button asChild className="bg-[#183b4e] hover:bg-[#b3922f] text-white text-sm w-full flex items-center justify-center">
+  <a href="/consultation">
+    <Calendar className="w-4 h-4 mr-2" />
+    <span>Book Consultation</span>
+  </a>
+</Button>
               </motion.div>
 
               <motion.section variants={slideUp} className="py-4 bg-gray-100 rounded-2xl shadow-sm">
