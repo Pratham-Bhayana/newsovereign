@@ -231,7 +231,7 @@ export default function HomePage() {
       </section>
 
       {/* Spacer to Prevent Content Overlap */}
-      <div className="h-[80vh] sm:h-[100vh] bg-[#f8f4ea] lg:h-[90vh]"></div>
+      <div className="h-[90vh] sm:h-[100vh] bg-[#f8f4ea] lg:h-[90vh]"></div>
 
       {/* Programs Preview */}
       <section className="py-16 sm:py-20 mt-0 bg-[#f8f4ea]">
