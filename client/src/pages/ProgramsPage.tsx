@@ -107,7 +107,7 @@ export default function ProgramsPage() {
 
       {/* Program Cards */}
       <section className="py-10 sm:py-20 bg-gradient-to-t from-[#f8f4ea]">
-        <div className="max-w-full mx-auto px-8 sm:px-6 lg:px-8">
+        <div className="max-w-full mx-auto px-7 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-4">
             {filteredPrograms.slice(6, 24).map((program, index) => (
               <motion.div 
