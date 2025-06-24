@@ -438,7 +438,7 @@ export default function ProgramDetailPage() {
                           className="text-[#183b4e] border-[#183b4e] hover:bg-[#183b4e] hover:text-white text-sm"
                         >
                           <a href={program.brochure} download>
-                          <i className="bi bi-cloud-arrow-down-fill text-[25px]"></i> Brochure {program.title}
+                          <i className="bi bi-cloud-arrow-down-fill text-[25px]"></i> Brochure <br/> {program.title}
                           </a>
                         </Button>
                       )}
