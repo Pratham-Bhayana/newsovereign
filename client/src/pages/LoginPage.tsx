@@ -268,8 +268,8 @@ const LoginPage: React.FC = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-        <h1 className="text-4xl font-bold">Welcome to Raizing Sovereign</h1>
-        <p className="text-lg mt-2">Empower your journey with AI-driven insights.</p>
+        <h1 className="text-4xl text-center font-bold">Welcome to Raizing Sovereign</h1>
+        <p className="text-lg text-centre mt-2">Please Login to Continue...</p>
       </motion.div>
 
       {/* Auth Card */}
