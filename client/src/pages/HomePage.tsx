@@ -1,3 +1,4 @@
+
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, CheckSquare } from "lucide-react";
@@ -230,10 +231,10 @@ export default function HomePage() {
       </section>
 
       {/* Spacer to Prevent Content Overlap */}
-      <div className="h-[80vh] sm:h-[100vh] lg:h-[70vh]"></div>
+      <div className="h-[80vh] sm:h-[100vh] bg-[#f8f4ea] lg:h-[90vh]"></div>
 
       {/* Programs Preview */}
-      <section className="py-16 sm:py-20 mt-11 bg-[#f8f4ea]">
+      <section className="py-16 sm:py-20 mt-0 bg-[#f8f4ea]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

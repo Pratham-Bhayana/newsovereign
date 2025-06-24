@@ -8,14 +8,23 @@ import Lottie from "lottie-react";
 import { auth } from "@/lib/firebaseConfig";
 import { PROGRAMS } from "@/lib/constants";
 
-const animationFiles: Record<number, string> = {
-  1: "/animations/welcome.json",
-  2: "/animations/lf20_yr6zz0.json",
-  3: "/animations/lf20_3vbnmfhq.json",
-  4: "/animations/lf20_kplawjme.json",
-  5: "/animations/lf20_8b2lmi.json",
-  6: "/animations/lf20_j3f6n7.json",
-  7: "/animations/lf20_fj0eoe.json",
+// Import animation JSON files
+import animationStep1 from "./animations/ani-one.json";
+import animationStep2 from "./animations/ani-two.json";
+import animationStep3 from "./animations/ani-three.json";
+import animationStep4 from "./animations/ani-four.json";
+import animationStep5 from "./animations/ani-five.json";
+import animationStep6 from "./animations/ani-six.json";
+import animationStep7 from "./animations/ani-seven.json";
+
+const animationFiles: Record<number, any> = {
+  1: animationStep1,
+  2: animationStep2,
+  3: animationStep3,
+  4: animationStep4,
+  5: animationStep5,
+  6: animationStep6,
+  7: animationStep7,
 };
 
 interface FormData {
@@ -96,7 +105,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
     monthlyIncome: "",
   });
   const [animationData, setAnimationData] = useState<any>(null);
-  const [animationLoading, setAnimationLoading] = useState(true);
+  const [animationLoading, setAnimationLoading] = useState(false);
   const [animationError, setAnimationError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
@@ -113,34 +122,17 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
 
   // Load animation
   useEffect(() => {
-    const loadAnimation = async () => {
-      setAnimationLoading(true);
-      setAnimationError(null);
-      const animationUrl = animationFiles[currentStep];
-      try {
-        const response = await fetch(animationUrl, { cache: "no-store" });
-        if (!response.ok) {
-          throw new Error(
-            `HTTP ${response.status}: ${response.statusText} for ${animationUrl}`
-          );
-        }
-        const contentType = response.headers.get("content-type");
-        if (!contentType?.includes("application/json")) {
-          throw new Error(
-            `Invalid content-type: ${contentType} for ${animationUrl}. Expected application/json.`
-          );
-        }
-        const data = await response.json();
-        setAnimationData(data);
-      } catch (error: any) {
-        const errorMessage = error.message || "Failed to load animation";
-        console.error(`Error loading animation for step ${currentStep} (${animationUrl}):`, errorMessage);
-        setAnimationError(errorMessage);
-      } finally {
-        setAnimationLoading(false);
-      }
-    };
-    loadAnimation();
+    setAnimationLoading(true);
+    setAnimationError(null);
+    const data = animationFiles[currentStep];
+    if (data) {
+      setAnimationData(data);
+      setAnimationLoading(false);
+    } else {
+      setAnimationData(null);
+      setAnimationLoading(false);
+      setAnimationError("No animation for this step");
+    }
   }, [currentStep]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -216,10 +208,10 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
     switch (currentStep) {
       case 1:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-6 text-center">
-            <span className="text-lg md:text-xl font-semibold">
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-6 text-left">
+            <span className="text-lg md:text-xl flex font-semibold">
               Welcome {userName}<br />
-              We require your documents to start your application.
+              We require your documents to start <br/> your application.
             </span>
             <div
               onClick={() => setCurrentStep(2)}
@@ -638,7 +630,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
         </div>
 
         {/* Desktop: Animation on Right, Content + Buttons on Left */}
-        <div className="hidden md:flex w-full h-full">
+        <div className="hidden bg-transparent md:flex w-full h-full">
           {/* Content + Buttons */}
           <div className="w-3/5 text-white flex flex-col justify-center items-center text-center p-6 space-y-6">
             <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
@@ -684,15 +676,15 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
           {/* Animation */}
           <div className="w-2/5 flex justify-center items-center p-4">
             {animationLoading ? (
-              <div className="w-[300px] h-[300px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-sm">
+              <div className="w-[300px] h-[300px] flex items-center justify-center  text-[#183b4e] text-sm">
                 Loading...
               </div>
             ) : animationError || !animationData ? (
-              <div className="w-[300px] h-[300px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-sm text-center">
+              <div className="w-[300px] h-[300px] flex items-center justify-center items-center  text-[#183b4e] text-sm text-center">
                 Animation Unavailable: {animationError || "No data"}
               </div>
             ) : (
-              <div className="w-[300px] h-[300px] bg-[#F9FAFB] rounded-lg">
+              <div className="w-[300px] h-[300px]  rounded-lg">
                 <Lottie animationData={animationData} style={{ width: 300, height: 300 }} />
               </div>
             )}
