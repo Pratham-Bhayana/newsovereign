@@ -50,7 +50,7 @@ const AIAssistancePage: React.FC = () => {
 
     // Specific greeting for "Hi"
     if (inputLower === 'hi' || inputLower === 'hello') {
-      return `hELLO ${user?.displayName || 'Guest'} sir welcome to Raizing Sovereign https://raizzing.netlify.app/programs`;
+      return `Hello ${user?.displayName || 'Guest'} sir welcome to Raizing Sovereign how may i help you`;
     }
 
     // Financial queries
@@ -83,13 +83,13 @@ const AIAssistancePage: React.FC = () => {
       return 'Raizing Sovereign offers crowdfunding for innovative projects. Visit https://raizzing.netlify.app/crowdfunding to explore campaigns or start your own!';
     }
     if (inputLower.includes('program') || inputLower.includes('programs')) {
-      return 'Our programs empower financial sovereignty. Check them out at https://raizzing.netlify.app/programs. Want details on a specific program?';
+      return 'Our programs empower financial sovereignty. Check them out at program section. Want details on a specific program?';
     }
     if (inputLower.includes('merchandise') || inputLower.includes('shop')) {
-      return 'Browse exclusive Raizing Sovereign merchandise at https://raizzing.netlify.app/merchandise. Interested in our latest collection?';
+      return 'Browse exclusive Raizing Sovereign merchandise at merchandise section. Interested in our latest collection?';
     }
     if (inputLower.includes('consultation') || inputLower.includes('consult')) {
-      return 'Book a personalized consultation at https://raizzing.netlify.app/consultation to discuss your financial goals with our experts.';
+      return 'Book a personalized consultation at consultation section to discuss your financial goals with our experts.';
     }
     if (inputLower.includes('sovereign') || inputLower.includes('raizing')) {
       return 'Raizing Sovereign is a platform for financial empowerment through crowdfunding and AI-driven insights. Learn more at https://raizzing.netlify.app/about.';
@@ -97,7 +97,7 @@ const AIAssistancePage: React.FC = () => {
 
     // General queries
     if (inputLower.includes('who are you') || inputLower.includes('grok')) {
-      return 'I’m Grok, an AI assistant created by xAI, here to provide financial insights and support for Raizing Sovereign users. What’s on your mind?';
+      return 'I’m ben, an AI assistant created by xAI, here to provide financial insights and support for Raizing Sovereign users. What’s on your mind?';
     }
     if (inputLower.includes('weather') || inputLower.includes('today')) {
       return 'I don’t have real-time weather data, but I can help with financial planning for any season! What’s your next financial goal?';
@@ -110,7 +110,7 @@ const AIAssistancePage: React.FC = () => {
     }
 
     // Fallback
-    return 'I’m Grok, ready to assist! Try asking about finance, your profile, Raizing Sovereign’s programs, or even a fun fact!';
+    return 'I’m ben, ready to assist! Try asking about finance, your profile, Raizing Sovereign’s programs, or even a fun fact!';
   };
 
   // Check auth state
@@ -207,7 +207,7 @@ const AIAssistancePage: React.FC = () => {
             AI Assistance
           </h1>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200 max-w-2xl mx-auto">
-            Chat with Grok or use voice assistance for personalized financial support.
+            Chat with Ben or use voice assistance for personalized financial support.
           </p>
         </motion.div>
 
@@ -219,7 +219,7 @@ const AIAssistancePage: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-white dark:bg-[#183b4e] rounded-xl shadow-sm p-6"
           >
-            <h2 className="text-sm font-bold text-[#183b4e] dark:text-white mb-4">Chat with Grok</h2>
+            <h2 className="text-sm font-bold text-[#183b4e] dark:text-white mb-4">Chat with Ben</h2>
             <div className="h-[400px] overflow-y-auto mb-4 p-4 bg-gray-50 dark:bg-[#333] rounded-lg border border-gray-300 dark:border-gray-600">
               {messages.map(message => (
                 <div
