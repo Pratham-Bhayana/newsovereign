@@ -184,14 +184,14 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 absolute top-[0px] left-4 z-[1000]"
+            className="lg:hidden p-2 fixed top-[0px] text-[#cba135] left-0 z-[1000]"
             onClick={toggleMobileMenu}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {isMobileMenuOpen ? (
-              <X className="w-8 h-8 text-black dark:stroke-white z-[1001]" />
+              <X className="w-8 h-8 text-[#cba135] dark:stroke-white z-[9991]" />
             ) : (
-              <Menu className="w-8 h-8 text-black dark:stroke-white z-[1001]" />
+              <Menu className="w-8 h-8 text-[#cba135] dark:stroke-white z-[1001]" />
             )}
           </button>
         </div>
@@ -246,7 +246,7 @@ const Header: React.FC = () => {
                   </Link>
                 )}
               </div>
-              <div className="absolute bottom-4 right-6">
+              <div className="absolute bottom-8  right-4">
                 {user ? (
                   <button
                     onClick={handleLogout}
@@ -258,7 +258,7 @@ const Header: React.FC = () => {
                 ) : (
                   <Link
                     href={`/login?redirect=${encodeURIComponent(location)}`}
-                    className="flex items-center  gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm no-underline hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]  "
+                    className="flex items-center   gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm no-underline hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]  "
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <LogIn className="max-w-5 max-h-5" />
@@ -268,7 +268,7 @@ const Header: React.FC = () => {
               </div>
               <button
                 onClick={toggleTheme}
-                className="absolute bottom-4 left-6 flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
+                className="absolute bottom-8 left-4 flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
                 aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}

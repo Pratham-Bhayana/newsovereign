@@ -190,7 +190,7 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.6 }}
-              className="text-[#cba135]  text-4xl text-stroke text-stroke-black   sm:text-5xl text-left lg:text-6xl font-bold mb-10 sm:mt-5 max-w-full sm:max-w-[80%] lg:max-w-[600px]"
+              className="text-[#cba135]  text-4xl text-stroke text-stroke-black   sm:text-5xl text-left lg:text-6xl font-bold mb-10 sm:mt-5 max-w-full sm:max-w-[80%] top- lg:max-w-[600px]"
             >
               Elevate Your Global Freedom
             </motion.h1>
@@ -234,7 +234,7 @@ export default function HomePage() {
       <div className="h-[90vh] sm:h-[100vh] bg-[#f8f4ea] lg:h-[90vh]"></div>
 
       {/* Programs Preview */}
-      <section className="py-16 sm:py-20 mt-0 bg-[#f8f4ea]">
+      <section className="py-24 sm:py-20 mt-0 bg-[#f8f4ea]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
