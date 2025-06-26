@@ -10,6 +10,13 @@ import { Mail, Smartphone } from "lucide-react";
 import CountryFlag from "react-country-flag";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
 
+// Add grecaptcha to the Window interface for TypeScript
+declare global {
+  interface Window {
+    grecaptcha: any;
+  }
+}
+
 // Generate all country codes
 const countryCodes = getCountries().map(country => ({
   code: `+${getCountryCallingCode(country)}`,
@@ -30,10 +37,22 @@ const LoginPage: React.FC = () => {
   const [emailSent, setEmailSent] = useState<boolean>(false);
   const [, setLocation] = useLocation();
   const emailRef = useRef<string>("");
+  const recaptchaRef = useRef<any>(null);
 
   // Get redirect URL from query param
   const queryParams = new URLSearchParams(window.location.search);
   const redirect = queryParams.get("redirect") || "/ai-assistance";
+
+  // Load reCAPTCHA script
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   // Auto-detect country code
   useEffect(() => {
@@ -149,10 +168,31 @@ const LoginPage: React.FC = () => {
     };
   }, [redirect, setLocation, isSignup, name, phoneNumber, countryCode]);
 
+  // Execute reCAPTCHA and return token
+  const executeRecaptcha = async (): Promise<string | null> => {
+    if (!window.grecaptcha) {
+      setError("reCAPTCHA not loaded. Please try again.");
+      return null;
+    }
+    try {
+      const token = await window.grecaptcha.execute("6LdF7G0rAAAAAFsAbDud2sciL9QvGWUZQXMZxHUZ", { action: "login" });
+      return token;
+    } catch (err) {
+      setError("reCAPTCHA verification failed. Please try again.");
+      return null;
+    }
+  };
+
   // Handle Google Sign-In
   const handleGoogleSignIn = async () => {
     setLoading(true);
     setError(null);
+    const token = await executeRecaptcha();
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    // Note: Send token to backend for verification
     try {
       await signInWithGoogle();
       if (isSignup && auth.currentUser && name.trim()) {
@@ -193,6 +233,13 @@ const LoginPage: React.FC = () => {
 
     setLoading(true);
     setError(null);
+
+    const token = await executeRecaptcha();
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    // Note: Send token to backend for verification
 
     try {
       if (isSignup) {
@@ -269,7 +316,7 @@ const LoginPage: React.FC = () => {
         transition={{ duration: 1 }}
       >
         <h1 className="text-4xl text-center font-bold">Welcome to Raizing Sovereign</h1>
-        <p className="text-lg text-centre mt-2">Please Login to Continue...</p>
+        <p className="text-lg text-center mt-2">Please Login to Continue...</p>
       </motion.div>
 
       {/* Auth Card */}
@@ -397,6 +444,7 @@ const LoginPage: React.FC = () => {
               >
                 {loading ? "Processing..." : isSignup ? "Sign Up" : "Sign In"}
               </button>
+              <div ref={recaptchaRef} className="g-recaptcha" style={{ display: 'none' }}></div>
             </div>
           </>
         )}

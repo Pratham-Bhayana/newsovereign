@@ -7,23 +7,27 @@ import { Label } from "@/components/ui/label";
 import { Phone, MessageCircle, CheckCircle } from "lucide-react";
 import { auth } from "@/lib/firebaseConfig";
 import { useLocation } from "wouter";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 
-interface FormData {
-  date: string;
-  time: string;
-  mobile: string;
-  consultationType: string;
+function CalendlyEmbed() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
+  return (
+    <div
+      className="calendly-inline-widget rounded-2xl"
+      data-url="https://calendly.com/pratham-bhayana-ai/30min"
+      style={{ minWidth: "320px", height: "700px" }}
+    ></div>
+  );
 }
 
 export default function ConsultationPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string>("");
-  const [formData, setFormData] = useState<FormData>({
-    date: "",
-    time: "",
+  const [formData, setFormData] = useState({
     mobile: "",
     consultationType: "",
   });
@@ -49,19 +53,8 @@ export default function ConsultationPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (name: keyof FormData) => (value: string) => {
+  const handleSelectChange = (name: keyof typeof formData) => (value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleDateSelect = (value: Date) => {
-    setSelectedDate(value);
-    const dateStr = value.toISOString().split("T")[0];
-    setFormData((prev) => ({ ...prev, date: dateStr }));
-  };
-
-  const handleTimeSelect = (value: string) => {
-    setSelectedTime(value);
-    setFormData((prev) => ({ ...prev, time: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -69,9 +62,7 @@ export default function ConsultationPage() {
     console.log("Form submitted:", formData);
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 5000);
-    setFormData({ date: "", time: "", mobile: "", consultationType: "" });
-    setSelectedDate(null);
-    setSelectedTime("");
+    setFormData({ mobile: "", consultationType: "" });
   };
 
   const popupVariants = {
@@ -111,34 +102,8 @@ export default function ConsultationPage() {
               transition={{ duration: 0.6 }}
               className="bg-white p-6 rounded-2xl shadow-lg space-y-6"
             >
-              <h2 className="text-2xl font-semibold text-[#183b4e]">Select Consultation Date</h2>
-              <div className="flex justify-center">
-                <Calendar
-                  onChange={(value) => {
-                    if (value instanceof Date) {
-                      handleDateSelect(value);
-                    }
-                  }}
-                  value={selectedDate}
-                  className="rounded-lg border-[#cba135] max-w-lg w-full text-[#183b4e]"
-                  minDate={new Date()}
-                  tileClassName="hover:bg-[#cba135] hover:text-white rounded"
-                />
-              </div>
-              <h2 className="text-2xl font-semibold text-[#183b4e] mt-4">Select Consultation Time</h2>
-              <Select value={selectedTime} onValueChange={handleTimeSelect}>
-                <SelectTrigger className="w-full text-[#183b4e] border-[#cba135] focus:ring-[#cba135] rounded-lg">
-                  <SelectValue placeholder="Select time" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="9-10">9:00 AM - 10:00 AM</SelectItem>
-                  <SelectItem value="10-11">10:00 AM - 11:00 AM</SelectItem>
-                  <SelectItem value="11-12">11:00 AM - 12:00 PM</SelectItem>
-                  <SelectItem value="14-15">2:00 PM - 3:00 PM</SelectItem>
-                  <SelectItem value="15-16">3:00 PM - 4:00 PM</SelectItem>
-                  <SelectItem value="16-17">4:00 PM - 5:00 PM</SelectItem>
-                </SelectContent>
-              </Select>
+              <h2 className="text-2xl font-semibold text-[#183b4e]">Book Through Calendly</h2>
+              <CalendlyEmbed />
             </motion.div>
 
             <motion.div
@@ -184,7 +149,7 @@ export default function ConsultationPage() {
                 <Button
                   type="submit"
                   className="w-full bg-[#cba135] hover:bg-[#b3922f] text-[#183b4e] rounded-2xl"
-                  disabled={!formData.date || !formData.time || !formData.mobile || !formData.consultationType}
+                  disabled={!formData.mobile || !formData.consultationType}
                 >
                   Schedule Consultation
                 </Button>
@@ -195,10 +160,7 @@ export default function ConsultationPage() {
                   <Phone className="w-5 h-5 text-[#cba135] mr-2" />
                   <span className="text-[#183b4e] font-medium">Call Us Now</span>
                 </div>
-                <a
-                  href="tel:+918595873470"
-                  className="text-[#cba135] hover:underline"
-                >
+                <a href="tel:+918595873470" className="text-[#cba135] hover:underline">
                   +91 8595834700
                 </a>
               </div>
@@ -240,8 +202,7 @@ export default function ConsultationPage() {
                   Dear {userName}, Appointment Booked!
                 </p>
                 <p className="text-sm text-[#183b4e]">
-                  Your {formData.consultationType.replace(/^\w/, (c) => c.toUpperCase())} consultation is scheduled for{" "}
-                  {new Date(formData.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })} at {formData.time}. We'll confirm via email shortly.
+                  Your {formData.consultationType.replace(/^[a-z]/, (c) => c.toUpperCase())} consultation details will be sent to your email.
                 </p>
               </div>
             </div>

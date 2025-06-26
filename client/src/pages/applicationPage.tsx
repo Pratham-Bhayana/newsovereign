@@ -210,7 +210,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
         return (
           <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-6 text-left">
             <span className="text-lg md:text-xl flex font-semibold">
-              Welcome {userName}<br />
+              Welcome {userName},<br />
               We require your documents to start <br/> your application.
             </span>
             <div
