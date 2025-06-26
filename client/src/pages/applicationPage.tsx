@@ -16,7 +16,6 @@ import animationStep3 from "./animations/ani-three.json";
 import animationStep4 from "./animations/ani-four.json";
 import animationStep5 from "./animations/ani-five.json";
 import animationStep6 from "./animations/ani-six.json";
-import animationStep7 from "./animations/ani-seven.json";
 
 const animationFiles: Record<number, any> = {
   1: animationStep1,
@@ -25,7 +24,6 @@ const animationFiles: Record<number, any> = {
   4: animationStep4,
   5: animationStep5,
   6: animationStep6,
-  7: animationStep7,
 };
 
 interface FormData {
@@ -56,7 +54,7 @@ const reassuranceMessages: string[] = [
   "Let’s start with your basic details.",
   "Tell us about your professional background.",
   "Choose the program that aligns with your goals.",
-  "Your privacy is our priority. <a href='/privacy' class='underline text-[#cba135]'>Read our policy</a>.",
+  "Your privacy is our priority. <a href='/privacy' class='underline text-[#4B5EAA]'>Read our policy</a>.",
   "Securely upload your financial documents.",
   "Review and submit your application.",
 ];
@@ -88,7 +86,7 @@ const buttonVariants = {
 };
 
 export default function ApplicationPage({ isOpen, onClose, programId }: ApplicationPageProps) {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -124,6 +122,11 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
 
   // Load animation
   useEffect(() => {
+    if (currentStep === 7) {
+      setAnimationData(null);
+      setAnimationLoading(false);
+      return;
+    }
     setAnimationLoading(true);
     setAnimationError(null);
     const data = animationFiles[currentStep];
@@ -200,11 +203,11 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
   const renderStep = () => {
     if (isSubmitted) {
       return (
-        <motion.div variants={fadeIn} initial="hidden" animate="visible" className="text-center space-y-4">
+        <motion.div variants={fadeIn} initial="hidden" animate="visible" className="text-left space-y-4">
           <span className="text-xl md:text-2xl font-semibold text-white">
             Application Submitted!<br />
             You will receive an email confirmation shortly. Track your application in the{" "}
-            <a href="/profile" className="underline text-[#cba135]">
+            <a href="/profile" className="underline text-[#4B5EAA]">
               Profile section
             </a>.
           </span>
@@ -222,7 +225,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
             </span>
             <div
               onClick={() => setCurrentStep(2)}
-              className="mt-6 px-4 py-2 w-52 max-w-52 rounded-2xl bg-[#cba135] text-[#183b4e] text-center cursor-pointer"
+              className="mt-6 px-4 py-2 w-52 max-w-52 rounded-xl bg-[#4B5EAA] text-white text-center cursor-pointer"
             >
               Get Started
             </div>
@@ -237,7 +240,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="First Name"
               value={formData.firstName}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
+              className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base"
               required
             />
             <Input
@@ -245,7 +248,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="Last Name"
               value={formData.lastName}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
+              className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base"
               required
             />
           </motion.div>
@@ -259,7 +262,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="Occupation"
               value={formData.occupation}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
+              className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base"
               required
             />
             <Input
@@ -267,7 +270,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="Company Name"
               value={formData.companyName}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
+              className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base"
               required
             />
             <Input
@@ -275,7 +278,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               placeholder="Designation"
               value={formData.designation}
               onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
+              className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base"
               required
             />
           </motion.div>
@@ -288,7 +291,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               value={formData.selectedProgram}
               onValueChange={handleSelectChange("selectedProgram")}
             >
-              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base">
+              <SelectTrigger className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base">
                 <SelectValue placeholder="Select Program" />
               </SelectTrigger>
               <SelectContent>
@@ -303,7 +306,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               value={formData.intentToApply}
               onValueChange={handleSelectChange("intentToApply")}
             >
-              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base">
+              <SelectTrigger className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base">
                 <SelectValue placeholder="Intent to Apply" />
               </SelectTrigger>
               <SelectContent>
@@ -327,8 +330,8 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
             ) : (
               <>
                 <span className="text-lg md:text-xl font-semibold">Personal Details</span>
-                <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
-                  <span className="text-xs md:text-sm text-[#183b4e]">Passport Photo</span>
+                <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg">
+                  <span className="text-xs md:text-sm text-gray-800">Passport Photo</span>
                   <div className="flex space-x-2">
                     <input
                       type="file"
@@ -337,13 +340,13 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                       className="hidden"
                       id="passportPhoto"
                     />
-                    <label htmlFor="passportPhoto" className="cursor-pointer text-[#cba135]">
+                    <label htmlFor="passportPhoto" className="cursor-pointer text-[#4B5EAA]">
                       <Upload className="h-4 w-4 md:h-5 md:w-5" />
                     </label>
                     <Button
                       variant="outline"
                       size="icon"
-                      className="border-[#cba135] text-[#183b4e] hover:bg-[#cba135] hover:text-white h-8 w-8 md:h-10 md:w-10"
+                      className="border-gray-300 text-gray-800 hover:bg-[#4B5EAA] hover:text-white h-8 w-8 md:h-10 md:w-10"
                       onClick={() => setShowWebcam(true)}
                     >
                       <Camera className="h-4 w-4 md:h-5 md:w-5" />
@@ -355,11 +358,11 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   placeholder="Passport Number"
                   value={formData.passportNumber}
                   onChange={handleInputChange}
-                  className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
+                  className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base"
                   required
                 />
-                <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
-                  <span className="text-xs md:text-sm text-[#183b4e]">Passport Front</span>
+                <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg">
+                  <span className="text-xs md:text-sm text-gray-800">Passport Front</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -367,12 +370,12 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                     className="hidden"
                     id="passportFront"
                   />
-                  <label htmlFor="passportFront" className="cursor-pointer text-[#cba135]">
+                  <label htmlFor="passportFront" className="cursor-pointer text-[#4B5EAA]">
                     <Upload className="h-4 w-4 md:h-5 md:w-5" />
                   </label>
                 </div>
-                <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
-                  <span className="text-xs md:text-sm text-[#183b4e]">Passport Back</span>
+                <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg">
+                  <span className="text-xs md:text-sm text-gray-800">Passport Back</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -380,7 +383,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                     className="hidden"
                     id="passportBack"
                   />
-                  <label htmlFor="passportBack" className="cursor-pointer text-[#cba135]">
+                  <label htmlFor="passportBack" className="cursor-pointer text-[#4B5EAA]">
                     <Upload className="h-4 w-4 md:h-5 md:w-5" />
                   </label>
                 </div>
@@ -396,7 +399,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
               value={formData.monthlyIncome}
               onValueChange={handleSelectChange("monthlyIncome")}
             >
-              <SelectTrigger className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base">
+              <SelectTrigger className="border-gray-300 focus:ring-[#4B5EAA] rounded-lg bg-white text-gray-800 w-full text-sm md:text-base">
                 <SelectValue placeholder="Monthly Income Range" />
               </SelectTrigger>
               <SelectContent>
@@ -407,8 +410,8 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 ))}
               </SelectContent>
             </Select>
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
-              <span className="text-xs md:text-sm text-[#183b4e]">6-Month Bank Statement</span>
+            <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg">
+              <span className="text-xs md:text-sm text-gray-800">6-Month Bank Statement</span>
               <input
                 type="file"
                 accept=".pdf,.doc,.docx"
@@ -416,12 +419,12 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 className="hidden"
                 id="bankStatement"
               />
-              <label htmlFor="bankStatement" className="cursor-pointer text-[#cba135]">
+              <label htmlFor="bankStatement" className="cursor-pointer text-[#4B5EAA]">
                 <Upload className="h-4 w-4 md:h-5 md:w-5" />
               </label>
             </div>
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
-              <span className="text-xs md:text-sm text-[#183b4e]">4-Month Salary Slips</span>
+            <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg">
+              <span className="text-xs md:text-sm text-gray-800">4-Month Salary Slips</span>
               <input
                 type="file"
                 accept=".pdf,.doc,.docx"
@@ -429,7 +432,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 className="hidden"
                 id="salarySlips"
               />
-              <label htmlFor="salarySlips" className="cursor-pointer text-[#cba135]">
+              <label htmlFor="salarySlips" className="cursor-pointer text-[#4B5EAA]">
                 <Upload className="h-4 w-4 md:h-5 md:w-5" />
               </label>
             </div>
@@ -437,147 +440,247 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
         );
       case 7:
         return (
-          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4 w-full">
-            <span className="text-lg md:text-xl font-semibold">Review & Submit</span>
-            <div className="bg-[#F9FAFB] p-3 md:p-4 rounded-lg">
-              <ul className="list-disc pl-5 text-xs md:text-sm text-[#183b4e] space-y-2">
-                <li>
-                  <strong>First Name:</strong> {formData.firstName || "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(2)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Last Name:</strong> {formData.lastName || "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(2)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Occupation:</strong> {formData.occupation || "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(3)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Company Name:</strong> {formData.companyName || "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(3)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Designation:</strong> {formData.designation || "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(3)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Program:</strong>{" "}
-                  {PROGRAMS.find((p) => p.id === formData.selectedProgram)?.title || "Not selected"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(4)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Intent to Apply:</strong> {formData.intentToApply || "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(4)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Passport Number:</strong> {formData.passportNumber || "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(5)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Passport Photo:</strong>{" "}
-                  {formData.passportPhoto ? (
-                    <div className="inline-flex items-center">
-                      <img
-                        src={URL.createObjectURL(formData.passportPhoto)}
-                        alt="Passport Photo"
-                        className="w-16 h-16 object-cover rounded mr-2" // 2x2 inches at 300 DPI ~ 600x600px, scaled down for display
-                      />
-                      Uploaded
-                    </div>
-                  ) : (
-                    "Not provided"
-                  )}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(5)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Passport Documents:</strong>{" "}
-                  {formData.passportFront || formData.passportBack ? "Uploaded" : "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(5)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Monthly Income:</strong> {formData.monthlyIncome || "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(6)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-                <li>
-                  <strong>Financial Documents:</strong>{" "}
-                  {formData.bankStatement || formData.salarySlips ? "Uploaded" : "Not provided"}{" "}
-                  <Button
-                    variant="link"
-                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
-                    onClick={() => handleEdit(6)}
-                  >
-                    Edit
-                  </Button>
-                </li>
-              </ul>
+          <motion.div variants={fadeIn} initial="hidden" animate="visible" className="w-full h-full flex flex-col">
+            <div className="flex items-center justify-between border-b border-gray-200 pb-4 mb-4">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800">Review & Submit</h2>
             </div>
+            <div className="flex-1 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+              {/* Profile Section */}
+              <div className="w-full md:w-1/4 bg-white rounded-lg shadow-md p-4">
+                <div className="flex flex-col items-start">
+                  {formData.passportPhoto ? (
+                    <img
+                      src={URL.createObjectURL(formData.passportPhoto)}
+                      alt="Profile Photo"
+                      className="w-24 h-24 md:w-28 md:h-28 object-cover rounded-lg border border-gray-200"
+                    />
+                  ) : (
+                    <div className="w-24 h-24 md:w-28 md:h-28 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 text-xs">
+                      No Photo
+                    </div>
+                  )}
+                  <span className="mt-2 text-base md:text-lg font-semibold text-gray-800">
+                    {formData.firstName} {formData.lastName || "User"}
+                  </span>
+                </div>
+              </div>
+              {/* Details Section */}
+              <div className="w-full md:w-3/4 space-y-4">
+                {/* Personal Details */}
+                <div className="bg-white rounded-lg shadow-md p-4">
+                  <h3 className="text-base font-semibold text-gray-800 mb-3">Personal Details</h3>
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">First Name</p>
+                        <p className="text-sm text-gray-800">{formData.firstName || "Not provided"}</p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(2)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Last Name</p>
+                        <p className="text-sm text-gray-800">{formData.lastName || "Not provided"}</p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(2)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Passport Number</p>
+                        <p className="text-sm text-gray-800">{formData.passportNumber || "Not provided"}</p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(5)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Passport Documents</p>
+                        <p className="text-sm text-gray-800">
+                          {formData.passportFront || formData.passportBack ? "Uploaded" : "Not provided"}
+                        </p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(5)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                {/* Professional Details */}
+                <div className="bg-white rounded-lg shadow-md p-4">
+                  <h3 className="text-base font-semibold text-gray-800 mb-3">Professional Details</h3>
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Occupation</p>
+                        <p className="text-sm text-gray-800">{formData.occupation || "Not provided"}</p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(3)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Company Name</p>
+                        <p className="text-sm text-gray-800">{formData.companyName || "Not provided"}</p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(3)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Designation</p>
+                        <p className="text-sm text-gray-800">{formData.designation || "Not provided"}</p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(3)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                {/* Program Details */}
+                <div className="bg-white rounded-lg shadow-md p-4">
+                  <h3 className="text-base font-semibold text-gray-800 mb-3">Program Details</h3>
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Program</p>
+                        <p className="text-sm text-gray-800">
+                          {PROGRAMS.find((p) => p.id === formData.selectedProgram)?.title || "Not selected"}
+                        </p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(4)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs text-gray-500">Intent to Apply</p>
+                          <p className="text-sm text-gray-800">{formData.intentToApply || "Not provided"}</p>
+                        </div>
+                        <Button
+                          variant="link"
+                          className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                          onClick={() => handleEdit(4)}
+                        >
+                          Edit
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Financial Details */}
+                <div className="bg-white rounded-lg shadow-md p-4">
+                  <h3 className="text-base font-semibold text-gray-800 mb-3">Financial Details</h3>
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Monthly Income</p>
+                        <p className="text-sm text-gray-800">{formData.monthlyIncome || "Not provided"}</p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(6)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500">Financial Documents</p>
+                        <p className="text-sm text-gray-800">
+                          {formData.bankStatement || formData.salarySlips ? "Uploaded" : "Not provided"}
+                        </p>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="text-[#4B5EAA] p-0 h-auto text-sm hover:text-[#3B4A8A]"
+                        onClick={() => handleEdit(6)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {!isSubmitted && currentStep > 1 && (
+              <div className="flex justify-between w-full items-center mt-4">
+                <div className="flex space-x-3">
+                  <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={handlePrevStep}
+                    className="px-4 py-2 rounded-xl border border-gray-300 text-gray-800 hover:bg-[#4B5EAA] hover:text-white text-sm"
+                    aria-label="Previous Step"
+                  >
+                    <ChevronLeft className="inline-block h-4 w-4 mr-1" />
+                    Back
+                  </motion.button>
+                  {/* <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={(currentStep === 5 || currentStep === 6) ? handleSkip : onClose}
+                    className="px-4 py-2 rounded-xl border border-gray-300 text-gray-800 hover:bg-[#4B5EAA] hover:text-white text-sm"
+                    aria-label={currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
+                  >
+                    {currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
+                  </motion.button> */}
+                </div>
+                <motion.button
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                  onClick={handleNextStep}
+                  disabled={isNextDisabled()}
+                  className="px-5 py-2 rounded-xl bg-[#4B5EAA] text-white hover:bg-[#3B4A8A] disabled:opacity-50 text-sm"
+                  aria-label={currentStep === 7 ? "Submit" : "Next"}
+                >
+                  {currentStep === 7 ? "Submit" : "Next"}
+                </motion.button>
+              </div>
+            )}
           </motion.div>
         );
       default:
@@ -589,11 +692,10 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
       style={{
         minHeight: "100dvh",
         minWidth: "100vw",
-        // Ensures vertical centering on all mobile browsers
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -601,13 +703,13 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg md:max-w-[1000px] bg-[#183b4e] rounded-2xl flex flex-col md:flex-row overflow-y-auto shadow-2xl"
+        className="relative w-[80%] max-w-4xl bg-gray-50 rounded-2xl flex flex-col overflow-y-auto shadow-2xl"
         style={{
-          maxHeight: "90dvh",
-          minHeight: "min(90dvh, 500px)",
+          height: "80dvh",
+          maxHeight: "80dvh",
           margin: "auto",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "center",
         }}
         onClick={(e) => e.stopPropagation()}
@@ -615,7 +717,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white hover:bg-[#cba135]/20 p-2 rounded-full z-10"
+          className="absolute top-4 right-4 text-gray-800 hover:bg-gray-200 p-2 rounded-full z-10"
           aria-label="Close"
         >
           <X className="h-5 w-5" />
@@ -624,126 +726,54 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
         {/* Mobile: Animation at Top, Content + Buttons Below */}
         <div className="flex flex-col w-full md:hidden p-4 justify-center items-center">
           {/* Animation */}
-          <div className="flex justify-center mb-4">
-            {animationLoading ? (
-              <div className="w-[200px] h-[200px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-xs">
-                Loading...
-              </div>
-            ) : animationError || !animationData ? (
-              <div className="w-[200px] h-[200px] flex items-center justify-center bg-[#F9FAFB] text-[#183b4e] text-xs text-center">
-                Animation Unavailable: {animationError || "No data"}
-              </div>
-            ) : (
-              <div className="w-[200px] h-[200px] bg-[#F9FAFB] rounded-lg shadow flex items-center justify-center">
-                <Lottie animationData={animationData} style={{ width: 200, height: 200 }} />
-              </div>
-            )}
-          </div>
+          {currentStep !== 7 && (
+            <div className="flex justify-center mb-4">
+              {animationLoading ? (
+                <div className="w-[150px] h-[150px] flex items-center justify-center bg-white text-gray-800 text-xs rounded-lg shadow">
+                  Loading...
+                </div>
+              ) : animationError || !animationData ? (
+                <div className="w-[150px] h-[150px] flex items-center justify-center bg-white text-gray-800 text-xs text-center rounded-lg shadow">
+                  Animation Unavailable: {animationError || "No data"}
+                </div>
+              ) : (
+                <div className="w-[150px] h-[150px] bg-white rounded-lg shadow flex items-center justify-center">
+                  <Lottie animationData={animationData} style={{ width: 150, height: 150 }} />
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Content + Buttons */}
-          <div className="flex-1 text-white flex flex-col justify-center items-center text-center p-2 space-y-6 w-full">
+          <div className="flex-1 text-gray-800 flex flex-col justify-center items-start p-2 space-y-4 w-full">
             <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
-            {!isSubmitted && currentStep > 1 && (
-              <div className="flex justify-between w-full items-center">
-                <div className="flex space-x-2">
-                  <motion.button
-                    variants={buttonVariants}
-                    whileHover="hover"
-                    whileTap="tap"
-                    onClick={handlePrevStep}
-                    className="px-3 py-2 rounded-2xl border border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-white text-xs"
-                    aria-label="Previous Step"
-                  >
-                    <ChevronLeft className="inline-block h-4 w-4 mr-1" />
-                    Back
-                  </motion.button>
-                  <motion.button
-                    variants={buttonVariants}
-                    whileHover="hover"
-                    whileTap="tap"
-                    onClick={currentStep === 5 || currentStep === 6 ? handleSkip : onClose}
-                    className="px-3 py-2 rounded-2xl border border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-white text-xs"
-                    aria-label={currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
-                  >
-                    {currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
-                  </motion.button>
-                </div>
-                <motion.button
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                  onClick={handleNextStep}
-                  disabled={isNextDisabled()}
-                  className="px-4 py-2 rounded-2xl bg-[#cba135] text-[#183b4e] hover:bg-[#b3922f] disabled:opacity-50 text-xs"
-                  aria-label={currentStep === 7 ? "Submit" : "Next"}
-                >
-                  {currentStep === 7 ? "Submit" : "Next"}
-                </motion.button>
-              </div>
-            )}
           </div>
         </div>
 
         {/* Desktop: Animation on Right, Content + Buttons on Left */}
         <div className="hidden bg-transparent md:flex w-full h-full items-center justify-center">
           {/* Content + Buttons */}
-          <div className="w-3/5 text-white flex flex-col justify-center items-center text-center p-6 space-y-6">
+          <div className="w-full md:w-3/5 text-gray-800 flex flex-col justify-center items-start p-6 space-y-4">
             <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
-            {!isSubmitted && currentStep > 1 && (
-              <div className="flex justify-between w-full items-center">
-                <div className="flex space-x-2">
-                  <motion.button
-                    variants={buttonVariants}
-                    whileHover="hover"
-                    whileTap="tap"
-                    onClick={handlePrevStep}
-                    className="px-4 py-2 rounded-2xl border border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-white text-sm"
-                    aria-label="Previous Step"
-                  >
-                    <ChevronLeft className="inline-block h-4 w-4 mr-1" />
-                    Back
-                  </motion.button>
-                  <motion.button
-                    variants={buttonVariants}
-                    whileHover="hover"
-                    whileTap="tap"
-                    onClick={currentStep === 5 || currentStep === 6 ? handleSkip : onClose}
-                    className="px-4 py-2 rounded-2xl border border-[#cba135] text-[#cba135] hover:bg-[#cba135] hover:text-white text-sm"
-                    aria-label={currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
-                  >
-                    {currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
-                  </motion.button>
-                </div>
-                <motion.button
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                  onClick={handleNextStep}
-                  disabled={isNextDisabled()}
-                  className="px-5 py-2 rounded-2xl bg-[#cba135] text-[#183b4e] hover:bg-[#b3922f] disabled:opacity-50 text-sm"
-                  aria-label={currentStep === 7 ? "Submit" : "Next"}
-                >
-                  {currentStep === 7 ? "Submit" : "Next"}
-                </motion.button>
-              </div>
-            )}
           </div>
           {/* Animation */}
-          <div className="w-2/5 flex justify-center items-center p-4">
-            {animationLoading ? (
-              <div className="w-[300px] h-[300px] flex items-center justify-center text-[#183b4e] text-sm">
-                Loading...
-              </div>
-            ) : animationError || !animationData ? (
-              <div className="w-[300px] h-[300px] flex items-center justify-center text-[#183b4e] text-sm text-center">
-                Animation Unavailable: {animationError || "No data"}
-              </div>
-            ) : (
-              <div className="w-[300px] h-[300px] rounded-lg shadow flex items-center justify-center">
-                <Lottie animationData={animationData} style={{ width: 300, height: 300 }} />
-              </div>
-            )}
-          </div>
+          {currentStep !== 7 && (
+            <div className="w-2/5 flex justify-center items-center p-4">
+              {animationLoading ? (
+                <div className="w-[200px] h-[200px] flex items-center justify-center text-gray-800 text-sm rounded-lg shadow">
+                  Loading...
+                </div>
+              ) : animationError || !animationData ? (
+                <div className="w-[200px] h-[200px] flex items-center justify-center text-gray-800 text-sm text-center rounded-lg shadow">
+                  Animation Unavailable: {animationError || "No data"}
+                </div>
+              ) : (
+                <div className="w-[200px] h-[200px] bg-white rounded-lg shadow flex items-center justify-center">
+                  <Lottie animationData={animationData} style={{ width: 200, height: 200 }} />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
