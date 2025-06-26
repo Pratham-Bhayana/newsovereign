@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Upload, ChevronLeft, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Lottie from "lottie-react";
 import { auth } from "@/lib/firebaseConfig";
 import { PROGRAMS } from "@/lib/constants";
+import WebcamCapture from "./WebcamCapture";
 
 // Import animation JSON files
 import animationStep1 from "./animations/ani-one.json";
@@ -109,6 +110,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
   const [animationError, setAnimationError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
+  const [showWebcam, setShowWebcam] = useState(false);
 
   // Authentication
   useEffect(() => {
@@ -143,6 +145,11 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof FormData) => {
     const file = e.target.files?.[0] || null;
     setFormData((prev) => ({ ...prev, [field]: file }));
+  };
+
+  const handleWebcamCapture = (file: File) => {
+    setFormData((prev) => ({ ...prev, passportPhoto: file }));
+    setShowWebcam(false);
   };
 
   const handleSelectChange = (field: keyof FormData) => (value: string) => {
@@ -312,64 +319,73 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
       case 5:
         return (
           <motion.div variants={fadeIn} initial="hidden" animate="visible" className="space-y-4 w-full">
-            <span className="text-lg md:text-xl font-semibold">Personal Details</span>
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
-              <span className="text-xs md:text-sm text-[#183b4e]">Passport Photo</span>
-              <div className="flex space-x-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleFileChange(e, "passportPhoto")}
-                  className="hidden"
-                  id="passportPhoto"
+            {showWebcam ? (
+              <WebcamCapture
+                onCapture={handleWebcamCapture}
+                onClose={() => setShowWebcam(false)}
+              />
+            ) : (
+              <>
+                <span className="text-lg md:text-xl font-semibold">Personal Details</span>
+                <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
+                  <span className="text-xs md:text-sm text-[#183b4e]">Passport Photo</span>
+                  <div className="flex space-x-2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileChange(e, "passportPhoto")}
+                      className="hidden"
+                      id="passportPhoto"
+                    />
+                    <label htmlFor="passportPhoto" className="cursor-pointer text-[#cba135]">
+                      <Upload className="h-4 w-4 md:h-5 md:w-5" />
+                    </label>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="border-[#cba135] text-[#183b4e] hover:bg-[#cba135] hover:text-white h-8 w-8 md:h-10 md:w-10"
+                      onClick={() => setShowWebcam(true)}
+                    >
+                      <Camera className="h-4 w-4 md:h-5 md:w-5" />
+                    </Button>
+                  </div>
+                </div>
+                <Input
+                  name="passportNumber"
+                  placeholder="Passport Number"
+                  value={formData.passportNumber}
+                  onChange={handleInputChange}
+                  className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
+                  required
                 />
-                <label htmlFor="passportPhoto" className="cursor-pointer text-[#cba135]">
-                  <Upload className="h-4 w-4 md:h-5 md:w-5" />
-                </label>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="border-[#cba135] text-[#183b4e] hover:bg-[#cba135] hover:text-white h-8 w-8 md:h-10 md:w-10"
-                  onClick={() => alert("Live capture not implemented yet")}
-                >
-                  <Camera className="h-4 w-4 md:h-5 md:w-5" />
-                </Button>
-              </div>
-            </div>
-            <Input
-              name="passportNumber"
-              placeholder="Passport Number"
-              value={formData.passportNumber}
-              onChange={handleInputChange}
-              className="border-[#cba135] focus:ring-[#cba135] rounded-lg bg-white text-[#183b4e] w-full text-sm md:text-base"
-              required
-            />
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
-              <span className="text-xs md:text-sm text-[#183b4e]">Passport Front</span>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleFileChange(e, "passportFront")}
-                className="hidden"
-                id="passportFront"
-              />
-              <label htmlFor="passportFront" className="cursor-pointer text-[#cba135]">
-                <Upload className="h-4 w-4 md:h-5 md:w-5" />
-              </label>
-            </div>
-            <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
-              <span className="text-xs md:text-sm text-[#183b4e]">Passport Back</span>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleFileChange(e, "passportBack")}
-                className="hidden"
-                id="passportBack"
-              />
-              <label htmlFor="passportBack" className="cursor-pointer text-[#cba135]">
-                <Upload className="h-4 w-4 md:h-5 md:w-5" />
-              </label>
-            </div>
+                <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
+                  <span className="text-xs md:text-sm text-[#183b4e]">Passport Front</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileChange(e, "passportFront")}
+                    className="hidden"
+                    id="passportFront"
+                  />
+                  <label htmlFor="passportFront" className="cursor-pointer text-[#cba135]">
+                    <Upload className="h-4 w-4 md:h-5 md:w-5" />
+                  </label>
+                </div>
+                <div className="flex items-center justify-between bg-[#F9FAFB] p-3 rounded-lg">
+                  <span className="text-xs md:text-sm text-[#183b4e]">Passport Back</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileChange(e, "passportBack")}
+                    className="hidden"
+                    id="passportBack"
+                  />
+                  <label htmlFor="passportBack" className="cursor-pointer text-[#cba135]">
+                    <Upload className="h-4 w-4 md:h-5 md:w-5" />
+                  </label>
+                </div>
+              </>
+            )}
           </motion.div>
         );
       case 6:
@@ -507,10 +523,30 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                   </Button>
                 </li>
                 <li>
+                  <strong>Passport Photo:</strong>{" "}
+                  {formData.passportPhoto ? (
+                    <div className="inline-flex items-center">
+                      <img
+                        src={URL.createObjectURL(formData.passportPhoto)}
+                        alt="Passport Photo"
+                        className="w-16 h-16 object-cover rounded mr-2" // 2x2 inches at 300 DPI ~ 600x600px, scaled down for display
+                      />
+                      Uploaded
+                    </div>
+                  ) : (
+                    "Not provided"
+                  )}{" "}
+                  <Button
+                    variant="link"
+                    className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
+                    onClick={() => handleEdit(5)}
+                  >
+                    Edit
+                  </Button>
+                </li>
+                <li>
                   <strong>Passport Documents:</strong>{" "}
-                  {formData.passportPhoto || formData.passportFront || formData.passportBack
-                    ? "Uploaded"
-                    : "Not provided"}{" "}
+                  {formData.passportFront || formData.passportBack ? "Uploaded" : "Not provided"}{" "}
                   <Button
                     variant="link"
                     className="text-[#cba135] p-0 h-auto text-xs md:text-sm"
@@ -552,9 +588,28 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+      style={{
+        minHeight: "100dvh",
+        minWidth: "100vw",
+        // Ensures vertical centering on all mobile browsers
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      onClick={onClose}
+    >
       <div
-        className="w-full h-full md:w-4/5 md:max-w-[1000px] md:h-auto md:max-h-[90vh] bg-[#183b4e] md:rounded-2xl flex flex-col md:flex-row overflow-y-auto"
+        className="relative w-full max-w-lg md:max-w-[1000px] bg-[#183b4e] rounded-2xl flex flex-col md:flex-row overflow-y-auto shadow-2xl"
+        style={{
+          maxHeight: "90dvh",
+          minHeight: "min(90dvh, 500px)",
+          margin: "auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -567,7 +622,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
         </button>
 
         {/* Mobile: Animation at Top, Content + Buttons Below */}
-        <div className="flex flex-col w-full md:hidden p-4">
+        <div className="flex flex-col w-full md:hidden p-4 justify-center items-center">
           {/* Animation */}
           <div className="flex justify-center mb-4">
             {animationLoading ? (
@@ -579,17 +634,17 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                 Animation Unavailable: {animationError || "No data"}
               </div>
             ) : (
-              <div className="w-[200px] h-[200px] bg-[#F9FAFB] rounded-lg">
+              <div className="w-[200px] h-[200px] bg-[#F9FAFB] rounded-lg shadow flex items-center justify-center">
                 <Lottie animationData={animationData} style={{ width: 200, height: 200 }} />
               </div>
             )}
           </div>
 
           {/* Content + Buttons */}
-          <div className="flex-1 text-white flex flex-col justify-center items-center text-center p-4 space-y-6">
+          <div className="flex-1 text-white flex flex-col justify-center items-center text-center p-2 space-y-6 w-full">
             <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
             {!isSubmitted && currentStep > 1 && (
-              <div className="flex justify-between w-full">
+              <div className="flex justify-between w-full items-center">
                 <div className="flex space-x-2">
                   <motion.button
                     variants={buttonVariants}
@@ -630,12 +685,12 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
         </div>
 
         {/* Desktop: Animation on Right, Content + Buttons on Left */}
-        <div className="hidden bg-transparent md:flex w-full h-full">
+        <div className="hidden bg-transparent md:flex w-full h-full items-center justify-center">
           {/* Content + Buttons */}
           <div className="w-3/5 text-white flex flex-col justify-center items-center text-center p-6 space-y-6">
             <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
             {!isSubmitted && currentStep > 1 && (
-              <div className="flex justify-between w-full">
+              <div className="flex justify-between w-full items-center">
                 <div className="flex space-x-2">
                   <motion.button
                     variants={buttonVariants}
@@ -676,15 +731,15 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
           {/* Animation */}
           <div className="w-2/5 flex justify-center items-center p-4">
             {animationLoading ? (
-              <div className="w-[300px] h-[300px] flex items-center justify-center  text-[#183b4e] text-sm">
+              <div className="w-[300px] h-[300px] flex items-center justify-center text-[#183b4e] text-sm">
                 Loading...
               </div>
             ) : animationError || !animationData ? (
-              <div className="w-[300px] h-[300px] flex items-center justify-center items-center  text-[#183b4e] text-sm text-center">
+              <div className="w-[300px] h-[300px] flex items-center justify-center text-[#183b4e] text-sm text-center">
                 Animation Unavailable: {animationError || "No data"}
               </div>
             ) : (
-              <div className="w-[300px] h-[300px]  rounded-lg">
+              <div className="w-[300px] h-[300px] rounded-lg shadow flex items-center justify-center">
                 <Lottie animationData={animationData} style={{ width: 300, height: 300 }} />
               </div>
             )}

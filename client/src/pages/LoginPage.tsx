@@ -2,20 +2,10 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 import { auth, signInWithGoogle } from "@/lib/firebaseConfig";
-import { updateProfile } from "firebase/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { sendEmailVerification, createUserWithEmailAndPassword } from "firebase/auth";
-import { User, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
-import { Mail, Smartphone } from "lucide-react";
-import CountryFlag from "react-country-flag";
+import { updateProfile, sendEmailVerification, createUserWithEmailAndPassword, signInWithEmailAndPassword, User, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
+import { Mail, Smartphone, Eye, EyeOff } from "lucide-react";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
-
-// Add grecaptcha to the Window interface for TypeScript
-declare global {
-  interface Window {
-    grecaptcha: any;
-  }
-}
+import logo from '../components/assets/head-logo.png';
 
 // Generate all country codes
 const countryCodes = getCountries().map(country => ({
@@ -31,36 +21,23 @@ const LoginPage: React.FC = () => {
   const [isSignup, setIsSignup] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [countryCode, setCountryCode] = useState<string>("+1");
   const [emailSent, setEmailSent] = useState<boolean>(false);
   const [, setLocation] = useLocation();
   const emailRef = useRef<string>("");
-  const recaptchaRef = useRef<any>(null);
 
   // Get redirect URL from query param
   const queryParams = new URLSearchParams(window.location.search);
   const redirect = queryParams.get("redirect") || "/ai-assistance";
 
-  // Load reCAPTCHA script
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   // Auto-detect country code
   useEffect(() => {
     let isMounted = true;
-
     const detectCountry = async () => {
       try {
-        // Try geolocation first
         const geoPromise = new Promise<{ countryCode: string }>((resolve, reject) => {
           if (!navigator.geolocation) {
             reject(new Error("Geolocation not supported"));
@@ -94,10 +71,8 @@ const LoginPage: React.FC = () => {
           return;
         }
       } catch (err) {
-        console.debug("Geolocation failed:", err);
+        // fallback
       }
-
-      // Fallback to ipapi.co
       try {
         const response = await fetch("https://ipapi.co/json/");
         const data = await response.json();
@@ -106,19 +81,11 @@ const LoginPage: React.FC = () => {
           setCountryCode(country.code);
           return;
         }
-      } catch (err) {
-        console.debug("ipapi.co failed:", err);
-      }
-
-      // Default to +1 (US)
+      } catch (err) {}
       if (isMounted) setCountryCode("+1");
     };
-
     detectCountry();
-
-    return () => {
-      isMounted = false;
-    };
+    return () => { isMounted = false; };
   }, []);
 
   // Check auth state and handle email link
@@ -126,16 +93,14 @@ const LoginPage: React.FC = () => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
         if (!currentUser.emailVerified && isSignup) {
-          // Unverified signup: send verification link
           try {
             await sendEmailVerification(currentUser);
             setEmailSent(true);
-            await auth.signOut(); // Prevent auto-login
+            await auth.signOut();
           } catch (err: any) {
             setError(err.message || "Failed to send verification email.");
           }
         } else if (currentUser.emailVerified) {
-          // Verified user: proceed to redirect
           setUser(currentUser);
           setLocation(decodeURIComponent(redirect));
         }
@@ -151,9 +116,6 @@ const LoginPage: React.FC = () => {
             if (isSignup && auth.currentUser && name.trim()) {
               await updateProfile(auth.currentUser, { displayName: name.trim() });
             }
-            if (isSignup && auth.currentUser && phoneNumber.trim()) {
-              // phoneNumber is not a valid property for updateProfile; consider storing it elsewhere if needed
-            }
           })
           .catch((err: any) => {
             setError(err.message || "Failed to sign in with email link.");
@@ -168,42 +130,17 @@ const LoginPage: React.FC = () => {
     };
   }, [redirect, setLocation, isSignup, name, phoneNumber, countryCode]);
 
-  // Execute reCAPTCHA and return token
-  const executeRecaptcha = async (): Promise<string | null> => {
-    if (!window.grecaptcha) {
-      setError("reCAPTCHA not loaded. Please try again.");
-      return null;
-    }
-    try {
-      const token = await window.grecaptcha.execute("6LdF7G0rAAAAAFsAbDud2sciL9QvGWUZQXMZxHUZ", { action: "login" });
-      return token;
-    } catch (err) {
-      setError("reCAPTCHA verification failed. Please try again.");
-      return null;
-    }
-  };
-
   // Handle Google Sign-In
   const handleGoogleSignIn = async () => {
     setLoading(true);
     setError(null);
-    const token = await executeRecaptcha();
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-    // Note: Send token to backend for verification
     try {
       await signInWithGoogle();
       if (isSignup && auth.currentUser && name.trim()) {
         await updateProfile(auth.currentUser, { displayName: name.trim() });
       }
-      if (isSignup && auth.currentUser && phoneNumber.trim()) {
-        // phoneNumber is not a valid property for updateProfile; consider storing it elsewhere if needed
-      }
       setLoading(false);
     } catch (err: any) {
-      console.error("Google Sign-In error:", err);
       setError(err.message || "Failed to sign in with Google.");
       setLoading(false);
     }
@@ -234,13 +171,6 @@ const LoginPage: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    const token = await executeRecaptcha();
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-    // Note: Send token to backend for verification
-
     try {
       if (isSignup) {
         await createUserWithEmailAndPassword(auth, email, password);
@@ -267,7 +197,6 @@ const LoginPage: React.FC = () => {
       }
       setLoading(false);
     } catch (err: any) {
-      console.error("Email auth error:", err);
       const errorMessages: Record<string, string> = {
         "auth/email-already-in-use": "Email is already registered. Try signing in.",
         "auth/invalid-email": "Invalid email address.",
@@ -295,115 +224,135 @@ const LoginPage: React.FC = () => {
   if (user) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F9FAFB] to-[#E0E7FF] dark:from-[#183b4e] dark:to-[#0f2430] font-['Inter',sans-serif] flex items-center justify-center relative overflow-hidden">
-      {/* Background Animation */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.2 }}
-        transition={{ duration: 2 }}
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(203,161,53,0.2) 0%, transparent 70%)",
-          backgroundSize: "200% 200%",
-          backgroundPosition: "center",
-        }}
-      />
-      {/* Welcome Text */}
-      <motion.div
-        className="absolute top-10 left-10 hidden md:block text-[#183b4e] dark:text-white"
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1 }}
-      >
-        <h1 className="text-4xl text-center font-bold">Welcome to Raizing Sovereign</h1>
-        <p className="text-lg text-center mt-2">Please Login to Continue...</p>
-      </motion.div>
+    <div className="min-h-screen w-full bg-gradient-to-br from-[#F9FAFB] to-[#E0E7FF] dark:from-[#183b4e] dark:to-[#0f2430] flex items-center justify-center px-2 py-6">
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.2 }}
+          transition={{ duration: 2 }}
+          className="w-full h-full"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(203,161,53,0.2) 0%, transparent 70%)",
+            backgroundSize: "200% 200%",
+            backgroundPosition: "center",
+          }}
+        />
+      </div>
+      <div className="relative z-10 w-full max-w-md mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white/95 dark:bg-[#183b4e] rounded-2xl shadow-2xl px-5 py-8 sm:px-8 sm:py-10 flex flex-col gap-4"
+        >
+          {/* Title added here */}
 
-      {/* Auth Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white dark:bg-[#183b4e] rounded-xl shadow-lg p-8 max-w-md w-full z-10"
-      >
-        <h2 className="text-2xl font-bold text-[#183b4e] dark:text-white mb-4">
-          {isSignup ? "Sign Up" : "Sign In"}
-        </h2>
-        <p className="text-sm text-gray-600 dark:text-gray-200 mb-6">
-          {isSignup
-            ? "Create an account to access AI assistance."
-            : "Sign in to unlock AI-powered features."}
-        </p>
+          <div className="flex flex-col items-center gap-2 mb-2">
+            <img
+              src={logo}
+              alt="Raizing Sovereign"
+              className="w-250 h-10  mb-4 "
+            />
+                      <h2 className="text-lg sm:text-xl font-semibold text-[#183b4e] dark:text-white text-center mb-2">
+            Please Sign to continue
+          </h2>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#cba135] text-center">
+              {isSignup ? "Create Account" : "Sign In"}
+            </h1>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-200 text-center">
+              {isSignup
+                ? "Join us to unlock AI-powered assistance for your journey."
+                : "Sign in to access your AI-powered dashboard."}
+            </p>
+          </div>
 
-        {emailSent ? (
-          <p className="text-sm text-gray-600 dark:text-gray-200 mb-6">
-            Check your email ({email}) for a verification link. Follow the link to complete {isSignup ? "signup" : "sign-in"}.
-          </p>
-        ) : (
-          <>
-            {/* Google Sign-In */}
-            <button
-              onClick={handleGoogleSignIn}
-              disabled={loading}
-              className={`flex items-center justify-center bg-[#cba135] text-white text-sm font-semibold px-6 py-2 rounded-full transition w-full mb-4 ${
-                loading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#b08f2e]"
-              }`}
-            >
-              <Mail className="w-5 h-5 mr-2" />
-              {loading ? "Signing In..." : "Continue with Google"}
-            </button>
-
-            <div className="flex items-center mb-4">
-              <hr className="flex-grow border-gray-300 dark:border-gray-600" />
-              <span className="px-2 text-sm text-gray-600 dark:text-gray-200">OR</span>
-              <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+          {emailSent ? (
+            <div className="bg-[#f8f4ea] text-[#183b4e] rounded-lg px-4 py-3 text-center text-sm mb-2">
+              Check your email (<span className="font-semibold">{email}</span>) for a verification link.<br />
+              Follow the link to complete {isSignup ? "signup" : "sign-in"}.
             </div>
+          ) : (
+            <>
+              <button
+                onClick={handleGoogleSignIn}
+                disabled={loading}
+                className={`flex items-center justify-center bg-[#cba135] text-white text-sm font-semibold px-6 py-2 rounded-full transition w-full mb-3 ${
+                  loading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#b08f2e]"
+                }`}
+              >
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5 mr-2" />
+                {loading ? "Signing In..." : "Continue with Google"}
+              </button>
 
-            {/* Form */}
-            <div>
-              {isSignup && (
-                <>
-                  <label htmlFor="name" className="sr-only">Name</label>
-                  <input
-                    id="name"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
-                    className="w-full px-4 py-2 mb-4 text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-[#333] rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#cba135] dark:placeholder-gray-400"
-                    aria-label="Name"
-                  />
-                </>
-              )}
-
-              <label htmlFor="email" className="sr-only">Email</label>
-              <div className="relative mb-4">
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full px-4 py-2 text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-[#333] rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#cba135] dark:placeholder-gray-400 pl-10"
-                  aria-label="Email"
-                />
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <div className="flex items-center mb-2">
+                <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+                <span className="px-2 text-xs text-gray-500 dark:text-gray-300">OR</span>
+                <hr className="flex-grow border-gray-300 dark:border-gray-600" />
               </div>
 
-              <label htmlFor="password" className="sr-only">Password</label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder={isSignup ? "Create a password" : "Enter your password"}
-                className="w-full px-4 py-2 mb-4 text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-[#333] rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#cba135] dark:placeholder-gray-400"
-                aria-label="Password"
-              />
+              <form
+                className="flex flex-col gap-3"
+                onSubmit={e => {
+                  e.preventDefault();
+                  handleEmailAuth();
+                }}
+                autoComplete="on"
+              >
+                {isSignup && (
+                  <div>
+                    <label htmlFor="name" className="sr-only">Name</label>
+                    <input
+                      id="name"
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Full Name"
+                      className="w-full px-4 py-2 text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-[#333] rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#cba135] dark:placeholder-gray-400"
+                      aria-label="Name"
+                      autoComplete="name"
+                    />
+                  </div>
+                )}
 
-              {isSignup && (
-                <>
-                  <div className="flex mb-4">
+                <div className="relative">
+                  <label htmlFor="email" className="sr-only">Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email Address"
+                    className="w-full px-4 py-2 text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-[#333] rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#cba135] dark:placeholder-gray-400 pl-10"
+                    aria-label="Email"
+                    autoComplete="email"
+                  />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                </div>
+
+                <div className="relative">
+                  <label htmlFor="password" className="sr-only">Password</label>
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder={isSignup ? "Create a password" : "Password"}
+                    className="w-full px-4 py-2 text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-[#333] rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#cba135] dark:placeholder-gray-400 pr-10"
+                    aria-label="Password"
+                    autoComplete={isSignup ? "new-password" : "current-password"}
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#cba135]"
+                    onClick={() => setShowPassword((v) => !v)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
+
+                {isSignup && (
+                  <div className="flex gap-2">
                     <label htmlFor="country-code" className="sr-only">Country Code</label>
                     <select
                       id="country-code"
@@ -425,42 +374,44 @@ const LoginPage: React.FC = () => {
                         type="tel"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
-                        placeholder="Enter phone number"
+                        placeholder="Phone Number"
                         className="w-full px-4 py-2 text-sm text-gray-900 dark:text-white bg-gray-100 dark:bg-[#333] rounded-r-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#cba135] dark:placeholder-gray-400 pl-10"
                         aria-label="Phone Number"
+                        autoComplete="tel"
                       />
                       <Smartphone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     </div>
                   </div>
-                </>
-              )}
+                )}
 
-              <button
-                onClick={handleEmailAuth}
-                disabled={loading}
-                className={`bg-[#cba135] text-white text-sm font-semibold px-6 py-2 rounded-full transition w-full ${
-                  loading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#b08f2e]"
-                }`}
-              >
-                {loading ? "Processing..." : isSignup ? "Sign Up" : "Sign In"}
-              </button>
-              <div ref={recaptchaRef} className="g-recaptcha" style={{ display: 'none' }}></div>
-            </div>
-          </>
-        )}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`bg-[#cba135] text-white text-sm font-semibold px-6 py-2 rounded-full transition w-full mt-2 ${
+                    loading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#b08f2e]"
+                  }`}
+                >
+                  {loading ? "Processing..." : isSignup ? "Sign Up" : "Sign In"}
+                </button>
+              </form>
+            </>
+          )}
 
-        {error && <p className="text-xs text-red-600 dark:text-red-400 mt-4">{error}</p>}
+          {error && (
+            <div className="text-xs text-red-600 dark:text-red-400 mt-2 text-center">{error}</div>
+          )}
 
-        <p className="text-xs text-gray-600 dark:text-gray-200 mt-4">
-          {isSignup ? "Already have an account?" : "Don’t have an account?"}{" "}
-          <button
-            onClick={toggleMode}
-            className="text-[#cba135] dark:text-[#cba135] hover:underline focus:outline-none"
-          >
-            {isSignup ? "Sign In" : "Sign Up"}
-          </button>
-        </p>
-      </motion.div>
+          <div className="text-xs text-gray-600 dark:text-gray-200 mt-4 text-center">
+            {isSignup ? "Already have an account?" : "Don’t have an account?"}{" "}
+            <button
+              onClick={toggleMode}
+              className="text-[#cba135] dark:text-[#cba135] hover:underline focus:outline-none"
+            >
+              {isSignup ? "Sign In" : "Sign Up"}
+            </button>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 };

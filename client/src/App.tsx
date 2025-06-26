@@ -1,16 +1,14 @@
 import { Switch, Route, useLocation } from "wouter";
 import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
-
-import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { auth } from "@/lib/firebaseConfig";
+import { queryClient } from "@/lib/queryClient";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingActionButton from "@/components/FloatingActionButton";
-
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import ProgramsPage from "@/pages/ProgramsPage";
@@ -21,6 +19,8 @@ import ProgramDetailPage from "@/pages/ProgramDetailPage";
 import AIAssistancePage from "@/pages/AIAssistancePage";
 import LoginPage from "@/pages/LoginPage";
 import ProfilePage from "@/pages/ProfilePage";
+import WebcamCapture from "@/pages/WebcamCapture";
+import ApplicationPage from "@/pages/applicationPage";
 import NotFound from "@/pages/not-found";
 
 const ScrollToTop: React.FC = () => {
@@ -33,8 +33,8 @@ const ScrollToTop: React.FC = () => {
 
 const ProtectedRoute: React.FC<{
   path: string;
-  component: React.ComponentType;
-}> = ({ component: Component }) => {
+  component: React.ComponentType<any>;
+}> = ({ component: Component, path }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [, setLocation] = useLocation();
@@ -70,14 +70,21 @@ const Router: React.FC = () => {
       <Route path="/about" component={AboutPage} />
       <Route path="/programs" component={ProgramsPage} />
       <Route path="/programs/:id" component={ProgramDetailPage} />
+      <Route path="/programs/:id/apply" component={() => <ProtectedRoute component={ApplicationPage} path="/programs/:id/apply" />} />
       <Route path="/crowdfunding" component={CrowdFundingPage} />
       <Route path="/merchandise" component={MerchandisePage} />
       <Route path="/consultation" component={ConsultationPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/profile" component={ProfilePage} />
+      <Route path="/ai-assistance" component={() => <ProtectedRoute component={AIAssistancePage} path="/ai-assistance" />} />
       <Route
-        path="/ai-assistance"
-        component={() => <ProtectedRoute component={AIAssistancePage} path="/ai-assistance" />}
+        path="/webcam-capture"
+        component={() => (
+          <WebcamCapture
+            onCapture={() => {}}
+            onClose={() => {}}
+          />
+        )}
       />
       <Route component={NotFound} />
     </Switch>

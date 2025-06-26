@@ -52,54 +52,63 @@ export default function AboutPage() {
       country: "India",
       address: "Rai House: C-4 Commercial Complex, SDA Market, Safdarjung Development Area, Hauz Khas, New Delhi, Delhi 110016",
       image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318150/IMG-20250619-WA0006_nsqusl.jpg",
+      mapUrl: "https://maps.google.com/?q=Rai+House+C-4+Commercial+Complex+SDA+Market+Safdarjung+Development+Area+Hauz+Khas+New+Delhi+Delhi+110016"
     },
     {
       city: "Mumbai",
       country: "India",
-      address: "45 Sovereign House, Westminster, London SW1A 0AA",
-      image: "https://media.tacdn.com/media/attractions-splice-spp-674x446/10/6f/01/5a.jpg",
+      address: "206A, 2nd Floor, The Arcadia Building, Vinayak Kumar Shah Marg, NCPA, Nariman Point, Mumbai - 400021",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318151/IMG-20250619-WA0011_byqw9z.jpg",
+      mapUrl: "https://maps.google.com/?q=206A+2nd+Floor+The+Arcadia+Building+Vinayak+Kumar+Shah+Marg+NCPA+Nariman+Point+Mumbai+400021"
     },
     {
       city: "Bangalore",
       country: "India",
-      address: "Burj Plaza, Level 12, Downtown Dubai, UAE",
-      image: "https://assets.cntraveller.in/photos/676a8f99a1d60d7dc882fb3a/16:9/w_1280,c_limit/GettyImages-1252711506.jpg",
+      address: " S-207, 2nd floor, South Block Manipal Centre,47, Dickenson road, Bengaluru - 560042",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318151/IMG-20250619-WA0015_nmq84z.jpg",
+      mapUrl: "https://maps.app.goo.gl/wy16dgRCXvEieLgMA"
     },
     {
       city: "Bangkok",
       country: "Thailand",
-      address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
-      image: "https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/3067/Marble-Temple.jpg",
+      address: " No.77/28 Sinn Sathorn Tower, 11th Floor, Krung Thon Buri Road, Khlong Ton Sai Sub-district, Khlong San District, Bangkok Metropolis",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318150/IMG-20250619-WA0004_urxkfv.jpg",
+      mapUrl: "https://maps.app.goo.gl/HSNvZ5AGhA8VuAEH6"
     },
     {
       city: "Colombo",
       country: "Sri Lanka",
-      address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
-      image: "https://theportuguesetraveler.com/wp-content/uploads/2024/11/lotus-tower-colombo-sri-lanka-11.jpg.webp",
+      address: " 8/1/2 Old Kesbewa road, Delkanda, Gangodawila, Nugegoda Colombo 10250",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318151/IMG-20250619-WA0012_adxwfe.jpg",
+      mapUrl: "https://maps.app.goo.gl/gVaRhd4xyoxm8PW2A"
     },
     {
       city: "Dubai",
       country: "UAE",
-      address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
-      image: "https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      address: "HDS Tower Cluster F Office no 3601, Jumeirah Lake Tower, Dubai, UAE",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318151/IMG-20250619-WA0009_d2hfvs.jpg",
+      mapUrl: "https://maps.app.goo.gl/2FX8jfMHRjs5CrjQA"
     },
     {
       city: "Amman",
       country: "Jordan",
-      address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
-      image: "https://jordaniaexclusiva.com/wp-content/uploads/2023/03/destino-amman.jpg",
+      address: "61, Al-Thawabet Complex, Ground Floor, Baghdad Street UM UTHINA, Parallel to Mecca Street,Next to Jordan Kuwait Bank, Amman Jordan",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318150/IMG-20250619-WA0003_dxxped.jpg",
+      mapUrl: "https://maps.app.goo.gl/tgqJNBMfDde8ypez8"
     },
     {
       city: "Rabat",
       country: "Morocco",
-      address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
-      image: "https://www.airpano.ru/files/rabat-morocco/images/image3.jpg",
+      address: " Centre commercial Jasmin B15 - 1&3 ANGLE AV SOUSS ET SHOUL. AVIATION RABAT,16815",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318151/IMG-20250619-WA0013_sgtyk3.jpg",
+      mapUrl: "https://maps.app.goo.gl/Ze7AQuvY1XPpPwi18"
     },
     {
       city: "Cairo",
       country: "Egypt",
-      address: "Marina Bay Financial Centre, Tower 3, Singapore 018982",
-      image: "https://media.assettype.com/outlooktraveller%2F2024-08-09%2Ft1ef29hy%2Fshutterstock_2028526520.jpg",
+      address: "Cairo Business Plaza, Office no 511,Fifth floor, N 90 St, New Cairo 1, Cairo Governorate 4740007 North building",
+      image: "https://res.cloudinary.com/dyyswz13r/image/upload/v1750318151/IMG-20250619-WA0008_fbihyw.jpg",
+      mapUrl: "https://maps.app.goo.gl/br8sdu35Ux9wjMmq9"
     },
   ];
 
@@ -458,7 +467,7 @@ export default function AboutPage() {
                   <p className="text-sm text-white/80">{office.country}</p>
                   <p className="text-xs text-white/90 mt-2 mb-3">{office.address}</p>
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address)}`}
+                    href={office.mapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 bg-[#cba135] text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-[#e0c270] transition-colors"
