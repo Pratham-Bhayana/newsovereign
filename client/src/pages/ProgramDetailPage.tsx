@@ -82,7 +82,7 @@ export default function ProgramDetailPage() {
           });
         })
       ).then(() => {
-        console.log("All program images preloaded:", program.images);
+        // Images preloaded
       });
     }
   }, [program]);
