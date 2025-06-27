@@ -72,7 +72,7 @@ const intentOptions: string[] = [
   "Citizenship",
   "Business Expansion",
   "Family Relocation",
-];
+];                                  
 
 const incomeRanges: string[] = [
   "< $2,000",
@@ -923,10 +923,10 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
             whileHover="hover"
             whileTap="tap"
             onClick={handlePrevStep}
-            className="px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-[#4B5EAA] hover:text-white text-base"
+            className="px-4 py-2 md:px-6 md:py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-[#4B5EAA] hover:text-white text-sm md:text-base"
             aria-label="Previous Step"
           >
-            <ChevronLeft className="inline-block h-5 w-5 mr-2" />
+            <ChevronLeft className="inline-block h-4 w-4 md:h-5 md:w-5 mr-2" />
             Back
           </motion.button>
           <motion.button
@@ -934,7 +934,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
             whileHover="hover"
             whileTap="tap"
             onClick={currentStep === 5 || currentStep === 6 || currentStep === 7 ? handleSkip : onClose}
-            className="px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-[#4B5EAA] hover:text-white text-base"
+            className="px-4 py-2 md:px-6 md:py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-[#4B5EAA] hover:text-white text-sm md:text-base"
             aria-label={currentStep === 5 || currentStep === 6 || currentStep === 7 ? "Skip" : "Cancel"}
           >
             {currentStep === 5 || currentStep === 6 || currentStep === 7 ? "Skip" : "Cancel"}
@@ -946,7 +946,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
           whileTap="tap"
           onClick={handleNextStep}
           disabled={isNextDisabled()}
-          className="px-6 py-3 rounded-xl bg-[#4B5EAA] text-white hover:bg-[#3B4A8A] disabled:opacity-50 text-base"
+          className="px-4 py-2 md:px-6 md:py-3 rounded-xl bg-[#4B5EAA] text-white hover:bg-[#3B4A8A] disabled:opacity-50 text-sm md:text-base"
           aria-label={currentStep === 8 ? "Submit" : "Next"}
         >
           {currentStep === 8 ? "Submit" : "Next"}
@@ -982,16 +982,16 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
           {currentStep !== 7 && currentStep !== 8 && (
             <div className="flex justify-center mb-6">
               {animationLoading ? (
-                <div className="w-[300px] h-[300px] flex items-center justify-center bg-white text-gray-800 text-sm rounded-lg shadow">
+                <div className="w-[180px] h-[180px] flex items-center justify-center bg-white text-gray-800 text-sm rounded-lg shadow">
                   Loading...
                 </div>
               ) : animationError || !animationData ? (
-                <div className="w-[300px] h-[300px] flex items-center justify-center bg-white text-gray-800 text-sm text-center rounded-lg shadow">
+                <div className="w-[180px] h-[180px] flex items-center justify-center bg-white text-gray-800 text-sm text-center rounded-lg shadow">
                   Animation Unavailable: {animationError || "No data"}
                 </div>
               ) : (
-                <div className="w-[300px] h-[300px] bg-white rounded-lg shadow flex items-center justify-center">
-                  <Lottie animationData={animationData} style={{ width: 300, height: 300 }} />
+                <div className="w-[180px] h-[180px] bg-white rounded-lg shadow flex items-center justify-center">
+                  <Lottie animationData={animationData} style={{ width: 180, height: 180 }} />
                 </div>
               )}
             </div>

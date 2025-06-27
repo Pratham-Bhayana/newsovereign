@@ -184,7 +184,7 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 fixed top-[0px] text-[#cba135] left-0 z-[1000]"
+            className="lg:hidden p-8 fixed top-[0px] text-[#cba135] left-0 z-[1000]"
             onClick={toggleMobileMenu}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -268,7 +268,7 @@ const Header: React.FC = () => {
               </div>
               <button
                 onClick={toggleTheme}
-                className="absolute bottom-8 left-4 flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
+                className="absolute bottom-16 left-4 flex items-center gap-2 bg-[#1b1f3b] py-3 px-4 rounded-lg text-white font-bold text-sm hover:bg-[#cba135] hover:drop-shadow-xl transition-all duration-300 dark:bg-[#1b1f3b] dark:hover:bg-[#cba135]"
                 aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}

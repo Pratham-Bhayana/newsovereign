@@ -233,10 +233,19 @@ const LoginPage: React.FC = () => {
           className="w-full h-full"
           style={{
             backgroundImage: "radial-gradient(circle, rgba(203,161,53,0.2) 0%, transparent 70%)",
-            backgroundSize: "200% 200%",
+            backgroundSize: "120% 120%", // smaller for mobile
             backgroundPosition: "center",
           }}
         />
+        <style>
+          {`
+            @media (min-width: 640px) {
+              .login-bg-ani {
+                background-size: 200% 200% !important;
+              }
+            }
+          `}
+        </style>
       </div>
       <div className="relative z-10 w-full max-w-md mx-auto">
         <motion.div
