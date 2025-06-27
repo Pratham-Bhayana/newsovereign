@@ -418,17 +418,18 @@ var vite_config_default = async () => {
     plugins.push(cartographer());
   }
   return defineConfig({
+    root: path.resolve(__dirname, "client"),
+    // Vite root is /client
     plugins,
     resolve: {
       alias: {
-        "@": path.resolve(import.meta.dirname, "client", "src"),
-        "@shared": path.resolve(import.meta.dirname, "shared"),
-        "@assets": path.resolve(import.meta.dirname, "attached_assets")
+        "@": path.resolve(__dirname, "client", "src"),
+        "@shared": path.resolve(__dirname, "shared"),
+        "@assets": path.resolve(__dirname, "attached_assets")
       }
     },
-    root: path.resolve(import.meta.dirname, "client"),
     build: {
-      outDir: path.resolve(import.meta.dirname, "dist"),
+      outDir: path.resolve(__dirname, "dist"),
       emptyOutDir: true
     },
     server: {
@@ -444,7 +445,7 @@ var vite_config_default = async () => {
 import { nanoid } from "nanoid";
 import { fileURLToPath } from "url";
 var __filename = fileURLToPath(import.meta.url);
-var __dirname = path2.dirname(__filename);
+var __dirname2 = path2.dirname(__filename);
 var viteLogger = createLogger();
 function log(message, source = "express") {
   const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
@@ -478,7 +479,7 @@ async function setupVite(app2, server) {
   app2.use("*", async (req, res, next) => {
     const url = req.originalUrl;
     try {
-      const clientTemplate = path2.resolve(__dirname, "..", "client", "index.html");
+      const clientTemplate = path2.resolve(__dirname2, "..", "client", "index.html");
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
       template = template.replace(
         `src="/src/main.tsx"`,
@@ -493,7 +494,7 @@ async function setupVite(app2, server) {
   });
 }
 function serveStatic(app2) {
-  const distPath = path2.resolve(__dirname, "public");
+  const distPath = path2.resolve(__dirname2, "public");
   if (!fs.existsSync(distPath)) {
     throw new Error(
       `Could not find the build directory: ${distPath}, make sure to build the client first`
