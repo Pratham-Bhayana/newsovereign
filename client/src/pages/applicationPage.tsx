@@ -9,7 +9,7 @@ import { auth } from "@/lib/firebaseConfig";
 import { updateProfile } from "firebase/auth";
 import { PROGRAMS } from "@/lib/constants";
 import WebcamCapture from "./WebcamCapture";
-import exampleProfilePdf from "@/components/assets/EXAMPLE.pdf"; // <-- Import your example PDF
+import exampleProfilePdf from "@/components/assets/example.pdf"; // <-- Import your example PDF
 
 // Import animation JSON files
 import animationStep1 from "./animations/ani-one.json";
