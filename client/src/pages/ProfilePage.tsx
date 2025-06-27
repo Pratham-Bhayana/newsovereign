@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
-import { Eye, Mail, Bell, Menu, Calendar, FileText, Edit, Save, X } from 'lucide-react';
+import { Eye, Mail, Bell, Calendar, FileText, Edit, Save, X, CreditCard, CheckCircle, UserCheck, Image as ImageIcon } from 'lucide-react';
 import { auth } from '../lib/firebaseConfig';
 import { User, updateProfile, updateEmail } from 'firebase/auth';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircleFill } from "react-bootstrap-icons";
 
 interface PersonalInfo {
   fullName: string;
@@ -39,8 +40,11 @@ interface Application {
 }
 
 const ProfilePage: React.FC = () => {
+  // 1. All hooks at the top!
   const [user, setUser] = useState<User | null>(null);
   const [photoURL, setPhotoURL] = useState<string>('');
+  const [newPhoto, setNewPhoto] = useState<File | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [, setLocation] = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -49,20 +53,51 @@ const ProfilePage: React.FC = () => {
     fullName: '',
     nickName: '',
     email: '',
-    phone: '+1234567890',
-    address: '123 Luxury Lane, Sovereign City, SC 12345',
-    nationality: 'American',
-    occupation: 'Financial Consultant',
-    designation: 'Senior Advisor',
-    monthlyIncome: '$10,000',
-    language: 'English',
-    timeZone: 'UTC',
-    bio: 'Passionate about empowering individuals with AI-driven financial solutions at Raizing Sovereign.',
+    phone: '',
+    address: '',
+    nationality: '',
+    occupation: '',
+    designation: '',
+    monthlyIncome: '',
+    language: '',
+    timeZone: '',
+    bio: '',
   });
   const [isAppointmentsModalOpen, setIsAppointmentsModalOpen] = useState(false);
   const [isApplicationsModalOpen, setIsApplicationsModalOpen] = useState(false);
   const appointmentsModalRef = useRef<HTMLDialogElement>(null);
   const applicationsModalRef = useRef<HTMLDialogElement>(null);
+
+  // File input refs for each document (hooks at top level, not in a loop)
+  const passportFrontRef = useRef<HTMLInputElement>(null);
+  const passportBackRef = useRef<HTMLInputElement>(null);
+  const bankStatementRef = useRef<HTMLInputElement>(null);
+  const salarySlipsRef = useRef<HTMLInputElement>(null);
+  const itrRef = useRef<HTMLInputElement>(null);
+  const profileDocumentRef = useRef<HTMLInputElement>(null);
+
+  const fileInputRefs: { [key: string]: React.RefObject<HTMLInputElement> } = {
+    passportFront: passportFrontRef,
+    passportBack: passportBackRef,
+    bankStatement: bankStatementRef,
+    salarySlips: salarySlipsRef,
+    itr: itrRef,
+    profileDocument: profileDocumentRef,
+  };
+
+  // 2. Now declare variables/constants that use hooks
+  const documentFields = [
+    { key: "passportFront", label: "Passport Front" },
+    { key: "passportBack", label: "Passport Back" },
+    { key: "bankStatement", label: "6-Month Bank Statement" },
+    { key: "salarySlips", label: "4-Month Salary Slips" },
+    { key: "itr", label: "Last Year ITR" },
+    { key: "profileDocument", label: "300-Word Profile" },
+  ];
+
+  const [applicationDocuments, setApplicationDocuments] = useState<{ [key: string]: (Document & { file?: File }) | null }>(
+    Object.fromEntries(documentFields.map(({ key }) => [key, null]))
+  );
 
   // Mock data for preview
   const documents: { [key: string]: Document } = {
@@ -92,6 +127,9 @@ const ProfilePage: React.FC = () => {
           ...prev,
           fullName: currentUser.displayName || '',
           email: currentUser.email || '',
+          occupation: prev.occupation,
+          designation: prev.designation,
+          monthlyIncome: prev.monthlyIncome,
         }));
       } else {
         setLocation('/login');
@@ -100,16 +138,25 @@ const ProfilePage: React.FC = () => {
     return () => unsubscribe();
   }, [setLocation]);
 
-  // Close sidebar on mobile when clicking outside
+  // Sync with application data on mount
   useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (isSidebarOpen && !((e.target as HTMLElement).closest('.sidebar'))) {
-        setIsSidebarOpen(false);
-      }
+    // Mock sync (replace with actual storage logic)
+    const syncedInfo = {
+      fullName: personalInfo.fullName || '',
+      nickName: personalInfo.nickName || '',
+      email: personalInfo.email || '',
+      phone: personalInfo.phone || '',
+      address: personalInfo.address || '',
+      nationality: personalInfo.nationality || '',
+      occupation: personalInfo.occupation || '',
+      designation: personalInfo.designation || '',
+      monthlyIncome: personalInfo.monthlyIncome || '',
+      language: personalInfo.language || '',
+      timeZone: personalInfo.timeZone || '',
+      bio: personalInfo.bio || '',
     };
-    document.addEventListener('click', handleOutsideClick);
-    return () => document.removeEventListener('click', handleOutsideClick);
-  }, [isSidebarOpen]);
+    setPersonalInfo(syncedInfo);
+  }, [user]);
 
   // Handle modal open/close
   useEffect(() => {
@@ -131,19 +178,30 @@ const ProfilePage: React.FC = () => {
     setPersonalInfo((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle profile image change
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setNewPhoto(e.target.files[0]);
+      setPhotoURL(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
   // Save profile changes
   const handleSave = async () => {
     if (!user) return;
     try {
-      // Update Firebase Auth profile
       if (auth.currentUser) {
-        await updateProfile(auth.currentUser, { displayName: personalInfo.fullName });
+        await updateProfile(auth.currentUser, {
+          displayName: personalInfo.fullName,
+          photoURL: newPhoto ? photoURL : auth.currentUser.photoURL,
+        });
         if (personalInfo.email !== user.email) {
           await updateEmail(auth.currentUser, personalInfo.email);
         }
       }
       setIsEditMode(false);
-      alert('Profile updated successfully!');
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 2500);
     } catch (error: any) {
       console.error('Error saving profile:', error);
       alert(`Failed to save profile: ${error.message}`);
@@ -154,8 +212,80 @@ const ProfilePage: React.FC = () => {
 
   const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
 
+  // Sidebar options
+  const sidebarOptions = [
+    {
+      label: "Track Application",
+      icon: <FileText className="w-5 h-5" />,
+      onClick: () => setIsApplicationsModalOpen(true),
+    },
+    {
+      label: "Make Payment",
+      icon: <CreditCard className="w-5 h-5" />,
+      onClick: () => alert("Payment page coming soon!"),
+    },
+    {
+      label: "Eligibility Status",
+      icon: <UserCheck className="w-5 h-5" />,
+      onClick: () => alert("Eligibility status coming soon!"),
+    },
+  ];
+
+  // Edit handler
+  const handleDocumentEdit = (key: string) => {
+    fileInputRefs[key]?.current?.click();
+  };
+
+  // Upload handler
+  const handleDocumentUpload = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setApplicationDocuments((prev) => ({
+        ...prev,
+        [key]: {
+          name: file.name,
+          uploadedAt: new Date().toISOString(),
+          file,
+        },
+      }));
+    }
+  };
+
+  // Delete handler
+  const handleDocumentDelete = (key: string) => {
+    setApplicationDocuments((prev) => ({
+      ...prev,
+      [key]: null,
+    }));
+  };
+
+  // View handler
+  const handleDocumentView = (doc: Document & { file?: File }) => {
+    if (doc.file) {
+      window.open(URL.createObjectURL(doc.file), "_blank");
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F9FAFB] to-[#E0E7FF] dark:from-[#183b4e] dark:to-[#0f2430] font-['Inter', sans-serif] pt-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#F9FAFB] to-[#E0E7FF] dark:from-[#183b4e] dark:to-[#0f2430] font-['Inter',sans-serif] pt-4">
+      {/* Success Modal */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: -40 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: -40 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          >
+            <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center px-8 py-6">
+              <CheckCircleFill className="text-green-500 mb-2" size={64} />
+              <div className="text-lg font-bold text-[#183b4e] mb-1">Profile Updated!</div>
+              <div className="text-sm text-gray-600">Your profile changes have been saved.</div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <motion.div
         initial={{ y: -20, opacity: 0 }}
@@ -215,87 +345,26 @@ const ProfilePage: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Sidebar */}
-      <div className="flex">
-        {/* Hamburger Menu for Mobile */}
-        <button
-          className="md:hidden p-2 text-[#183b4e] dark:text-white fixed top-4 left-4 z-50"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          aria-label="Toggle Sidebar"
-        >
-          <Menu className="w-6 h-6" />
-        </button>
+      <div className="flex flex-col md:flex-row">
+        {/* Sidebar for desktop */}
         <motion.div
           initial={{ x: '-100%' }}
-          animate={{ x: isSidebarOpen ? 0 : '-100%' }}
+          animate={{ x: 0 }}
           transition={{ duration: 0.3 }}
-          className="sidebar fixed md:static top-0 left-0 h-full bg-white dark:bg-[#183b4e] w-64 md:w-64 p-4 flex flex-col space-y-6 z-40 md:z-auto overflow-y-auto"
+          className="hidden md:flex flex-col w-64 p-4 space-y-6 bg-white dark:bg-[#183b4e] min-h-screen"
         >
-          {/* Navigation Icons */}
-          <div className="flex flex-col items-center md:items-start space-y-4">
-            {['🏠', '⚙️', '📊', '💡'].map((icon, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.1 }}
-                className="text-2xl text-gray-600 dark:text-gray-200 cursor-pointer"
+          {/* Only sidebar options, no name/email */}
+          <div className="flex flex-col gap-2">
+            {sidebarOptions.map((opt) => (
+              <button
+                key={opt.label}
+                onClick={opt.onClick}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg text-[#183b4e] dark:text-white hover:bg-[#f5f5f5] dark:hover:bg-[#223b5e] transition"
               >
-                {icon}
-              </motion.div>
+                {opt.icon}
+                <span>{opt.label}</span>
+              </button>
             ))}
-          </div>
-          {/* Appointments Section */}
-          <div className="mt-6">
-            <h3 className="text-sm font-bold text-[#183b4e] dark:text-white mb-2">Appointments</h3>
-            {appointments.length === 0 ? (
-              <p className="text-xs text-gray-600 dark:text-gray-200">No upcoming appointments</p>
-            ) : (
-              <div className="space-y-2">
-                {appointments.map((appt) => (
-                  <div key={appt.id} className="flex items-center space-x-2">
-                    <Calendar className="w-4 h-4 text-[#cba135]" />
-                    <div>
-                      <p className="text-xs font-medium text-[#183b4e] dark:text-white">{appt.title}</p>
-                      <p className="text-xs text-gray-600 dark:text-gray-200">
-                        {appt.date} at {appt.time}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-                <button
-                  onClick={() => setIsAppointmentsModalOpen(true)}
-                  className="mt-2 bg-[#cba135] text-white px-3 py-1 rounded-lg hover:bg-[#b08f2e] transition text-xs"
-                  aria-label="View Appointments"
-                >
-                  View Appointments
-                </button>
-              </div>
-            )}
-          </div>
-          {/* Track Application Section */}
-          <div className="mt-6">
-            <h3 className="text-sm font-bold text-[#183b4e] dark:text-white mb-2">Track Applications</h3>
-            {applications.length === 0 ? (
-              <p className="text-xs text-gray-600 dark:text-gray-200">No applications submitted</p>
-            ) : (
-              <div className="space-y-2">
-                {applications.map((app) => (
-                  <div key={app.id} className="flex items-center space-x-2">
-                    <FileText className="w-4 h-4 text-[#cba135]" />
-                    <div>
-                      <p className="text-xs font-medium text-[#183b4e] dark:text-white">{app.title}</p>
-                      <p className="text-xs text-gray-600 dark:text-gray-200">Status: {app.status}</p>
-                    </div>
-                  </div>
-                ))}
-                <button
-                  onClick={() => setIsApplicationsModalOpen(true)}
-                  className="mt-2 bg-[#cba135] text-white px-3 py-1 rounded-lg hover:bg-[#b08f2e] transition text-xs"
-                  aria-label="Track Applications"
-                >
-                  Track Applications
-                </button>
-              </div>
-            )}
           </div>
         </motion.div>
 
@@ -304,9 +373,27 @@ const ProfilePage: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex-1 p-4 md:ml-64"
+          className="flex-1 p-4"
         >
-          {/* Profile Section */}
+          {/* Mobile: Profile name and options */}
+          <div className="md:hidden flex flex-col items-center mb-4">
+            <div className="mt-2 text-base font-bold text-[#183b4e] dark:text-white">{personalInfo.fullName || 'User'}</div>
+            <div className="text-xs text-gray-600 dark:text-gray-200">{personalInfo.email}</div>
+            <div className="flex flex-col gap-2 mt-4 w-full">
+              {sidebarOptions.map((opt) => (
+                <button
+                  key={opt.label}
+                  onClick={opt.onClick}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-[#183b4e] dark:text-white hover:bg-[#f5f5f5] dark:hover:bg-[#223b5e] transition w-full justify-center"
+                >
+                  {opt.icon}
+                  <span>{opt.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Profile Section with image preview and edit in edit mode */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -314,11 +401,24 @@ const ProfilePage: React.FC = () => {
             className="bg-white dark:bg-[#183b4e] rounded-xl shadow-lg p-4 md:p-6 mb-6 flex flex-col md:flex-row justify-between items-center"
           >
             <div className="flex items-center space-x-4">
-              <img
-                src={photoURL || 'https://via.placeholder.com/80'}
-                alt="Profile"
-                className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-2 border-[#cba135]"
-              />
+              <div className="relative">
+                <img
+                  src={photoURL || 'https://via.placeholder.com/80'}
+                  alt="Profile"
+                  className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-2 border-[#cba135]"
+                />
+                {isEditMode && (
+                  <label className="absolute bottom-0 right-0 bg-[#cba135] p-1 rounded-full cursor-pointer hover:bg-[#b08f2e]">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handlePhotoChange}
+                    />
+                    <ImageIcon className="w-4 h-4 text-white" />
+                  </label>
+                )}
+              </div>
               <div>
                 <h2 className="text-lg md:text-xl font-bold text-[#183b4e] dark:text-white">{personalInfo.fullName || 'User'}</h2>
                 <p className="text-xs md:text-sm text-gray-600 dark:text-gray-200">{personalInfo.email}</p>
@@ -333,7 +433,7 @@ const ProfilePage: React.FC = () => {
             </button>
           </motion.div>
 
-          {/* Personal Information */}
+          {/* Personal Information (unchanged) */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -554,7 +654,7 @@ const ProfilePage: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Documents Section */}
+          {/* Documents Section - from application page */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -563,28 +663,55 @@ const ProfilePage: React.FC = () => {
           >
             <h3 className="text-lg md:text-xl font-bold text-[#183b4e] dark:text-white mb-4">Documents</h3>
             <div className="space-y-4">
-              {[
-                { label: 'Passport', key: 'passport' },
-                { label: 'Last 6 Months Bank Statement', key: 'bankStatement' },
-                { label: 'Last 4 Months Salary Slips', key: 'salarySlips' },
-                { label: 'Last Year ITR', key: 'itr' },
-              ].map((doc) => (
-                <div key={doc.key} className="flex items-center justify-between border-b border-gray-300 dark:border-gray-600 pb-2">
-                  <div>
-                    <p className="text-xs md:text-sm font-semibold text-[#183b4e] dark:text-white">{doc.label}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {documents[doc.key]?.name} (Uploaded: {new Date(documents[doc.key]?.uploadedAt).toLocaleDateString()})
-                    </p>
+              {documentFields.map(({ key, label }) => {
+                const document = applicationDocuments[key];
+                return (
+                  <div key={key} className="flex items-center justify-between border-b border-gray-300 dark:border-gray-600 pb-2">
+                    <div>
+                      <p className="text-xs md:text-sm font-semibold text-[#183b4e] dark:text-white">{label}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {document?.name
+                          ? `${document.name} (Uploaded: ${document.uploadedAt ? new Date(document.uploadedAt).toLocaleDateString() : ""})`
+                          : "Not provided"}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                        ref={fileInputRefs[key]}
+                        style={{ display: "none" }}
+                        onChange={(e) => handleDocumentUpload(e, key)}
+                      />
+                      {document?.file && (
+                        <button
+                          className="text-[#cba135] hover:text-[#b08f2e] transition"
+                          aria-label={`View ${label}`}
+                          onClick={() => handleDocumentView(document)}
+                        >
+                          <Eye className="w-4 md:w-5 h-4 md:h-5" />
+                        </button>
+                      )}
+                      <button
+                        className="text-[#cba135] hover:text-[#b08f2e] transition"
+                        aria-label={`Edit ${label}`}
+                        onClick={() => handleDocumentEdit(key)}
+                      >
+                        <Edit className="w-4 md:w-5 h-4 md:h-5" />
+                      </button>
+                      {document?.file && (
+                        <button
+                          className="text-red-500 hover:text-red-700 transition"
+                          aria-label={`Delete ${label}`}
+                          onClick={() => handleDocumentDelete(key)}
+                        >
+                          <X className="w-4 md:w-5 h-4 md:h-5" />
+                        </button>
+                      )}
+                    </div>
                   </div>
-                  <button
-                    className="text-[#cba135] hover:text-[#b08f2e] transition"
-                    aria-label={`View ${doc.label}`}
-                    disabled
-                  >
-                    <Eye className="w-4 md:w-5 h-4 md:h-5" />
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </motion.div>
         </motion.div>
