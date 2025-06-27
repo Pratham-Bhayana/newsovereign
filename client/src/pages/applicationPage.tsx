@@ -657,7 +657,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                     <ChevronLeft className="inline-block h-4 w-4 mr-1" />
                     Back
                   </motion.button>
-                  {/* <motion.button
+                  <motion.button
                     variants={buttonVariants}
                     whileHover="hover"
                     whileTap="tap"
@@ -666,7 +666,7 @@ export default function ApplicationPage({ isOpen, onClose, programId }: Applicat
                     aria-label={currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
                   >
                     {currentStep === 5 || currentStep === 6 ? "Skip" : "Cancel"}
-                  </motion.button> */}
+                  </motion.button>
                 </div>
                 <motion.button
                   variants={buttonVariants}
